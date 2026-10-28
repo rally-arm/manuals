@@ -65,8 +65,8 @@ body {
   border-bottom: 6px solid var(--ink);
 }
 .cover h1 {
-  font-family: "LINE Seed JP", "Hiragino Sans", "Yu Gothic", sans-serif;
-  font-weight: 800;
+  font-family: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-weight: 400;
   font-size: clamp(56px, 13vw, 112px);
   line-height: 0.95;
   letter-spacing: 0.01em;
@@ -109,12 +109,12 @@ section.chapter { padding-top: 48px; }
 .chapter-head .no {
   background: var(--ink);
   color: var(--paper);
-  font-family: "LINE Seed JP", sans-serif;
+  font-family: "Dela Gothic One", sans-serif;
   font-size: 28px;
   display: flex; align-items: center; justify-content: center;
 }
 .chapter-head h2 {
-  font-family: "LINE Seed JP", "Hiragino Sans", sans-serif;
+  font-family: "Dela Gothic One", "Hiragino Sans", sans-serif;
   font-weight: 400;
   font-size: 26px;
   line-height: 1.3;
@@ -199,7 +199,7 @@ ol.steps ul { margin: 6px 0 0; }
 }
 .lcd .row + .row { margin-top: 10px; }
 .lcd svg { display: block; height: auto; }
-.lcd .top svg { width: 95.4%; }
+.lcd .top svg { width: 95.4%; margin-left: auto; }   /* 実機と同じく右詰め */
 .lcd .bottom svg { width: 100%; }
 .lcd .lamp {
   justify-self: center;
@@ -214,6 +214,14 @@ ol.steps ul { margin: 6px 0 0; }
 .lcd .lamp.blink { animation: lampblink 1s steps(1) infinite; }
 @keyframes lampblink { 0% { opacity: 1; } 60% { opacity: 0.12; } }
 @media print { .lcd .lamp.blink { animation: none; } }
+.panel-fig { max-width: 680px; margin: 0 0 16px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.panel-fig > svg { display: block; width: 100%; height: auto; }
+.lw { fill: #ffffff; } .lw.off { fill: rgba(255, 255, 255, 0.12); }
+.num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #ffd400; color: #1c2127; font-size: 12px; font-weight: 700;
+}
 .seg-on { fill: var(--led); }
 .seg-off { fill: var(--led-off); }
 @media screen { .lcd .seg-on { filter: drop-shadow(0 0 3px rgba(255, 58, 31, 0.55)); } }
@@ -301,7 +309,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <h2>目次</h2>
   <ol>
     <li><a href="#overview"><span class="no">1</span>概要</a></li>
-    <li><a href="#parts"><span class="no">2</span>表示部と入力</a></li>
+    <li><a href="#parts"><span class="no">2</span>各部の名称</a></li>
     <li><a href="#buttons"><span class="no">3</span>ボタン操作の基本</a></li>
     <li><a href="#modes"><span class="no">4</span>表示モード</a></li>
     <li><a href="#trip"><span class="no">5</span>トリップ（距離）</a></li>
@@ -331,37 +339,33 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="note"><p>このマニュアルの表示例の一部は動いています。時計はお使いのパソコンやスマートフォンの時刻と連動し、トリップや速度は時速36km（毎秒10m）で走っている想定で変化します。</p></div>
 </section>
 
-<!-- 2 表示部と入力 -->
+<!-- 2 各部の名称 -->
 <section class="chapter" id="parts">
-  <div class="chapter-head"><div class="no">2</div><h2>表示部と入力</h2></div>
-  <p class="lead">表示は上段6桁と下段4桁の2段です。上段は画面ごとに内容が変わり、下段は基本的にTripBを表示します。</p>
-  <div class="screens">
-    <figure>
-      <div class="lcd" data-top=" 12.345" data-bottom=" 3.45" data-lamp="on" role="img" aria-label="上段TripA 12.345km、下段TripB 3.45km、左下の白いランプ点灯"></div>
-      <figcaption><b>表示の見方</b>上段左下の白いランプがトリップの動作を示します。</figcaption>
-    </figure>
-  </div>
+  <div class="chapter-head"><div class="no">2</div><h2>各部の名称</h2></div>
+  <p class="lead">本体の前面にボタン4個と表示部があります。ボタンの上下に書かれた表記は、短押しと長押しの機能を示しています。</p>
+  <div class="panel-fig" data-demo="cover" role="img" aria-label="本体前面の各部の位置"></div>
   <div class="table-wrap"><table>
-    <thead><tr><th>表示</th><th>内容</th></tr></thead>
+    <thead><tr><th>番号</th><th>名称</th><th>主な役割</th></tr></thead>
     <tbody>
-      <tr><td>上段（6桁）</td><td>時計・TripA・速度・ファイナル・ステージタイムなど（画面による）</td></tr>
-      <tr><td>上段左下の白いランプ</td><td>トリップの動作：消灯＝前進、点灯＝停止、点滅＝後退</td></tr>
-      <tr><td>下段（4桁）</td><td>TripB（履歴画面ではステージ番号、Ave設定ではAve値）</td></tr>
-      <tr><td>下段5桁目</td><td>履歴画面のときだけ全点灯</td></tr>
+      <tr><td><span class="num">1</span></td><td>赤ボタン（STAGE／CALIB）</td><td>短押し：ステージ操作、決定<br>長押し：校正（時計画面で）</td></tr>
+      <tr><td><span class="num">2</span></td><td>青ボタン（NEXT／SETUP）</td><td>短押し：画面の切替、桁の移動<br>長押し：設定メニュー</td></tr>
+      <tr><td><span class="num">3</span></td><td>進行方向ランプ（白）</td><td>消灯＝前進、点灯＝停止、点滅＝後退</td></tr>
+      <tr><td><span class="num">4</span></td><td>上段表示（6桁）</td><td>時計・TripA・速度・ファイナル・ステージタイムなど（画面による）</td></tr>
+      <tr><td><span class="num">5</span></td><td>下段表示（4桁）</td><td>TripB（履歴画面ではステージ番号、Ave設定ではAve値）</td></tr>
+      <tr><td><span class="num">6</span></td><td>上CLRボタン（CLR／CLOCK ADJ）</td><td>短押し：＋（増やす）、各画面の操作<br>長押し：時計合わせ（時計画面で）</td></tr>
+      <tr><td><span class="num">7</span></td><td>下CLRボタン（CLR／F・N・R）</td><td>短押し：－（減らす）、TripBリセット<br>長押し：F（前進）→ N（停止）→ R（後退）の切替</td></tr>
     </tbody>
   </table></div>
+  <h3>リモートスイッチ</h3>
   <div class="table-wrap"><table>
-    <thead><tr><th>ボタン</th><th>主な役割</th></tr></thead>
+    <thead><tr><th>スイッチ</th><th>役割</th></tr></thead>
     <tbody>
-      <tr><td><span class="key">右上</span></td><td>＋（増やす）、各画面の操作</td></tr>
-      <tr><td><span class="key">右下</span></td><td>－（減らす）、TripBリセット、トリップの前進／停止／後退</td></tr>
-      <tr><td><span class="key blue">青</span></td><td>画面の切替、桁の移動、設定メニュー</td></tr>
-      <tr><td><span class="key red">赤</span></td><td>ステージ操作、決定</td></tr>
       <tr><td>リモート（ステージ）</td><td><span class="key red">赤</span> の短押しと同じステージ操作</td></tr>
       <tr><td>リモート（トリップ）</td><td>TripBリセット（どの画面でも）</td></tr>
     </tbody>
   </table></div>
 </section>
+
 
 <!-- 3 ボタン操作 -->
 <section class="chapter" id="buttons">
@@ -370,7 +374,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <p>長押しは指を離す前に切り替わるので、画面が変わったら離してください。0.06秒より短い入力は無視されます。</p>
   <h3>どの画面でも共通</h3>
   <ul>
-    <li><span class="key">右下</span> 長押し：トリップの動作を「前進 → 停止 → 後退 → 前進」の順に切替</li>
+    <li><span class="key">下CLR</span> 長押し：トリップの動作を「前進 → 停止 → 後退 → 前進」の順に切替</li>
     <li>リモート（トリップ）：TripBリセット</li>
   </ul>
   <h3>通常画面で共通</h3>
@@ -381,7 +385,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </ul>
   <h3>画面ごとの操作</h3>
   <div class="table-wrap"><table>
-    <thead><tr><th>画面</th><th><span class="key">右上</span> 短</th><th><span class="key">右上</span> 長</th><th><span class="key">右下</span> 短</th><th><span class="key red">赤</span> 長</th></tr></thead>
+    <thead><tr><th>画面</th><th><span class="key">上CLR</span> 短</th><th><span class="key">上CLR</span> 長</th><th><span class="key">下CLR</span> 短</th><th><span class="key red">赤</span> 長</th></tr></thead>
     <tbody>
       <tr><td>時計</td><td>時刻ホールド ON／OFF</td><td>時計合わせへ</td><td>TripBリセット</td><td>校正へ</td></tr>
       <tr><td>TripA</td><td>TripAリセット</td><td class="none">なし</td><td>TripBリセット</td><td class="none">なし</td></tr>
@@ -415,10 +419,10 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     </figure>
     <figure>
       <div class="lcd" data-top="  5.23.4" data-bottom="St01" role="img" aria-label="履歴画面"></div>
-      <figcaption><b>5 履歴</b>ステージの記録タイムと番号。<span class="key">右上</span>／<span class="key">右下</span> で送ります（1〜30）。</figcaption>
+      <figcaption><b>5 履歴</b>ステージの記録タイムと番号。<span class="key">上CLR</span>／<span class="key">下CLR</span> で送ります（1〜30）。</figcaption>
     </figure>
   </div>
-  <p>時計画面で <span class="key">右上</span> を短押しすると、その瞬間の時刻をホールド（点滅表示）し、もう一度押すと解除します。</p>
+  <p>時計画面で <span class="key">上CLR</span> を短押しすると、その瞬間の時刻をホールド（点滅表示）し、もう一度押すと解除します。</p>
 </section>
 
 <!-- 5 トリップ -->
@@ -429,12 +433,12 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <thead><tr><th>項目</th><th>TripA（上段）</th><th>TripB（下段）</th></tr></thead>
     <tbody>
       <tr><td>表示範囲</td><td>単位1：0.000〜99.999km（1m単位）<br>単位10：0.00〜999.99km（10m単位）</td><td>0.00〜99.99km（10m単位）</td></tr>
-      <tr><td>リセット</td><td>TripA画面で <span class="key">右上</span> 短押し</td><td>通常画面で <span class="key">右下</span> 短押し、リモート（トリップ）</td></tr>
+      <tr><td>リセット</td><td>TripA画面で <span class="key">上CLR</span> 短押し</td><td>通常画面で <span class="key">下CLR</span> 短押し、リモート（トリップ）</td></tr>
       <tr><td>自動リセット</td><td>ステージ開始時</td><td>ステージ開始時、フィニッシュ時</td></tr>
     </tbody>
   </table></div>
   <h3>前進・停止・後退</h3>
-  <p><span class="key">右下</span> の長押しで「前進 → 停止 → 後退」と切り替わり、上段左下の白いランプで状態がわかります。</p>
+  <p><span class="key">下CLR</span> の長押しで「前進（F）→ 停止（N）→ 後退（R）」と切り替わり、上段左下の白いランプで状態がわかります。</p>
   <div class="screens">
     <figure><div class="lcd" data-demo="trip-fwd" data-top=" 12.345" data-bottom="12.34" data-lamp="off" role="img" aria-label="前進 ランプ消灯"></div><figcaption><b>前進</b>ランプ消灯</figcaption></figure>
     <figure><div class="lcd" data-top=" 12.345" data-bottom="12.34" data-lamp="on" role="img" aria-label="停止 ランプ点灯"></div><figcaption><b>停止</b>ランプ点灯</figcaption></figure>
@@ -480,9 +484,9 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <li><strong>計測中</strong>：上段に経過タイムを表示します。<span class="key blue">青</span> 短押しでTripA表示と切り替えられ、この設定は電源を切っても保持されます。</li>
     <li><strong>1kmスプリット</strong>：スタートから1km、2km…を通過するたびに、その瞬間のタイムを3秒間点滅表示します。</li>
     <li><strong>フィニッシュ</strong>：<span class="key red">赤</span> 短押し。押した瞬間のタイムで確定して点滅表示になり、履歴に保存されます。TripBは0になります。</li>
-    <li><strong>終了</strong>：<span class="key red">赤</span> または <span class="key">右上</span> を短押しすると時計画面に戻り、フィニッシュした時刻を点滅表示（ホールド）します。次のステージは、<span class="key red">赤</span> でホールドを解除してから、もう一度 <span class="key red">赤</span> で始めます。</li>
+    <li><strong>終了</strong>：<span class="key red">赤</span> または <span class="key">上CLR</span> を短押しすると時計画面に戻り、フィニッシュした時刻を点滅表示（ホールド）します。次のステージは、<span class="key red">赤</span> でホールドを解除してから、もう一度 <span class="key red">赤</span> で始めます。</li>
   </ol>
-  <div class="note"><p>カウントダウン中に <span class="key blue">青</span> を短押しすると、取り消して元の画面に戻ります。ステージ画面で <span class="key">右下</span> を短押しするとTripBをリセットできます。履歴は30件まで保存され、31件目から古いものに上書きされます。履歴は電源を切ると消えます。</p></div>
+  <div class="note"><p>カウントダウン中に <span class="key blue">青</span> を短押しすると、取り消して元の画面に戻ります。ステージ画面で <span class="key">下CLR</span> を短押しするとTripBをリセットできます。履歴は30件まで保存され、31件目から古いものに上書きされます。履歴は電源を切ると消えます。</p></div>
 </section>
 
 <!-- 7 ファイナル -->
@@ -506,16 +510,16 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </div>
   <h3>設定する</h3>
   <ol class="steps">
-    <li>ファイナル画面で <span class="key">右上</span> を短押しすると、設定画面になります。</li>
+    <li>ファイナル画面で <span class="key">上CLR</span> を短押しすると、設定画面になります。</li>
     <li><span class="key blue">青</span> の短押しで、点滅する桁を「Ave十の位 → Ave一の位 → 時 → 分」の順に移動します。</li>
-    <li><span class="key">右上</span>／<span class="key">右下</span> で値を増減します。Aveは30〜99km/hで、十の位を0にするとOFF（「--」）になります。</li>
+    <li><span class="key">上CLR</span>／<span class="key">下CLR</span> で値を増減します。Aveは30〜99km/hで、十の位を0にするとOFF（「--」）になります。</li>
     <li>次のどちらかで確定し、ファイナル画面に戻ります。</li>
   </ol>
   <div class="table-wrap"><table>
     <thead><tr><th>確定の仕方</th><th>用途</th><th>スタートからの距離</th></tr></thead>
     <tbody>
       <tr><td><span class="key red">赤</span> 短押し</td><td>ステージ前の準備</td><td>0にリセット</td></tr>
-      <tr><td><span class="key">右上</span> 長押し</td><td>途中での値の修正</td><td>そのまま</td></tr>
+      <tr><td><span class="key">上CLR</span> 長押し</td><td>途中での値の修正</td><td>そのまま</td></tr>
     </tbody>
   </table></div>
   <p>スタート時刻は、ステージを始めるとそのステージのスタート時刻で自動的に上書きされます。設定画面で時刻の桁を触らなければ、その時刻は秒までそのまま保持されます。</p>
@@ -534,9 +538,9 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
       <figcaption><b>---</b>表示が止まっている、または基準がまだない。</figcaption>
     </figure>
   </div>
-  <p>ファイナル画面で <span class="key">右上</span> を長押しすると、表示を止めて「---」にできます。</p>
+  <p>ファイナル画面で <span class="key">上CLR</span> を長押しすると、表示を止めて「---」にできます。</p>
   <h3>電源を入れ直したとき</h3>
-  <p>スタート時刻とスタートからの距離は保存されていますが、表示は「---」になります。<span class="key">右上</span> 短押しで設定画面に入り、<span class="key">右上</span> 長押しで確定すると、距離を保ったまま表示を再開できます。保存される距離は約10mごとなので、最大10mほど戻ることがあります。</p>
+  <p>スタート時刻とスタートからの距離は保存されていますが、表示は「---」になります。<span class="key">上CLR</span> 短押しで設定画面に入り、<span class="key">上CLR</span> 長押しで確定すると、距離を保ったまま表示を再開できます。保存される距離は約10mごとなので、最大10mほど戻ることがあります。</p>
 </section>
 
 <!-- 8 速度 -->
@@ -546,7 +550,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="screens">
     <figure>
       <div class="lcd" data-top="P  98.7" data-bottom="12.34" role="img" aria-label="最高速 98.7km/h"></div>
-      <figcaption><b>最高速</b>「P」表示。速度画面で <span class="key">右上</span> 短押しで切替。</figcaption>
+      <figcaption><b>最高速</b>「P」表示。速度画面で <span class="key">上CLR</span> 短押しで切替。</figcaption>
     </figure>
     <figure>
       <div class="lcd" data-demo="speed-alert" data-top="SA 45.3" data-bottom="12.34" role="img" aria-label="速度警告ON中の速度表示"></div>
@@ -561,8 +565,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <p>最高速はステージ開始時に0に戻り、フィニッシュすると自動で最高速の表示に切り替わります。</p>
   <h3>速度警告</h3>
   <ol class="steps">
-    <li>速度画面で <span class="key">右上</span> を長押しすると、設定画面になります。</li>
-    <li><span class="key">右上</span>／<span class="key">右下</span> で閾値を10km/h単位で変えます（10〜90）。</li>
+    <li>速度画面で <span class="key">上CLR</span> を長押しすると、設定画面になります。</li>
+    <li><span class="key">上CLR</span>／<span class="key">下CLR</span> で閾値を10km/h単位で変えます（10〜90）。</li>
     <li><span class="key red">赤</span> 短押しで警告ON、<span class="key blue">青</span> 短押しで警告OFFにして、速度画面に戻ります。</li>
   </ol>
   <div class="table-wrap"><table>
@@ -580,7 +584,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <section class="chapter break" id="settings">
   <div class="chapter-head"><div class="no">9</div><h2>設定メニュー</h2></div>
   <p class="lead">通常画面で <span class="key blue">青</span> を長押しすると設定メニューに入ります。</p>
-  <p><span class="key blue">青</span> の短押しで次の項目へ進み、最後の項目の次で元の画面に戻ります。値は <span class="key">右上</span>／<span class="key">右下</span> で変え、変えた瞬間に保存されます。</p>
+  <p><span class="key blue">青</span> の短押しで次の項目へ進み、最後の項目の次で元の画面に戻ります。値は <span class="key">上CLR</span>／<span class="key">下CLR</span> で変え、変えた瞬間に保存されます。</p>
   <div class="screens">
     <figure><div class="lcd" data-top="Led  2" data-bottom="12.34" role="img" aria-label="明るさ 2"></div><figcaption><b>明るさ</b>0（暗）、1、2（明）</figcaption></figure>
     <figure><div class="lcd" data-top="PULS 4" data-bottom="12.34" role="img" aria-label="パルス数 4"></div><figcaption><b>パルス数</b>2、4、8</figcaption></figure>
@@ -594,14 +598,14 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </div>
   <ol class="steps">
     <li>時計画面で <span class="key red">赤</span> を長押しすると、校正画面になります。</li>
-    <li><span class="key blue">青</span> の短押しで桁を移動し、<span class="key">右上</span>／<span class="key">右下</span> で値を変えます（0.0000〜2.9999）。</li>
+    <li><span class="key blue">青</span> の短押しで桁を移動し、<span class="key">上CLR</span>／<span class="key">下CLR</span> で値を変えます（0.0000〜2.9999）。</li>
     <li><span class="key red">赤</span> 短押しで保存して時計画面に戻ります。<span class="key red">赤</span> 長押しなら1.0000に戻します。</li>
   </ol>
   <h3>時計合わせ</h3>
   <ol class="steps">
-    <li>時計画面で <span class="key">右上</span> を長押しすると、時計合わせ画面になります。</li>
-    <li><span class="key blue">青</span> の短押しで「時 → 分 → 秒」と点滅を移し、<span class="key">右上</span>／<span class="key">右下</span> で変えます。</li>
-    <li><span class="key red">赤</span> 短押しで確定します。<span class="key">右上</span> 長押しなら、変更せずに戻ります。</li>
+    <li>時計画面で <span class="key">上CLR</span> を長押しすると、時計合わせ画面になります。</li>
+    <li><span class="key blue">青</span> の短押しで「時 → 分 → 秒」と点滅を移し、<span class="key">上CLR</span>／<span class="key">下CLR</span> で変えます。</li>
+    <li><span class="key red">赤</span> 短押しで確定します。<span class="key">上CLR</span> 長押しなら、変更せずに戻ります。</li>
   </ol>
   <div class="note"><p>RTCがない場合、合わせた時刻は電源を切るまで有効です。</p></div>
 </section>
@@ -629,7 +633,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <thead><tr><th>症状</th><th>対処</th></tr></thead>
     <tbody>
       <tr><td>時計の末尾の点が点滅している</td><td>RTCが認識されていません。配線を確認するか、時計合わせで仮の時刻を入れてください。</td></tr>
-      <tr><td>ファイナルが「---」のまま</td><td>電源を入れ直した後です。<span class="key">右上</span> 短押し → <span class="key">右上</span> 長押しで再開します。</td></tr>
+      <tr><td>ファイナルが「---」のまま</td><td>電源を入れ直した後です。<span class="key">上CLR</span> 短押し → <span class="key">上CLR</span> 長押しで再開します。</td></tr>
       <tr><td>距離が公式距離と合わない</td><td>パルス数の設定を確認し、校正で係数を合わせます。</td></tr>
       <tr><td>ステージが意図せずスタートした</td><td>カウントダウン中に車が動くと、パルス3回でスタートします。停車して待ってください。</td></tr>
       <tr><td>ステージが始まらない</td><td>時計がフィニッシュ時刻をホールド中です。<span class="key red">赤</span> をもう一度押してください。</td></tr>
@@ -797,8 +801,70 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
       render(p, r[0], r[1], lamp);
     }
   }
-  tick();
-  if (live.length) setInterval(tick, 50);
+
+  // ---------- 本体前面の図（番号付き） ----------
+  function digitsAt(cells, x, y, sc) {
+    var o = '<g transform="translate(' + x + ',' + y + ') scale(' + sc + ')">';
+    for (var i = 0; i < cells.length; i++) {
+      var v = cells[i];
+      o += '<g transform="translate(' + (i * CW) + ',0) skewX(-6)">';
+      for (var k = 0; k < SHAPES.length; k++) {
+        o += '<polygon points="' + SHAPES[k][1] + '" class="' + ((v & BIT[SHAPES[k][0]]) ? 'seg-on' : 'seg-off') + '"/>';
+      }
+      o += '<circle cx="41.5" cy="63" r="3.2" class="' + ((v & 0x80) ? 'seg-on' : 'seg-off') + '"/></g>';
+    }
+    return o + '</g>';
+  }
+  function panelSVG(top, bot, lampOn) {
+    // 表示部：上段6桁 0.36インチ／下段4桁 0.56インチ（高さ1.56倍）、右詰め。上段の左に白ランプ
+    var R = 326, LS = 0.56 / 0.36;
+    var disp = digitsAt(parse(top, 6), R - 6 * CW, 4, 1) +
+               digitsAt(parse(bot, 4), R - 4 * CW * LS, 90, LS) +
+               '<circle cx="20" cy="58" r="6" class="lw' + (lampOn ? '' : ' off') + '"/>';
+    var n = function (x, y, t) {
+      return '<circle cx="' + x + '" cy="' + y + '" r="14" fill="#ffd400"/>' +
+             '<text x="' + x + '" y="' + (y + 5) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#1c2127" font-family="sans-serif">' + t + '</text>';
+    };
+    var btn = function (x, y, fill) {
+      return '<circle cx="' + x + '" cy="' + y + '" r="62" fill="#000"/><circle cx="' + x + '" cy="' + y + '" r="50" fill="' + fill + '"/>';
+    };
+    var txt = function (x, y, t, size, rot) {
+      return '<text transform="translate(' + x + ',' + y + ')' + (rot ? ' rotate(' + rot + ')' : '') +
+             '" text-anchor="middle" font-size="' + size + '" font-weight="700" fill="#ffffff" font-family="sans-serif">' + t + '</text>';
+    };
+    return '<svg viewBox="0 0 820 470" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      '<rect x="6" y="6" width="808" height="458" rx="48" fill="#5a5a5a"/>' +
+      '<rect x="28" y="28" width="764" height="414" rx="26" fill="#212121"/>' +
+      txt(150, 82, 'STAGE', 26) + txt(70, 152, 'CALIB', 16, -90) + btn(150, 152, '#ff1a1a') +
+      btn(150, 298, '#1f4fff') + txt(70, 298, 'SETUP', 16, -90) + txt(150, 392, 'NEXT', 26) +
+      '<rect x="232" y="88" width="356" height="262" rx="12" fill="#000"/>' +
+      '<svg x="244" y="102" width="332" height="236" viewBox="0 0 330 235">' + disp + '</svg>' +
+      txt(670, 82, 'CLR', 26) + btn(670, 152, '#e8e8e8') + txt(754, 152, 'CLOCK ADJ', 15, 90) +
+      btn(670, 298, '#f2f2f2') + txt(670, 392, 'CLR', 26) +
+      txt(752, 278, 'F', 14) + '<circle cx="770" cy="273" r="6" fill="none" stroke="#fff" stroke-width="1.5"/>' +
+      txt(752, 300, 'N', 14) + '<circle cx="770" cy="295" r="6" fill="#fff"/>' +
+      txt(752, 322, 'R', 14) + '<circle cx="770" cy="317" r="6" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M764 317 a6 6 0 0 1 12 0 z" fill="#fff" transform="rotate(-45 770 317)"/>' +
+      txt(410, 404, 'ARM Twin Trip', 38) + txt(410, 430, 'CALIB = ARM / ROAD BOOK', 14) +
+      n(206, 104, 1) + n(206, 250, 2) +
+      '<line x1="260" y1="80" x2="262" y2="150" stroke="#ffd400" stroke-width="2"/>' + n(260, 70, 3) +
+      n(600, 80, 4) + n(600, 358, 5) + n(728, 104, 6) + n(728, 250, 7) +
+      '</svg>';
+  }
+  var panelEls = document.querySelectorAll('.panel-fig');
+  function tickPanels() {
+    var t = (Date.now() - T0) / 1000;
+    for (var i = 0; i < panelEls.length; i++) {
+      var p = panelEls[i];
+      var r = DEMO[p.getAttribute('data-demo') || 'cover'](t);
+      var key = r[0] + '|' + r[1];
+      if (p._key === key) continue;
+      p._key = key;
+      p.innerHTML = panelSVG(r[0], r[1], false);
+    }
+  }
+  function tickAll() { tick(); tickPanels(); }
+  tickAll();
+  setInterval(tickAll, 50);
 })();
 </script>
 </body>
