@@ -136,6 +136,18 @@ ol.steps li { margin-bottom: 6px; }
   .drive { grid-template-columns: 1fr; padding: 14px; }
   .drive .val { font-size: 22px; }
 }
+  .buy {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap;
+  margin: 0 0 22px; padding: 14px 18px;
+  border: 2px solid var(--ink); border-radius: 12px;
+}
+.buy p { margin: 0; font-weight: 700; }
+.buy a {
+  display: inline-block; padding: 8px 18px; border-radius: 8px;
+  background: var(--ink); color: var(--paper); font-weight: 700; text-decoration: none;
+}
+.buy a:hover { background: var(--accent); color: #ffffff; }
+.buy a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -145,7 +157,10 @@ ol.steps li { margin-bottom: 6px; }
   <h1>ARM Rally Computer シミュレーター</h1>
   <p>アベレージラリー用ラリーコンピューターの操作を、ブラウザで練習できます。</p>
 </header>
-
+<div class="buy">
+  <p>ARM Rally Computer の実機はこちらで販売しています。</p>
+  <a href="https://rallymonitor.saleshop.jp/items/10004908" target="_blank" rel="noopener">販売ページを開く</a>
+</div>
 <div class="device" id="device" aria-label="ラリーコンピューター本体。ボタンを押して操作できます"></div>
 
 <div class="ext">
