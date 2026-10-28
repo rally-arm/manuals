@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ARM Rally Computer シミュレーター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --ink: #1c2127;
+  --sub: #5b6470;
+  --rule: #d5dadf;
+  --soft: #f2f4f6;
+  --accent: #ff3a1f;
+  --lamp: #ffb21f;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238; --soft: #1a1e23;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238; --soft: #1a1e23;
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  -webkit-text-size-adjust: 100%;
+}
+.page { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
+
+header.top { padding: 36px 0 18px; border-bottom: 6px solid var(--ink); margin-bottom: 22px; }
+header.top h1 {
+  font-family: "Dela Gothic One", "Hiragino Sans", sans-serif;
+  font-weight: 400; font-size: clamp(30px, 6vw, 54px); line-height: 1.1; margin: 0;
+}
+header.top p { margin: 10px 0 0; font-weight: 700; }
+
+/* ---------- 本体 ---------- */
+.device { -webkit-user-select: none; user-select: none; }
+.device svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.btn { cursor: pointer; }
+.btn:focus { outline: none; }
+.btn:focus-visible .ring { stroke: #ffd400; stroke-width: 6; }
+.btn.down .cap { filter: brightness(0.75); transform-box: fill-box; transform-origin: center; transform: scale(0.95); }
+.r-on { fill: #ff2a12; } .r-off { fill: rgba(255, 42, 18, 0.08); }
+.g-on { fill: #2cff3a; } .g-off { fill: rgba(44, 255, 58, 0.07); }
+.mode-label { fill: #ffffff; }
+.mode-label.cur { fill: #ffd400; }
+@media screen {
+  .r-on { filter: drop-shadow(0 0 3px rgba(255, 42, 18, 0.6)); }
+  .g-on { filter: drop-shadow(0 0 3px rgba(44, 255, 58, 0.55)); }
+}
+
+.ext { display: flex; align-items: center; gap: 16px; margin: 14px 0 0; flex-wrap: wrap; }
+.ext .box { width: min(300px, 70vw); }
+.ext p { margin: 0; font-size: 13px; color: var(--sub); max-width: 32em; }
+
+/* ---------- 走行の操作 ---------- */
+.drive {
+  margin: 22px 0 8px;
+  padding: 18px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px 24px;
+  align-items: center;
+}
+.drive .speed { display: flex; align-items: center; gap: 14px; }
+.drive label { font-weight: 700; white-space: nowrap; }
+.drive input[type="range"] { flex: 1; min-width: 120px; accent-color: var(--accent); height: 28px; }
+.drive .val {
+  font-family: "Dela Gothic One", sans-serif; font-size: 28px; min-width: 4.2em; text-align: right;
+}
+.drive .val small { font-family: "BIZ UDPGothic", sans-serif; font-size: 13px; color: var(--sub); }
+.seg { display: inline-flex; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; }
+.seg button {
+  font: inherit; font-weight: 700; padding: 6px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer;
+}
+.seg button + button { border-left: 2px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.actions button {
+  font: inherit; font-weight: 700; padding: 6px 14px; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--ink); background: var(--paper); color: var(--ink);
+}
+.actions button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.drive .info { grid-column: 1 / -1; font-size: 13px; color: var(--sub); display: flex; gap: 20px; flex-wrap: wrap; }
+.drive .info b { color: var(--ink); }
+
+details.answer { margin: 12px 0 0; border: 1px solid var(--rule); border-radius: 10px; padding: 10px 16px; }
+details.answer summary { cursor: pointer; font-weight: 700; }
+details.answer table { margin-top: 8px; }
+
+/* ---------- 説明 ---------- */
+h2 {
+  font-family: "Dela Gothic One", "Hiragino Sans", sans-serif; font-weight: 400;
+  font-size: 24px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 3px solid var(--ink);
+}
+h3 { font-size: 16px; margin: 24px 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); }
+p { margin: 0 0 12px; max-width: 46em; }
+.table-wrap { overflow-x: auto; margin: 0 0 18px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.6; }
+th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--rule); }
+th { font-weight: 700; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+td:first-child { font-weight: 700; white-space: nowrap; }
+td.none { color: var(--sub); }
+kbd {
+  display: inline-block; min-width: 1.6em; text-align: center; font-family: inherit; font-size: 12px; font-weight: 700;
+  padding: 0 5px; border: 1.5px solid var(--sub); border-bottom-width: 3px; border-radius: 4px; color: var(--ink);
+}
+ol.steps { padding-left: 1.4em; max-width: 46em; }
+ol.steps li { margin-bottom: 6px; }
+.note { background: var(--soft); border-left: 4px solid var(--lamp); padding: 10px 14px; font-size: 14px; margin: 0 0 16px; }
+.note p { margin: 0; }
+
+@media (max-width: 640px) {
+  .page { padding: 0 12px 48px; }
+  .drive { grid-template-columns: 1fr; padding: 14px; }
+  .drive .val { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <h1>ARM Rally Computer シミュレーター</h1>
+  <p>アベレージラリー用ラリーコンピューターの操作を、ブラウザで練習できます。</p>
+</header>
+
+<div class="device" id="device" aria-label="ラリーコンピューター本体。ボタンを押して操作できます"></div>
+
+<div class="ext">
+  <div class="box" id="ext" role="img" aria-label="外部ディスプレイ"></div>
+  <p>外部ディスプレイ（ドライバー用）。ファイナルを表示し、時計画面で NEXT を長押しするとTripA表示に切り替わります。</p>
+</div>
+
+<div class="drive">
+  <div class="speed">
+    <label for="spd">走行速度</label>
+    <input type="range" id="spd" min="0" max="150" step="1" value="0">
+    <div class="val"><span id="spdv">0</span> <small>km/h</small></div>
+  </div>
+  <div class="actions">
+    <div class="seg" role="group" aria-label="進行方向レバー">
+      <button type="button" data-dir="1" aria-pressed="true">F</button>
+      <button type="button" data-dir="0" aria-pressed="false">N</button>
+      <button type="button" data-dir="2" aria-pressed="false">R</button>
+    </div>
+    <button type="button" id="stop">停止</button>
+    <button type="button" id="power">電源を入れ直す</button>
+  </div>
+  <div class="info">
+    <span>実際の走行距離 <b id="realdist">0.000</b> km</span>
+    <span>キー操作：<kbd>+</kbd><kbd>−</kbd> で速度を5km/hずつ、<kbd>0</kbd> で停止</span>
+  </div>
+</div>
+
+<details class="answer">
+  <summary>答え合わせ（本体の中の値を表示）</summary>
+  <div class="table-wrap"><table>
+    <tbody>
+      <tr><td>区間スタート時刻</td><td id="a-start">-</td></tr>
+      <tr><td>AVE</td><td id="a-ave">-</td></tr>
+      <tr><td>REST（休憩時間）</td><td id="a-rc">-</td></tr>
+      <tr><td>理想の距離</td><td id="a-ideal">-</td></tr>
+      <tr><td>PCトリップ</td><td id="a-p">-</td></tr>
+      <tr><td>早遅</td><td id="a-diff">-</td></tr>
+    </tbody>
+  </table></div>
+</details>
+
+<h2>練習のしかた</h2>
+<ol class="steps">
+  <li><strong>スタート時刻を入れる</strong>：<kbd>▶</kbd> で「START Time」にして <kbd>E</kbd>。NEXT／BACK で数字を変え、◀▶ で桁を移動し、<kbd>E</kbd> で確定します。</li>
+  <li><strong>AVEを入れる</strong>：<kbd>▶</kbd> で「AVE Speed」にして <kbd>E</kbd>。同じように入力して <kbd>E</kbd> で確定します（例：36.0km/h）。</li>
+  <li><strong>走る</strong>：スタート時刻になったら走行速度のスライダーを動かします。中段のファイナルが0に近いほど、AVEどおりに走れています。「-」は遅れ、左の赤いLEDは遅れ、緑は早着です。</li>
+  <li><strong>CP（チェックポイント）</strong>：<kbd>CP</kbd> を押すと、ファイナルとトリップを記録して、次の区間のスタート時刻の入力に進みます。<kbd>E</kbd> で確定するとAVE入力に進み、もう一度 <kbd>E</kbd> で走行に戻ります。</li>
+  <li><strong>PC（AVE変更点）</strong>：<kbd>PC</kbd> を押すと、その地点を基準に新しいAVEの入力になります。<kbd>E</kbd> で確定します。</li>
+</ol>
+<div class="note"><p>本体の右にある「CLOCK／START Time…」の表示で、今いる画面を黄色で示しています。これはシミュレーター独自の補助で、実機では光りません。</p></div>
+
+<h2>ボタンの役割</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>ボタン</th><th>短押し</th><th>長押し（0.8秒）</th><th>キー</th></tr></thead>
+  <tbody>
+    <tr><td>E</td><td>入力の開始・確定。CP Trip／PC Trip画面では表示の固定、EX Trip画面ではリセット</td><td>時計合わせ（時計画面で）</td><td><kbd>E</kbd></td></tr>
+    <tr><td>PC</td><td>AVE変更点（新しいAVEを入力）</td><td class="none">なし</td><td><kbd>P</kbd></td></tr>
+    <tr><td>CP</td><td>チェックポイント（記録して次区間のスタート時刻を入力）</td><td class="none">なし</td><td><kbd>C</kbd></td></tr>
+    <tr><td>◀ ／ ▶</td><td>画面の切替。入力中は桁の移動</td><td class="none">なし</td><td><kbd>←</kbd> <kbd>→</kbd></td></tr>
+    <tr><td>NEXT ／ BACK</td><td>入力中の数字を増やす／減らす。ログ画面では記録を送る</td><td>NEXT：外部ディスプレイの切替（時計画面）、入力中は秒を00にして1分進める<br>BACK：入力中は秒を00にする</td><td><kbd>↑</kbd> <kbd>↓</kbd></td></tr>
+    <tr><td>LOG／m</td><td>ログ画面の表示／戻る</td><td>距離の単位を1m⇔10m</td><td><kbd>L</kbd></td></tr>
+    <tr><td>SELECT</td><td>中段をファイナル⇔TripBに切替。設定画面では戻る</td><td>設定（明るさ・パルス数）</td><td><kbd>S</kbd></td></tr>
+    <tr><td>CALIB</td><td>校正画面。CP入力中は取消。時計合わせ中は確定</td><td class="none">なし</td><td><kbd>K</kbd></td></tr>
+    <tr><td>C（上）</td><td>TripB：1回目で記録・固定表示、2回目で解除</td><td class="none">なし</td><td><kbd>B</kbd></td></tr>
+    <tr><td>C（下）</td><td>TripA：1回目で記録・固定表示、2回目で解除</td><td class="none">なし</td><td><kbd>A</kbd></td></tr>
+    <tr><td>F／N／R</td><td colspan="2">進行方向（前進／停止／後退）。本体のレバーをクリックするたびに切り替わります</td><td><kbd>F</kbd> <kbd>N</kbd> <kbd>R</kbd></td></tr>
+  </tbody>
+</table></div>
+<p>キーを押し続けると長押しになります。表示部の各段の内容は次のとおりです。</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>段</th><th>表示</th></tr></thead>
+  <tbody>
+    <tr><td>上段（赤6桁）</td><td>CLOCK（時計）、START Time（区間スタート時刻）、AVE Speed（AVE）、REST Control（休憩時間）、CP Trip、PC Trip、EX Trip</td></tr>
+    <tr><td>中段（赤4桁）</td><td>ファイナル（早遅）。「-」は遅れ。1分未満は「秒.1/10秒」、1分以上は「分.秒」</td></tr>
+    <tr><td>下段（緑4桁）</td><td>TripA</td></tr>
+  </tbody>
+</table></div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ================================================================
+  //  表示器（MAX7219 ×4）のバッファ：ビット配置は DP a b c d e f g
+  // ================================================================
+  var DIG = [0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B];
+  var buf = [[], [], [], []];
+  function clearAll() { for (var d = 0; d < 4; d++) for (var i = 0; i < 8; i++) buf[d][i] = 0; }
+  function setRow(d, i, b) { buf[d][i] = b & 0xFF; }
+  function setDigit(d, i, v, dp) { v = Math.floor(v); buf[d][i] = DIG[((v % 10) + 10) % 10] | (dp ? 0x80 : 0); }
+  function SetBlank(d, s, e) { for (var i = s; i <= e; i++) setRow(d, i, 0); }
+  function idiv(a, b) { return Math.trunc(a / b); }
+
+  // ================================================================
+  //  本体の状態（電源投入時の初期値はスケッチと同じ）
+  // ================================================================
+  var S;
+  var PULSE_M = 0.3925;          // パルス数4のときの1パルスの距離[m]
+  var savedPulse = 4;            // パルス数だけはEEPROMに保存される
+  var clockOffset = 0;           // 時計合わせによるずれ[ms]
+
+  function powerOn() {
+    S = {
+      bright: 2, modeflag: 0, exdflag: 0, bf1: 0, bf2: 0, bf3: 0,
+      tripBdisp: false, finalflag: true, holdfinalflag: true,
+      ave: 360, finaltime: 0, holdfinal: 0,
+      pcstarttime: 0, bfpcstarttime: 0, rc: 0, pcdist: 0,
+      cpflag: false, pcflag: false,
+      nowtime: 0, nowhour: 0, nowmin: 0, nowsec: 0, nowmilli: 0,
+      sethour: 0, setmin: 0, setsec: 0, clockadjustketa: 0, numketa: 0,
+      dot3: true, dot2: false, calibketa: 0,
+      K: [1, 0, 0, 0, 0], P_keisu: 1.0, makekeisu: 10000,
+      pulse: savedPulse, keta: 1,
+      tripA: 0, tripB: 0, tripC: 0, tripP: 0, tripE: 0,
+      holdtripA: 0, holdtripB: 0, holdtripP: 0, holdtripC: 0,
+      stocktripC: 0, stocktripP: 0,
+      tripflag: S ? S.tripflag : 1, tripAdir: true,
+      tripAhold2: false, tripBhold2: false, tripChold: false, tripPhold: false,
+      cntA: 0, cntB: 0, cntC: 0, cntP: 0, cntE: 0,
+      cptrip: [], cpflagbit: [], stocktripA: [], stocktripB: [],
+      cpnum: 0, tripAnum: 0, tripBnum: 0, loadcpnum: 0, loadtripAnum: 0, loadtripBnum: 0,
+      n: [0, 0, 0, 0, 0, 0],
+      displastfinal: 0, exdispcount: 0, pretripBdisp: false,
+      blink: true
+    };
+    for (var i = 0; i < 100; i++) { S.cptrip[i] = 0; S.cpflagbit[i] = 0; S.stocktripA[i] = 0; S.stocktripB[i] = 0; }
+    realMeters = 0;
+    clearAll();
+    SetKeta();
+  }
+
+  function NumUp(n, m) { n++; if (n > m) n = 0; return n; }
+  function NumDw(n, m) { n--; if (n < 0) n = m; return n; }
+  function SetKeta() { S.dot3 = (S.keta === 1); S.dot2 = (S.keta !== 1); }
+  function SetAve(a) { S.n[3] = idiv(a, 100) % 10; S.n[4] = idiv(a, 10) % 10; S.n[5] = a % 10; }
+  function SetKeisu() {
+    S.makekeisu = S.K[0] * 10000 + S.K[1] * 1000 + S.K[2] * 100 + S.K[3] * 10 + S.K[4];
+    S.K = [idiv(S.makekeisu, 10000), idiv(S.makekeisu, 1000) % 10, idiv(S.makekeisu, 100) % 10, idiv(S.makekeisu, 10) % 10, S.makekeisu % 10];
+  }
+
+  // ================================================================
+  //  距離（パルスから距離を求める部分はスケッチと同じ計算）
+  // ================================================================
+  function SetPulseTrip() {
+    var f = PULSE_M / S.P_keisu * (4.0 / S.pulse);
+    var dA = Math.trunc(f * S.cntA), dB = Math.trunc(f * S.cntB), dC = Math.trunc(f * S.cntC),
+        dP = Math.trunc(f * S.cntP), dE = Math.trunc(f * S.cntE);
+    if (S.cntA < 0) { dA = -dA; S.tripAdir = false; } else { S.tripAdir = true; }
+    if (S.cntB < 0) dB = -dB;
+    if (S.cntC < 0) dC = -dC;
+    if (S.cntP < 0) dP = -dP;
+    if (S.cntE < 0) dE = -dE;
+    S.tripA = dA % (100000 * S.keta);
+    S.tripB = dB % (100000 * S.keta);
+    S.tripC = dC % (100000 * S.keta) + S.stocktripC;
+    S.tripP = dP % (100000 * S.keta) + S.stocktripP;
+    S.tripE = dE % 1000000;
+  }
+
+  // ================================================================
+  //  表示
+  // ================================================================
+  function DispClock() {
+    if (S.nowhour < 10) setRow(0, 0, 0); else setDigit(0, 0, S.nowhour / 10, false);
+    setDigit(0, 1, S.nowhour % 10, true);
+    setDigit(0, 2, S.nowmin / 10, false);
+    setDigit(0, 3, S.nowmin % 10, true);
+    setDigit(0, 4, S.nowsec / 10, false);
+    setDigit(0, 5, S.nowsec % 10, false);
+  }
+
+  function MakeFinalWithValue(row, tv, f) {
+    tv = Math.floor(tv);
+    var fmin = idiv(idiv(tv, 10) % 3600, 60), fsec = idiv(tv, 10) % 60, fmil = tv % 10;
+    if (tv < 600) {
+      setRow(row, 0, f ? 0 : 0x01);
+      if (tv < 100) setRow(row, 1, 0); else setDigit(row, 1, fsec / 10, false);
+      setDigit(row, 2, fsec % 10, true);
+      setDigit(row, 3, fmil, false);
+    } else {
+      if (tv < 6000) setRow(row, 0, f ? 0 : 0x01);
+      else setDigit(row, 0, idiv(fmin, 10) % 10, false);
+      setDigit(row, 1, fmin % 10, true);
+      setDigit(row, 2, fsec / 10, false);
+      setDigit(row, 3, fsec % 10, true);
+    }
+    setRow(row, 4, 0);
+  }
+
+  function SelectFinalLed(row, d1, d2) {
+    if (S.finalflag) { setRow(row, d1, 0x80); setRow(row, d2, 0); }
+    else { setRow(row, d1, 0); setRow(row, d2, 0x80); }
+  }
+
+  function DispFinal(ms) {
+    if (S.tripBdisp) { DispTripB(); return; }
+    if (ms - S.displastfinal > 100) {
+      if (S.cpflag || S.pcflag) {
+        if (S.blink) {
+          if (S.holdfinalflag) { setRow(1, 5, 0x80); setRow(1, 7, 0); }
+          else { setRow(1, 5, 0); setRow(1, 7, 0x80); }
+        } else { setRow(1, 5, 0); setRow(1, 7, 0); }
+        MakeFinalWithValue(1, S.holdfinal, S.holdfinalflag);
+        if (S.pcflag) S.pcflag = false;
+      } else {
+        SelectFinalLed(1, 5, 7);
+        MakeFinalWithValue(1, S.finaltime, S.finalflag);
+      }
+      S.displastfinal = ms;
+    }
+  }
+
+  function drawTrip(row, v, lastdp) {
+    var k = S.keta;
+    if (k === 10) {
+      if (idiv(v, k) >= 1000) setDigit(row, 0, idiv(v, k * 1000) % 10, S.dot3); else setRow(row, 0, 0);
+    } else {
+      setDigit(row, 0, idiv(v, k * 1000) % 10, S.dot3);
+    }
+    setDigit(row, 1, idiv(v, k * 100) % 10, S.dot2);
+    setDigit(row, 2, idiv(v, k * 10) % 10, false);
+    setDigit(row, 3, idiv(v, k) % 10, lastdp);
+  }
+
+  function DispTripA(row) {
+    if (S.tripAhold2) {
+      if (!S.blink) { SetBlank(2, 0, 3); if (S.exdflag === 1) SetBlank(3, 0, 3); }
+      else drawTrip(row, S.holdtripA, false);
+    } else {
+      drawTrip(row, S.tripA, S.tripAdir);
+    }
+  }
+
+  function DispTripB() {
+    SelectFinalLed(1, 5, 7);
+    if (S.tripBhold2) {
+      if (!S.blink) SetBlank(1, 0, 3);
+      else drawTrip(1, S.holdtripB, false);
+    } else {
+      var v = S.stocktripB[S.loadtripBnum];
+      setDigit(1, 0, idiv(v, 1000) % 10, true);
+      setDigit(1, 1, idiv(v, 100) % 10, false);
+      setDigit(1, 2, idiv(v, 10) % 10, false);
+      setDigit(1, 3, v % 10, false);
+    }
+  }
+
+  function SetTripTop(v) {
+    if (v >= 10000) setDigit(0, 1, idiv(v, 10000) % 10, false); else setRow(0, 1, 0);
+    setDigit(0, 2, idiv(v, 1000) % 10, true);
+    setDigit(0, 3, idiv(v, 100) % 10, false);
+    setDigit(0, 4, idiv(v, 10) % 10, false);
+    setDigit(0, 5, v % 10, false);
+  }
+
+  function DispPCStart() {
+    var n = S.n, b = S.blink;
+    function hh(v, dpBlink) { if (v < 10) setRow(0, 0, 0); else setDigit(0, 0, v / 10, false); setDigit(0, 1, v % 10, dpBlink); }
+    switch (S.numketa) {
+      case 0:
+        if (b) hh(n[0], true); else { setRow(0, 0, 0); setRow(0, 1, 0x80); }
+        setDigit(0, 2, n[1] / 10, false); setDigit(0, 3, n[1] % 10, true);
+        setDigit(0, 4, n[2] / 10, false); setDigit(0, 5, n[2] % 10, false);
+        break;
+      case 1:
+        hh(n[0], true);
+        if (b) { setDigit(0, 2, n[1] / 10, false); setDigit(0, 3, n[1] % 10, true); }
+        else { setRow(0, 2, 0); setRow(0, 3, 0x80); }
+        setDigit(0, 4, n[2] / 10, false); setDigit(0, 5, n[2] % 10, false);
+        break;
+      case 2:
+        hh(n[0], true);
+        setDigit(0, 2, n[1] / 10, false); setDigit(0, 3, n[1] % 10, true);
+        if (b) { setDigit(0, 4, n[2] / 10, false); setDigit(0, 5, n[2] % 10, false); } else SetBlank(0, 4, 5);
+        break;
+      default:
+        var t = S.pcstarttime, H = idiv(t, 36000), M = idiv(idiv(t, 10) % 3600, 60), Sx = idiv(t, 10) % 60;
+        if (H < 10) setRow(0, 0, 0); else setDigit(0, 0, H / 10, false);
+        setDigit(0, 1, H % 10, b);
+        setDigit(0, 2, M / 10, false); setDigit(0, 3, M % 10, b);
+        setDigit(0, 4, Sx / 10, false); setDigit(0, 5, Sx % 10, false);
+    }
+  }
+
+  function DispAve() {
+    setRow(0, 0, 0x77); setRow(0, 1, 0x3E); setRow(0, 2, 0x4F);   // "AUE"
+    var n = S.n, b = S.blink;
+    switch (S.numketa) {
+      case 3:
+        if (b) setDigit(0, 3, n[3], false); else setRow(0, 3, 0);
+        setDigit(0, 4, n[4], true); setDigit(0, 5, n[5], false); break;
+      case 4:
+        setDigit(0, 3, n[3], false);
+        if (b) setDigit(0, 4, n[4], true); else setRow(0, 4, 0);
+        setDigit(0, 5, n[5], false); break;
+      case 5:
+        setDigit(0, 3, n[3], false); setDigit(0, 4, n[4], true);
+        if (b) setDigit(0, 5, n[5], false); else setRow(0, 5, 0); break;
+      default:
+        setDigit(0, 3, idiv(S.ave, 100) % 10, false);
+        setDigit(0, 4, idiv(S.ave, 10) % 10, true);
+        setDigit(0, 5, S.ave % 10, false);
+    }
+  }
+
+  function DispRc() {
+    setRow(0, 0, 0x05); setRow(0, 1, 0x0D);                       // "rc"
+    var n = S.n, b = S.blink;
+    switch (S.numketa) {
+      case 1:
+        if (b) { if (n[1] < 10) setRow(0, 2, 0); else setDigit(0, 2, n[1] / 10, false); setDigit(0, 3, n[1] % 10, true); }
+        else { setRow(0, 2, 0); setRow(0, 3, 0x80); }
+        setDigit(0, 4, n[2] / 10, false); setDigit(0, 5, n[2] % 10, false); break;
+      case 2:
+        if (n[1] < 10) setRow(0, 2, 0); else setDigit(0, 2, n[1] / 10, false);
+        setDigit(0, 3, n[1] % 10, true);
+        if (b) { setDigit(0, 4, n[2] / 10, false); setDigit(0, 5, n[2] % 10, false); } else SetBlank(0, 4, 5);
+        break;
+      default:
+        var M = idiv(idiv(S.rc, 10) % 3600, 60), Sx = idiv(S.rc, 10) % 60;
+        if (M < 10) setRow(0, 2, 0); else setDigit(0, 2, M / 10, false);
+        setDigit(0, 3, M % 10, b);
+        setDigit(0, 4, Sx / 10, false); setDigit(0, 5, Sx % 10, false);
+    }
+  }
+
+  function DispTripC() {
+    var v = S.tripChold ? S.holdtripC : S.tripC;
+    setRow(0, 0, 0x4E);
+    if (S.tripChold && !S.blink) SetBlank(0, 1, 5); else SetTripTop(v);
+  }
+  function DispTripP() {
+    var v = S.tripPhold ? S.holdtripP : S.tripP;
+    setRow(0, 0, 0x67);
+    if (S.tripPhold && !S.blink) SetBlank(0, 1, 5); else SetTripTop(v);
+  }
+  function DispTripE() {
+    if (S.tripE >= 100000) setDigit(0, 0, idiv(S.tripE, 100000) % 10, false); else setRow(0, 0, 0x4F);
+    SetTripTop(S.tripE);
+  }
+
+  function DispClockAdjust() {
+    var b = S.blink;
+    function hh() { if (S.sethour < 10) setRow(0, 0, 0); else setDigit(0, 0, S.sethour / 10, false); setDigit(0, 1, S.sethour % 10, true); }
+    switch (S.clockadjustketa) {
+      case 0:
+        if (b) { setRow(0, 0, 0); setRow(0, 1, 0x80); } else hh();
+        setDigit(0, 2, S.setmin / 10, false); setDigit(0, 3, S.setmin % 10, true);
+        setDigit(0, 4, S.setsec / 10, false); setDigit(0, 5, S.setsec % 10, false); break;
+      case 1:
+        hh();
+        if (b) { setRow(0, 2, 0); setRow(0, 3, 0x80); } else { setDigit(0, 2, S.setmin / 10, false); setDigit(0, 3, S.setmin % 10, true); }
+        setDigit(0, 4, S.setsec / 10, false); setDigit(0, 5, S.setsec % 10, false); break;
+      case 2:
+        hh();
+        setDigit(0, 2, S.setmin / 10, false); setDigit(0, 3, S.setmin % 10, true);
+        if (b) SetBlank(0, 4, 5); else { setDigit(0, 4, S.setsec / 10, false); setDigit(0, 5, S.setsec % 10, false); }
+        break;
+    }
+  }
+
+  function DispCalib() {
+    SetKeisu();
+    setRow(0, 0, 0x0D);                                              // "c"
+    for (var i = 0; i < 5; i++) {
+      if (S.calibketa === i && !S.blink) setRow(0, i + 1, 0);
+      else setDigit(0, i + 1, S.K[i], i === 0);
+    }
+  }
+
+  function DispLed() { setRow(1, 0, 0x0E); SetBlank(1, 1, 2); setDigit(1, 3, S.bright, false); }
+  function DispPulse() { setRow(2, 0, 0x67); SetBlank(2, 1, 2); setDigit(2, 3, S.pulse, false); }
+
+  function DispLogP() {
+    if (S.loadcpnum === S.cpnum && S.modeflag === 21) setRow(0, 0, 0x0E);
+    else setRow(0, 0, S.cpflagbit[S.loadcpnum] ? 0x67 : 0x4E);
+    if (!S.blink) { SetBlank(0, 1, 5); return; }
+    if (S.loadcpnum === S.cpnum && S.modeflag === 21) { for (var i = 1; i < 6; i++) setRow(0, i, 0x01); }
+    else SetTripTop(S.cptrip[S.loadcpnum]);
+  }
+  function DispLogA() {
+    if (!S.blink) { SetBlank(2, 0, 3); return; }
+    if (S.loadtripAnum === S.tripAnum && S.modeflag === 21) { for (var i = 0; i < 4; i++) setRow(2, i, 0x01); }
+    else {
+      var v = S.stocktripA[S.loadtripAnum];
+      setDigit(2, 0, idiv(v, 1000) % 10, true); setDigit(2, 1, idiv(v, 100) % 10, false);
+      setDigit(2, 2, idiv(v, 10) % 10, false); setDigit(2, 3, v % 10, false);
+    }
+  }
+  function DispLogB() {
+    if (S.modeflag === 21) SelectFinalLed(1, 5, 7);
+    if (!S.blink) { SetBlank(1, 0, 3); return; }
+    if (S.loadtripBnum === S.tripBnum && S.modeflag === 21) { for (var i = 0; i < 4; i++) setRow(1, i, 0x01); }
+    else drawTrip(1, S.stocktripB[S.loadtripBnum], false);
+  }
+
+  function DispEx() {
+    if (S.exdflag === 0) {
+      if (S.cpflag || S.pcflag) MakeFinalWithValue(3, S.holdfinal, S.holdfinalflag);
+      else if (S.exdispcount > 10) { MakeFinalWithValue(3, S.finaltime, S.finalflag); S.exdispcount = 0; }
+      else S.exdispcount++;
+    } else {
+      DispTripA(3);
+    }
+    SelectFinalLed(3, 5, 7);
+  }
+
+  function DispDirection(ms) {
+    if (S.tripflag === 0) setRow(2, 5, 0x80);
+    else if (S.tripflag === 1) setRow(2, 5, 0);
+    else setRow(2, 5, (idiv(ms, 100) % 10) / 2 < 1 ? 0 : 0x80);
+  }
+
+  // ================================================================
+  //  ボタン操作（スケッチの CheckButton と同じ動作）
+  //   R1=BACK R2=NEXT R3=◀ R4=▶ R5=C上 R6=C下 R7=SELECT R8=CALIB R9=LOG/m
+  //   E=E PC=PC CP=CP
+  // ================================================================
+  function editNum(dir) {
+    var up = dir > 0, n = S.n;
+    var f = up ? NumUp : NumDw;
+    switch (S.modeflag) {
+      case 1:
+        if (S.numketa === 0) n[0] = f(n[0], 23);
+        else if (S.numketa === 1) n[1] = f(n[1], 59);
+        else if (S.numketa === 2) n[2] = f(n[2], 59);
+        break;
+      case 2: case 41:
+        if (S.numketa >= 3 && S.numketa <= 5) n[S.numketa] = f(n[S.numketa], 9);
+        break;
+      case 3:
+        if (S.numketa === 1) n[1] = f(n[1], 59);
+        else if (S.numketa === 2) n[2] = f(n[2], 59);
+        break;
+      case 10:
+        if (S.clockadjustketa === 0) S.sethour = f(S.sethour, 23);
+        else if (S.clockadjustketa === 1) S.setmin = f(S.setmin, 59);
+        else S.setsec = f(S.setsec, 59);
+        break;
+      case 11:
+        S.K[S.calibketa] = f(S.K[S.calibketa], S.calibketa === 0 ? 2 : 9);
+        SetKeisu();
+        break;
+    }
+  }
+
+  function shortPress(id) {
+    switch (id) {
+      case 'R1':                                   // BACK
+        if (S.modeflag === 12) {
+          S.pulse *= 2; if (S.pulse > 8) S.pulse = 2; else if (S.pulse < 2) S.pulse = 4;
+          savedPulse = S.pulse;
+        } else if (S.modeflag === 21) {
+          if (S.loadtripAnum > 0) S.loadtripAnum--;
+          if (S.loadtripBnum > 0) S.loadtripBnum--;
+          if (S.loadcpnum > 0) S.loadcpnum--;
+        } else editNum(-1);
+        break;
+      case 'R2':                                   // NEXT
+        if (S.modeflag === 12) { S.bright++; if (S.bright > 2) S.bright = 0; }
+        else if (S.modeflag === 21) {
+          S.loadtripAnum = Math.min(S.loadtripAnum + 1, S.tripAnum);
+          S.loadtripBnum = Math.min(S.loadtripBnum + 1, S.tripBnum);
+          S.loadcpnum = Math.min(S.loadcpnum + 1, S.cpnum);
+        } else editNum(1);
+        break;
+      case 'R3':                                   // ◀
+        switch (S.modeflag) {
+          case 0: S.modeflag = 6; S.numketa = 9; break;
+          case 1: if (S.numketa < 9) { S.numketa--; if (S.numketa < 0) S.numketa = 2; } else { S.modeflag = 0; S.numketa = 9; } break;
+          case 2: if (S.numketa < 9) { S.numketa--; if (S.numketa < 3) S.numketa = 5; } else { S.modeflag = 1; S.numketa = 9; } break;
+          case 3: if (S.numketa < 9) { S.numketa--; if (S.numketa < 1) S.numketa = 2; } else { S.modeflag = 2; S.numketa = 9; } break;
+          case 4: S.modeflag = 3; S.numketa = 9; break;
+          case 5: S.modeflag = 4; S.numketa = 9; break;
+          case 6: S.modeflag = 5; S.numketa = 9; break;
+          case 10: S.clockadjustketa--; if (S.clockadjustketa < 0) S.clockadjustketa = 2; break;
+          case 11: S.calibketa--; if (S.calibketa < 0) S.calibketa = 4; break;
+          case 41: S.numketa--; if (S.numketa < 3) S.numketa = 5; break;
+        }
+        break;
+      case 'R4':                                   // ▶
+        switch (S.modeflag) {
+          case 0: S.modeflag = 1; S.numketa = 9; break;
+          case 1: if (S.numketa < 9) { S.numketa++; if (S.numketa > 2) S.numketa = 0; } else { S.modeflag = 2; S.numketa = 9; } break;
+          case 2: if (S.numketa < 9) { S.numketa++; if (S.numketa > 5) S.numketa = 3; } else { S.modeflag = 3; S.numketa = 9; } break;
+          case 3: if (S.numketa < 9) { S.numketa++; if (S.numketa > 2) S.numketa = 1; } else { S.modeflag = 4; S.numketa = 9; } break;
+          case 4: S.modeflag = 5; S.numketa = 9; break;
+          case 5: S.modeflag = 6; S.numketa = 9; break;
+          case 6: S.modeflag = 0; S.numketa = 9; break;
+          case 10: S.clockadjustketa++; if (S.clockadjustketa > 2) S.clockadjustketa = 0; break;
+          case 11: S.calibketa++; if (S.calibketa > 4) S.calibketa = 0; break;
+          case 41: S.numketa++; if (S.numketa > 5) S.numketa = 3; break;
+        }
+        break;
+      case 'R5':                                   // C（上）
+        if (S.modeflag < 12 || S.modeflag === 41) TripBClear();
+        else if (S.modeflag === 12) { S.bright++; if (S.bright > 2) S.bright = 0; }
+        break;
+      case 'R6':                                   // C（下）
+        if (S.modeflag < 12 || S.modeflag === 41) TripAClear();
+        else if (S.modeflag === 12) {
+          S.pulse += 2; if (S.pulse > 8) S.pulse = 2; else if (S.pulse < 2) S.pulse = 4;
+          savedPulse = S.pulse;
+        }
+        break;
+      case 'R7':                                   // SELECT
+        if (S.modeflag < 10) S.tripBdisp = !S.tripBdisp;
+        else if (S.modeflag === 12) S.modeflag = S.bf3;
+        break;
+      case 'R8':                                   // CALIB
+        if (S.modeflag < 13) PushCalib();
+        break;
+      case 'R9':                                   // LOG/m
+        PushLog();
+        break;
+      case 'E':
+        pushE();
+        break;
+      case 'PC':
+        if ((S.modeflag < 10 || S.modeflag === 21) && !S.cpflag) ReadyPC();
+        break;
+      case 'CP':
+        if (S.modeflag < 10 || S.modeflag === 21) ReadyCP();
+        break;
+    }
+  }
+
+  function longPress(id) {
+    var n = S.n;
+    switch (id) {
+      case 'R1':
+        if (S.modeflag === 1 && S.numketa <= 2) n[2] = 0;
+        else if (S.modeflag === 3 && S.numketa <= 2) { if (n[2] >= 10) n[2] -= 10; else n[2] += 50; }
+        break;
+      case 'R2':
+        if (S.modeflag === 0) S.exdflag = NumUp(S.exdflag, 1);
+        else if (S.modeflag === 1 && S.numketa <= 2) {
+          n[2] = 0; n[1]++;
+          if (n[1] > 59) { n[1] = 0; n[0] = NumUp(n[0], 23); }
+        } else if (S.modeflag === 3 && S.numketa <= 2) { n[2] += 10; if (n[2] > 59) n[2] -= 60; }
+        break;
+      case 'R7':
+        if (S.modeflag < 10) { S.bf3 = S.modeflag; S.modeflag = 12; }
+        break;
+      case 'R9':
+        S.keta = (S.keta === 1) ? 10 : 1; SetKeta();
+        break;
+      case 'E':
+        if (S.modeflag === 0) { S.sethour = S.nowhour; S.setmin = S.nowmin; S.setsec = S.nowsec; S.modeflag = 10; }
+        else if (S.modeflag === 10) S.modeflag = 0;
+        break;
+    }
+  }
+
+  function pushE() {
+    var n = S.n;
+    switch (S.modeflag) {
+      case 1:
+        if (S.numketa === 9) S.numketa = 2;
+        else {
+          S.pcstarttime = n[0] * 36000 + n[1] * 600 + n[2] * 10;
+          S.bfpcstarttime = S.pcstarttime;
+          S.numketa = 9;
+          if (S.cpflag) { PushCP(); SetAve(S.ave); S.numketa = 4; S.modeflag = 2; }
+        }
+        n[0] = idiv(S.pcstarttime, 36000); n[1] = idiv(idiv(S.pcstarttime, 10) % 3600, 60); n[2] = idiv(S.pcstarttime, 10) % 60;
+        break;
+      case 2:
+        if (S.numketa === 9) S.numketa = 4;
+        else {
+          S.ave = n[3] * 100 + n[4] * 10 + n[5];
+          S.numketa = 9;
+          if (S.cpflag) S.modeflag = 0;
+          S.cpflag = false;
+        }
+        SetAve(S.ave);
+        break;
+      case 3:
+        if (S.numketa === 9) S.numketa = 1;
+        else { S.rc = n[1] * 600 + n[2] * 10; S.numketa = 9; }
+        n[1] = idiv(idiv(S.rc, 10) % 3600, 60); n[2] = idiv(S.rc, 10) % 60;
+        break;
+      case 4: if (!S.tripChold) S.holdtripC = S.tripC; S.tripChold = !S.tripChold; break;
+      case 5: if (!S.tripPhold) S.holdtripP = S.tripP; S.tripPhold = !S.tripPhold; break;
+      case 6: S.cntE = 0; break;
+      case 41:
+        S.cptrip[S.cpnum] = S.pcdist; S.cpflagbit[S.cpnum] = 1;          // SavePCDist
+        S.cpnum++; if (S.cpnum > 49) S.cpnum = 49;
+        S.loadcpnum = S.cpnum;
+        S.ave = n[3] * 100 + n[4] * 10 + n[5];
+        S.pcflag = false;
+        S.modeflag = 0;
+        break;
+    }
+  }
+
+  function ReadyCP() {
+    S.stocktripP = S.tripP; S.stocktripC = S.tripC;
+    S.holdfinal = S.finaltime; S.holdfinalflag = S.finalflag;
+    S.cntC = 0; S.cntP = 0;
+    S.n[0] = idiv(S.nowtime, 36000); S.n[1] = idiv(idiv(S.nowtime, 10) % 3600, 60); S.n[2] = idiv(S.nowtime, 10) % 60;
+    S.modeflag = 1; S.cpflag = true; S.numketa = 2;
+  }
+  function PushCP() {
+    S.cptrip[S.cpnum] = S.stocktripP; S.cpflagbit[S.cpnum] = 0;
+    S.stocktripP = 0; S.stocktripC = 0; S.rc = 0; S.tripBdisp = false;
+    S.cpnum++; if (S.cpnum > 49) S.cpnum = 0;
+    S.loadcpnum = S.cpnum;
+  }
+  function ReadyPC() {
+    S.pcflag = true;
+    S.pcdist = S.tripP;
+    S.stocktripP = 0; S.cntP = 0;
+    S.holdfinal = S.finaltime; S.holdfinalflag = S.finalflag;
+    var pre = Math.trunc(S.pcdist / (S.ave / 10.0 / 3.6)) * 10;
+    var h = idiv(pre, 36000), m = idiv(idiv(pre, 10) % 3600, 60), s = idiv(pre, 10) % 60;
+    S.pcstarttime = h * 36000 + m * 600 + s * 10 + S.bfpcstarttime;
+    S.bfpcstarttime = S.pcstarttime;
+    SetAve(S.ave);
+    S.modeflag = 41; S.numketa = 4;
+  }
+  function TripAClear() {
+    if (S.tripAhold2) {
+      S.tripAhold2 = false;
+      S.tripAnum = Math.min(S.tripAnum + 1, 99);
+      S.loadtripAnum = S.tripAnum;
+    } else {
+      S.stocktripA[S.tripAnum] = S.tripA;
+      S.holdtripA = S.tripA;
+      S.cntA = 0;
+      S.tripAhold2 = true;
+      S.loadtripAnum = S.tripAnum;
+    }
+  }
+  function TripBClear() {
+    if (S.tripBhold2) {
+      S.tripBhold2 = false;
+      if (!S.pretripBdisp) S.tripBdisp = false;
+      S.tripBnum = Math.min(S.tripBnum + 1, 29);
+      S.loadtripBnum = S.tripBnum;
+    } else {
+      S.stocktripB[S.tripBnum] = S.tripB;
+      S.holdtripB = S.tripB;
+      S.cntB = 0;
+      S.tripBhold2 = true;
+      S.loadtripBnum = S.tripBnum;
+      S.pretripBdisp = S.tripBdisp;
+      S.tripBdisp = true;
+    }
+  }
+  function PushCalib() {
+    if (S.modeflag < 10) {
+      if (S.modeflag === 1) {
+        if (S.cpflag) { S.modeflag = 0; S.cpflag = false; }
+        else { S.bf2 = S.modeflag; S.modeflag = 11; }
+      } else if (!S.cpflag) { S.bf2 = S.modeflag; S.modeflag = 11; }
+    } else if (S.modeflag === 10) {
+      var real = new Date(Date.now() + clockOffset);
+      var target = new Date(real.getTime());
+      target.setHours(S.sethour, S.setmin, S.setsec, 0);
+      clockOffset += target.getTime() - real.getTime();
+      S.modeflag = 0;
+    } else if (S.modeflag === 11) {
+      S.modeflag = (S.bf2 === 1) ? 1 : 0;
+      S.P_keisu = (S.makekeisu > 0 && S.makekeisu < 100000) ? S.makekeisu / 10000.0 : 1.0;
+      S.calibketa = 0;
+    }
+  }
+  function PushLog() {
+    if (S.modeflag <= 6) {
+      S.bf1 = S.modeflag; S.modeflag = 21;
+      S.loadtripAnum = S.tripAnum; S.loadtripBnum = S.tripBnum; S.loadcpnum = S.cpnum;
+      S.clockadjustketa = 2;
+    } else if (S.modeflag === 21) S.modeflag = S.bf1;
+  }
+
+  // ================================================================
+  //  メインループ（スケッチの loop と同じ順）
+  // ================================================================
+  var speed = 0, realMeters = 0, lastMs = Date.now();
+
+  function loop() {
+    var ms = Date.now();
+    var dt = Math.min(0.5, (ms - lastMs) / 1000);
+    lastMs = ms;
+
+    // 車速パルス（パルス数4のセンサーとして発生させる）
+    var meters = speed / 3.6 * dt;
+    if (S.tripflag !== 0) realMeters += (S.tripflag === 1 ? meters : -meters);
+    var pulses = meters / PULSE_M;
+    var sgn = S.tripflag === 1 ? 1 : (S.tripflag === 2 ? -1 : 0);
+    S.cntA += sgn * pulses; S.cntB += sgn * pulses; S.cntC += sgn * pulses; S.cntP += sgn * pulses; S.cntE += sgn * pulses;
+
+    SetPulseTrip();
+
+    // 時刻（RTC相当）
+    var now = new Date(ms + clockOffset);
+    S.nowmilli = Math.floor(now.getMilliseconds() / 100);
+    S.nowtime = now.getHours() * 36000 + now.getMinutes() * 600 + now.getSeconds() * 10 + S.nowmilli;
+    S.nowhour = idiv(S.nowtime, 36000);
+    S.nowmin = idiv(idiv(S.nowtime, 10) % 3600, 60);
+    S.nowsec = idiv(S.nowtime, 10) % 60;
+
+    // ファイナル
+    var passtime = S.nowtime - (S.pcstarttime + S.rc);
+    if (passtime < -432000) passtime += 864000;
+    var byousoku = S.ave / 10 / 3.6;
+    if (byousoku > 0) {
+      var seikai = passtime / 10.0 * byousoku;
+      var gosa = S.tripP - seikai;
+      if (gosa < 0) { gosa = -gosa; S.finalflag = false; } else S.finalflag = true;
+      S.finaltime = Math.trunc(gosa / byousoku * 10.0);
+      S._ideal = seikai;
+    } else { S.finaltime = 0; S.finalflag = true; S._ideal = 0; }
+
+    S.blink = Math.floor(S.nowmilli / 3) !== 0;
+
+    switch (S.modeflag) {
+      case 0: DispClock(); DispFinal(ms); DispTripA(2); break;
+      case 1: DispPCStart(); DispFinal(ms); DispTripA(2); break;
+      case 2: DispAve(); DispFinal(ms); DispTripA(2); break;
+      case 3: DispRc(); DispFinal(ms); DispTripA(2); break;
+      case 4: DispTripC(); DispFinal(ms); DispTripA(2); break;
+      case 5: DispTripP(); DispFinal(ms); DispTripA(2); break;
+      case 6: DispTripE(); DispFinal(ms); DispTripA(2); break;
+      case 10: DispClockAdjust(); DispFinal(ms); DispTripA(2); break;
+      case 11: DispCalib(); DispFinal(ms); DispTripA(2); break;
+      case 12: DispClock(); DispLed(); DispPulse(); break;
+      case 21: DispLogP(); DispLogA(); DispLogB(); break;
+      case 41: DispAve(); DispFinal(ms); DispTripA(2); break;
+      default: DispTripA(2);
+    }
+    DispEx();
+    DispDirection(ms);
+
+    draw();
+    drawInfo();
+  }
+
+  // ================================================================
+  //  描画
+  // ================================================================
+  var SHAPES = [
+    ['a', '8,4 32,4 35,7 32,10 8,10 5,7'], ['b', '30,10 33,7 36,10 36,30 33,33 30,30'],
+    ['c', '30,40 33,37 36,40 36,60 33,63 30,60'], ['d', '8,60 32,60 35,63 32,66 8,66 5,63'],
+    ['e', '4,40 7,37 10,40 10,60 7,63 4,60'], ['f', '4,10 7,7 10,10 10,30 7,33 4,30'],
+    ['g', '8,32 32,32 35,35 32,38 8,38 5,35']
+  ];
+  var BIT = { a: 0x40, b: 0x20, c: 0x10, d: 0x08, e: 0x04, f: 0x02, g: 0x01 };
+  function digits(cells, x, y, s, pitch, on, off) {
+    var o = '<g transform="translate(' + x + ',' + y + ') scale(' + s + ')">';
+    for (var i = 0; i < cells.length; i++) {
+      var v = cells[i];
+      o += '<g transform="translate(' + (i * pitch) + ',0) skewX(-6)">';
+      for (var k = 0; k < SHAPES.length; k++) o += '<polygon points="' + SHAPES[k][1] + '" class="' + ((v & BIT[SHAPES[k][0]]) ? on : off) + '"/>';
+      o += '<circle cx="41.5" cy="63" r="3.4" class="' + ((v & 0x80) ? on : off) + '"/></g>';
+    }
+    return o + '</g>';
+  }
+
+  var MODE_INDEX = { 0: 0, 10: 0, 1: 1, 2: 2, 41: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
+  var BUTTONS = [
+    { id: 'E',  x: 144, y: 158, r: 44, fill: '#ffffff', label: 'E',  lx: 144, ly: 98,  name: 'Eボタン' },
+    { id: 'PC', x: 144, y: 310, r: 44, fill: '#0047ff', label: 'PC', lx: 144, ly: 250, name: 'PCボタン' },
+    { id: 'CP', x: 144, y: 463, r: 44, fill: '#ff1a1a', label: 'CP', lx: 144, ly: 403, name: 'CPボタン' },
+    { id: 'R9', x: 841, y: 310, r: 44, fill: '#00a312', label: 'LOG / m', lx: 841, ly: 254, name: 'LOG／mボタン' },
+    { id: 'R7', x: 968, y: 310, r: 44, fill: '#333333', label: 'SELECT', lx: 968, ly: 254, name: 'SELECTボタン' },
+    { id: 'R5', x: 1097, y: 310, r: 44, fill: '#ffffff', label: '', name: '上のCボタン（TripB）' },
+    { id: 'R8', x: 968, y: 463, r: 44, fill: '#ff1a1a', label: 'CALIB', lx: 968, ly: 406, name: 'CALIBボタン' },
+    { id: 'R6', x: 1097, y: 463, r: 44, fill: '#ffffff', label: '', name: '下のCボタン（TripA）' }
+  ];
+
+  var device = document.getElementById('device');
+  var displayLayer, extEl = document.getElementById('ext');
+
+  function buildDevice() {
+    var t = function (x, y, s, size, extra) {
+      return '<text x="' + x + '" y="' + y + '" text-anchor="middle" font-size="' + size + '" fill="#ffffff" font-family="sans-serif" ' + (extra || '') + '>' + s + '</text>';
+    };
+    var o = '<svg viewBox="0 0 1280 620" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="2" y="2" width="1276" height="616" rx="76" fill="#5f5f5f" stroke="#2b2b2b" stroke-width="3"/>' +
+      '<rect x="62" y="62" width="1156" height="496" rx="14" fill="#2a2a2a"/>' +
+      '<rect x="70" y="70" width="1140" height="480" rx="10" fill="#000"/>' +
+      '<path d="M213 87 h604 a10 10 0 0 1 10 10 v123 a10 10 0 0 1 -10 10 h-180 a10 10 0 0 0 -10 10 v284 a10 10 0 0 1 -10 10 h-404 a10 10 0 0 1 -10 -10 v-427 a10 10 0 0 1 10 -10 z" fill="#161616"/>' +
+      '<g id="disp"></g>' +
+      // モードの一覧
+      '<rect x="640" y="245" width="115" height="199" rx="8" fill="none" stroke="#fff" stroke-width="2"/>' +
+      '<line x1="699" y1="232" x2="699" y2="245" stroke="#fff" stroke-width="5"/>';
+    var labels = [['CLOCK', ''], ['START', 'Time'], ['AVE', 'Speed'], ['REST', 'Control'], ['CP', 'Trip'], ['PC', 'Trip'], ['EX', 'Trip']];
+    for (var i = 0; i < labels.length; i++) {
+      o += '<text id="ml' + i + '" class="mode-label" x="646" y="' + (271 + i * 26.5) + '" font-size="21" font-family="sans-serif">' + labels[i][0] +
+           '<tspan font-size="12" dx="3">' + labels[i][1] + '</tspan></text>';
+    }
+    // ボタン
+    for (var j = 0; j < BUTTONS.length; j++) {
+      var b = BUTTONS[j];
+      if (b.label) o += t(b.lx, b.ly, b.label, b.label.length > 2 ? 26 : 34);
+      o += '<g class="btn" data-id="' + b.id + '" role="button" tabindex="0" aria-label="' + b.name + '">' +
+           '<circle class="ring" cx="' + b.x + '" cy="' + b.y + '" r="' + (b.r + 4) + '" fill="#111" stroke="none"/>' +
+           '<circle class="cap" cx="' + b.x + '" cy="' + b.y + '" r="' + b.r + '" fill="' + b.fill + '"/></g>';
+    }
+    o += t(1160, 328, 'C', 40) + t(1160, 481, 'C', 40);
+    // ジョイスティック ◀▶
+    o += '<rect x="947" y="94" width="26" height="72" rx="4" fill="#666" stroke="#222" stroke-width="2"/>' +
+         '<ellipse cx="960" cy="130" rx="30" ry="34" fill="#222"/><rect x="950" y="92" width="20" height="76" rx="3" fill="#888"/>';
+    o += '<g class="btn" data-id="R3" role="button" tabindex="0" aria-label="◀（前の画面・左の桁）"><polygon class="cap" points="905,130 932,110 932,150" fill="#fff"/><rect class="ring" x="895" y="100" width="45" height="60" fill="transparent"/></g>';
+    o += '<g class="btn" data-id="R4" role="button" tabindex="0" aria-label="▶（次の画面・右の桁）"><polygon class="cap" points="1015,130 988,110 988,150" fill="#fff"/><rect class="ring" x="980" y="100" width="45" height="60" fill="transparent"/></g>';
+    // NEXT／BACK レバー
+    o += '<ellipse cx="1119" cy="132" rx="30" ry="26" fill="#222"/><rect x="1080" y="122" width="78" height="20" rx="3" fill="#888"/>' +
+         t(1182, 143, '00', 30) + t(1170, 100, 'NEXT', 20) + t(1170, 182, 'BACK', 20);
+    o += '<g class="btn" data-id="R2" role="button" tabindex="0" aria-label="NEXT（数字を増やす）"><polygon class="cap" points="1119,72 1100,100 1138,100" fill="#fff"/><rect class="ring" x="1092" y="66" width="54" height="40" fill="transparent"/></g>';
+    o += '<g class="btn" data-id="R1" role="button" tabindex="0" aria-label="BACK（数字を減らす）"><polygon class="cap" points="1119,192 1100,164 1138,164" fill="#fff"/><rect class="ring" x="1092" y="158" width="54" height="40" fill="transparent"/></g>';
+    // F/N/R レバー
+    o += '<g class="btn" data-id="LEVER" role="button" tabindex="0" aria-label="進行方向レバー（F／N／R）">' +
+         '<rect class="ring" x="808" y="395" width="96" height="100" fill="transparent"/>' +
+         '<circle cx="840" cy="460" r="24" fill="#1d1d1d"/><g id="lever"></g>' +
+         '<rect x="875" y="403" width="22" height="84" rx="11" fill="none" stroke="#fff" stroke-width="2"/>' +
+         t(886, 424, 'F', 16) + t(886, 450, 'N', 16) + t(886, 476, 'R', 16) + '</g>';
+    // ロゴ
+    o += '<text x="632" y="528" font-size="30" font-weight="700" fill="#fff" font-family="sans-serif" font-style="italic">ARM Rally Computer</text>' +
+         '<text x="1200" y="530" text-anchor="end" font-size="15" fill="#fff" font-family="sans-serif" font-style="italic">CALIB = ARM / ROAD BOOK</text>';
+    o += '</svg>';
+    device.innerHTML = o;
+    displayLayer = device.querySelector('#disp');
+  }
+
+  var lastKey = '';
+  function draw() {
+    var op = [0.42, 0.72, 1][S.bright] || 1;
+    var o = '<g opacity="' + op + '">' +
+      digits(buf[0].slice(0, 6), 286, 104, 1.5, 57, 'r-on', 'r-off') +
+      digits(buf[1].slice(0, 4), 262, 255, 1.58, 54, 'r-on', 'r-off') +
+      digits(buf[2].slice(0, 4), 242, 410, 1.55, 58, 'g-on', 'g-off');
+    // 中段左の2色LED（DIG5の点＝緑：早着、DIG7の点＝赤：遅れ）
+    var gOn = buf[1][5] & 0x80, rOn = buf[1][7] & 0x80;
+    o += '<circle cx="227" cy="334" r="9" fill="' + (rOn ? '#ff2a12' : (gOn ? '#2cff3a' : '#2a1a1a')) + '"' +
+         ((rOn || gOn) ? ' style="filter:drop-shadow(0 0 5px ' + (rOn ? '#ff2a12' : '#2cff3a') + ')"' : '') + '/>';
+    // 進行方向LED（DIG5の点、下段の左）：このデバイスは黄色
+    var dOn = buf[2][5] & 0x80;
+    o += '<circle cx="222" cy="512" r="7" fill="' + (dOn ? '#ffd400' : '#2e2a14') + '"' + (dOn ? ' style="filter:drop-shadow(0 0 4px #ffd400)"' : '') + '/>';
+    o += '</g>';
+    if (o !== lastKey) { displayLayer.innerHTML = o; lastKey = o; }
+
+    // モードの一覧（シミュレーターの補助表示）
+    var cur = (S.modeflag in MODE_INDEX) ? MODE_INDEX[S.modeflag] : -1;
+    for (var i = 0; i < 7; i++) {
+      var el = document.getElementById('ml' + i);
+      var c = (i === cur) ? 'mode-label cur' : 'mode-label';
+      if (el.getAttribute('class') !== c) el.setAttribute('class', c);
+    }
+    // レバー
+    var lv = device.querySelector('#lever');
+    var ly = S.tripflag === 1 ? 420 : (S.tripflag === 2 ? 476 : 448);
+    var lk = 'lv' + S.tripflag;
+    if (lv.getAttribute('data-k') !== lk) {
+      lv.setAttribute('data-k', lk);
+      lv.innerHTML = '<line x1="840" y1="460" x2="840" y2="' + ly + '" stroke="#bfc3c8" stroke-width="16" stroke-linecap="round"/>' +
+                     '<circle cx="840" cy="' + ly + '" r="11" fill="#d9dce0"/>';
+    }
+    // 外部ディスプレイ
+    var ex = '<svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="2" y="2" width="356" height="136" rx="14" fill="#0b0b0b" stroke="#444" stroke-width="2"/>' +
+      '<g opacity="' + op + '">' + digits(buf[3].slice(0, 4), 70, 24, 1.3, 54, 'r-on', 'r-off') +
+      '<circle cx="40" cy="70" r="8" fill="' + ((buf[3][7] & 0x80) ? '#ff2a12' : ((buf[3][5] & 0x80) ? '#2cff3a' : '#2a1a1a')) + '"/></g></svg>';
+    if (extEl._k !== ex) { extEl.innerHTML = ex; extEl._k = ex; }
+  }
+
+  function fmtHMS(t) {
+    var h = idiv(t, 36000), m = idiv(idiv(t, 10) % 3600, 60), s = idiv(t, 10) % 60;
+    return (h < 10 ? ' ' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  var infoEls = {};
+  ['realdist', 'a-start', 'a-ave', 'a-rc', 'a-ideal', 'a-p', 'a-diff'].forEach(function (k) { infoEls[k] = document.getElementById(k); });
+  var infoTick = 0;
+  function drawInfo() {
+    if (++infoTick % 5) return;
+    infoEls['realdist'].textContent = (realMeters / 1000).toFixed(3);
+    infoEls['a-start'].textContent = fmtHMS(S.pcstarttime);
+    infoEls['a-ave'].textContent = (S.ave / 10).toFixed(1) + ' km/h';
+    infoEls['a-rc'].textContent = idiv(S.rc, 600) + '分' + (idiv(S.rc, 10) % 60) + '秒';
+    infoEls['a-ideal'].textContent = (S._ideal / 1000).toFixed(3) + ' km';
+    infoEls['a-p'].textContent = (S.tripP / 1000).toFixed(3) + ' km';
+    infoEls['a-diff'].textContent = (S.finalflag ? '早着 ' : '遅れ ') + (S.finaltime / 10).toFixed(1) + ' 秒';
+  }
+
+  // ================================================================
+  //  入力（マウス・タッチ・キーボード）
+  // ================================================================
+  var LONG_MS = 800;
+  var held = {};          // id -> {t0, longDone, timer}
+  function press(id) {
+    if (held[id]) return;
+    if (id === 'LEVER') { cycleLever(); return; }
+    var h = { t0: Date.now(), longDone: false };
+    h.timer = setTimeout(function () { h.longDone = true; longPress(id); }, LONG_MS);
+    held[id] = h;
+    setDown(id, true);
+  }
+  function release(id) {
+    var h = held[id];
+    if (!h) return;
+    clearTimeout(h.timer);
+    if (!h.longDone && Date.now() - h.t0 >= 30) shortPress(id);
+    delete held[id];
+    setDown(id, false);
+  }
+  function setDown(id, on) {
+    var g = device.querySelector('.btn[data-id="' + id + '"]');
+    if (g) g.classList.toggle('down', on);
+  }
+  function cycleLever() { setDir(S.tripflag === 1 ? 0 : (S.tripflag === 0 ? 2 : 1)); }
+  function setDir(v) {
+    S.tripflag = v;
+    var bs = document.querySelectorAll('.seg button');
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(Number(bs[i].getAttribute('data-dir')) === v));
+  }
+
+  function bindDevice() {
+    device.addEventListener('pointerdown', function (e) {
+      var g = e.target.closest('.btn'); if (!g) return;
+      e.preventDefault();
+      try { g.setPointerCapture(e.pointerId); } catch (err) {}
+      press(g.getAttribute('data-id'));
+    });
+    var up = function (e) { var g = e.target.closest('.btn'); if (g) release(g.getAttribute('data-id')); };
+    device.addEventListener('pointerup', up);
+    device.addEventListener('pointercancel', up);
+    device.addEventListener('contextmenu', function (e) { if (e.target.closest('.btn')) e.preventDefault(); });
+    device.addEventListener('keydown', function (e) {
+      var g = e.target.closest('.btn'); if (!g || e.repeat) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); press(g.getAttribute('data-id')); }
+    });
+    device.addEventListener('keyup', function (e) {
+      var g = e.target.closest('.btn'); if (!g) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); release(g.getAttribute('data-id')); }
+    });
+  }
+
+  var KEYMAP = {
+    'e': 'E', 'p': 'PC', 'c': 'CP', 'arrowleft': 'R3', 'arrowright': 'R4', 'arrowup': 'R2', 'arrowdown': 'R1',
+    'l': 'R9', 's': 'R7', 'k': 'R8', 'b': 'R5', 'a': 'R6'
+  };
+  window.addEventListener('keydown', function (e) {
+    if (e.target.closest && e.target.closest('input, .btn')) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key.toLowerCase();
+    if (k === 'f') { setDir(1); return; }
+    if (k === 'n') { setDir(0); return; }
+    if (k === 'r') { setDir(2); return; }
+    if (k === '+' || k === '=' || k === ';') { setSpeed(speed + 5); e.preventDefault(); return; }
+    if (k === '-' || k === '_') { setSpeed(speed - 5); e.preventDefault(); return; }
+    if (k === '0') { setSpeed(0); return; }
+    var id = KEYMAP[k];
+    if (!id) return;
+    e.preventDefault();
+    if (!e.repeat) press(id);
+  });
+  window.addEventListener('keyup', function (e) {
+    var id = KEYMAP[e.key.toLowerCase()];
+    if (id) release(id);
+  });
+  window.addEventListener('blur', function () { Object.keys(held).forEach(release); });
+
+  var spdIn = document.getElementById('spd'), spdV = document.getElementById('spdv');
+  function setSpeed(v) {
+    speed = Math.max(0, Math.min(150, v));
+    spdIn.value = speed; spdV.textContent = speed;
+  }
+  spdIn.addEventListener('input', function () { setSpeed(Number(spdIn.value)); });
+  document.getElementById('stop').addEventListener('click', function () { setSpeed(0); });
+  document.getElementById('power').addEventListener('click', function () { powerOn(); });
+  var segs = document.querySelectorAll('.seg button');
+  for (var i = 0; i < segs.length; i++) segs[i].addEventListener('click', function () { setDir(Number(this.getAttribute('data-dir'))); });
+
+  // ================================================================
+  powerOn();
+  buildDevice();
+  bindDevice();
+  setDir(1);
+  setInterval(loop, 20);
+  loop();
+})();
+</script>
+</body>
+</html>
