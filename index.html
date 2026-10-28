@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>取扱説明書｜rally-arm.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --ink: #1c2127;
+  --sub: #5b6470;
+  --rule: #d5dadf;
+  --soft: #f2f4f6;
+  --panel: #17191c;
+  --panel-edge: #2a2e33;
+  --led: #ff3a1f;
+  --led-off: rgba(255, 58, 31, 0.09);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238;
+    --soft: #1a1e23; --panel: #08090a; --panel-edge: #23272c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238;
+  --soft: #1a1e23; --panel: #08090a; --panel-edge: #23272c;
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  -webkit-text-size-adjust: 100%;
+}
+.page { max-width: 820px; margin: 0 auto; padding: 0 24px 64px; }
+
+/* ---------- 見出し ---------- */
+.cover { padding: 56px 0 36px; border-bottom: 6px solid var(--ink); }
+.cover h1 {
+  font-family: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-weight: 400;
+  font-size: clamp(44px, 10vw, 84px);
+  line-height: 1.05;
+  margin: 0;
+}
+.cover p { margin: 14px 0 0; font-size: clamp(15px, 2.6vw, 18px); font-weight: 700; }
+
+/* ---------- 製品一覧 ---------- */
+.products { list-style: none; margin: 0; padding: 0; }
+.product {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.product h2 {
+  font-family: "Dela Gothic One", "Hiragino Sans", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+.product .type { font-weight: 700; margin: 0 0 6px; }
+.product .desc { color: var(--sub); font-size: 14px; margin: 0 0 14px; max-width: 34em; }
+.open {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+}
+.open:hover { background: var(--led); color: #ffffff; }
+.open:focus-visible { outline: 3px solid var(--led); outline-offset: 2px; }
+.soon {
+  display: inline-block;
+  border: 1.5px dashed var(--sub);
+  color: var(--sub);
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+.product.pending .lcd { opacity: 0.55; }
+
+/* ---------- 7セグ表示 ---------- */
+.lcd {
+  background: var(--panel);
+  border: 3px solid var(--panel-edge);
+  border-radius: 10px;
+  padding: 12px 14px 10px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.lcd .row { display: flex; align-items: center; gap: 8px; }
+.lcd .row + .row { margin-top: 8px; }
+.lcd svg { display: block; height: auto; }
+.lcd .top svg { width: 86%; }
+.lcd .bottom svg { width: 58%; }
+.lcd .lamp { width: 9px; height: 9px; border-radius: 50%; background: var(--led-off); flex: none; }
+.seg-on { fill: var(--led); }
+.seg-off { fill: var(--led-off); }
+@media screen { .lcd .seg-on { filter: drop-shadow(0 0 3px rgba(255, 58, 31, 0.55)); } }
+
+footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  color: var(--sub);
+  font-size: 13px;
+}
+footer a { color: var(--ink); }
+
+@media (max-width: 560px) {
+  .page { padding: 0 16px 48px; }
+  .product { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .product .lcd { max-width: 260px; }
+}
+@media print {
+  :root, :root[data-theme="dark"] {
+    --paper: #ffffff; --ink: #1c2127; --sub: #5b6470; --rule: #c9ced4;
+    --panel: #17191c; --panel-edge: #2a2e33; color-scheme: light; padding: 0;
+  }
+  .page { max-width: none; padding: 0; }
+  .product { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="cover">
+  <h1>取扱説明書</h1>
+  <p>rally-arm.com のラリー用機器</p>
+</header>
+
+<!--
+  製品の追加・公開のしかた
+  ・公開済み：<li class="product"> に「取扱説明書を開く」リンクを置く
+  ・準備中　：<li class="product pending"> にして、リンクの代わりに <span class="soon">準備中</span>
+-->
+<ul class="products">
+
+  <li class="product">
+    <div class="lcd" data-top=" SS   " data-bottom="2027" role="img" aria-label="SS2027"></div>
+    <div>
+      <h2>SS2027</h2>
+      <p class="type">パルス式ラリートリップメーター</p>
+      <p class="desc">車速パルスで距離と速度を測定。0.1秒単位のステージ計測、1kmスプリット、Ave早遅のファイナル表示、速度警告に対応。</p>
+      <a class="open" href="ss2027.html">取扱説明書を開く</a>
+    </div>
+  </li>
+
+  <li class="product pending">
+    <div class="lcd" data-top=" GPS  " data-bottom="2027" role="img" aria-label="GPS2027"></div>
+    <div>
+      <h2>GPS2027</h2>
+      <p class="type">GPSラリートリップメーター</p>
+      <p class="desc">GPSの速度から距離を測定し、時刻もGPSで合わせるモデル。</p>
+      <span class="soon">準備中</span>
+    </div>
+  </li>
+
+  <li class="product pending">
+    <div class="lcd" data-top=" G-C  " data-bottom="----" role="img" aria-label="G-Compact"></div>
+    <div>
+      <h2>G-Compact</h2>
+      <p class="type">追加予定モデル</p>
+      <p class="desc">詳細は決まりしだい掲載します。</p>
+      <span class="soon">準備中</span>
+    </div>
+  </li>
+
+</ul>
+
+<footer><a href="https://www.rally-arm.com/">rally-arm.com</a> へ戻る</footer>
+</div>
+
+<script>
+(function () {
+  // MAX7219 の setRow と同じビット配置：DP a b c d e f g
+  var SEG = {
+    '0':0x7E,'1':0x30,'2':0x6D,'3':0x79,'4':0x33,'5':0x5B,'6':0x5F,'7':0x70,'8':0x7F,'9':0x7B,
+    'S':0x5B,'P':0x67,'A':0x77,'F':0x47,'t':0x0F,'-':0x01,'L':0x0E,'E':0x4F,'d':0x3D,
+    'U':0x3E,'n':0x15,'i':0x04,'r':0x05,'c':0x0D,'C':0x4E,'O':0x7E,'G':0x5E,' ':0x00
+  };
+  var SHAPES = [
+    ['a', '8,4 32,4 35,7 32,10 8,10 5,7'],
+    ['b', '30,10 33,7 36,10 36,30 33,33 30,30'],
+    ['c', '30,40 33,37 36,40 36,60 33,63 30,60'],
+    ['d', '8,60 32,60 35,63 32,66 8,66 5,63'],
+    ['e', '4,40 7,37 10,40 10,60 7,63 4,60'],
+    ['f', '4,10 7,7 10,10 10,30 7,33 4,30'],
+    ['g', '8,32 32,32 35,35 32,38 8,38 5,35']
+  ];
+  var BIT = { a:0x40, b:0x20, c:0x10, d:0x08, e:0x04, f:0x02, g:0x01 };
+  var CW = 47, CH = 70;
+
+  function parse(str, n) {
+    var cells = [];
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i];
+      if (ch === '.') { if (cells.length) cells[cells.length - 1] |= 0x80; else cells.push(0x80); continue; }
+      cells.push(SEG.hasOwnProperty(ch) ? SEG[ch] : 0);
+    }
+    while (cells.length < n) cells.push(0);
+    return cells.slice(0, n);
+  }
+  function svg(cells) {
+    var w = cells.length * CW + 6;
+    var s = '<svg viewBox="0 0 ' + w + ' ' + (CH + 2) + '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">';
+    for (var i = 0; i < cells.length; i++) {
+      var v = cells[i];
+      s += '<g transform="translate(' + (i * CW + 6) + ',1) skewX(-6)">';
+      for (var k = 0; k < SHAPES.length; k++) {
+        s += '<polygon points="' + SHAPES[k][1] + '" class="' + ((v & BIT[SHAPES[k][0]]) ? 'seg-on' : 'seg-off') + '"/>';
+      }
+      s += '<circle cx="41.5" cy="63" r="3.2" class="' + ((v & 0x80) ? 'seg-on' : 'seg-off') + '"/></g>';
+    }
+    return s + '</svg>';
+  }
+  var panels = document.querySelectorAll('.lcd');
+  for (var i = 0; i < panels.length; i++) {
+    var p = panels[i];
+    p.innerHTML =
+      '<div class="row top">' + svg(parse(p.getAttribute('data-top') || '', 6)) + '<span class="lamp"></span></div>' +
+      '<div class="row bottom">' + svg(parse(p.getAttribute('data-bottom') || '', 4)) + '</div>';
+  }
+})();
+</script>
+</body>
+</html>
