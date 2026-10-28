@@ -213,7 +213,6 @@ ol.steps ul { margin: 6px 0 0; }
 .lcd .lamp.blink { background: #ffffff; box-shadow: 0 0 6px rgba(255, 255, 255, 0.9); }
 .lcd .lamp.blink { animation: lampblink 1s steps(1) infinite; }
 @keyframes lampblink { 0% { opacity: 1; } 60% { opacity: 0.12; } }
-@media (prefers-reduced-motion: reduce) { .lcd .lamp.blink { animation: none; } }
 @media print { .lcd .lamp.blink { animation: none; } }
 .seg-on { fill: var(--led); }
 .seg-off { fill: var(--led-off); }
@@ -294,7 +293,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <header class="cover">
   <h1>SS2027</h1>
   <p class="subtitle">パルス式ラリートリップメーター 取扱説明書</p>
-  <div class="lcd" data-top="12.34.56" data-bottom="12.34" data-lamp="off" role="img" aria-label="時計画面の表示例 12時34分56秒、TripB 12.34km"></div>
+  <div class="lcd" data-demo="cover" data-top="12.34.56" data-bottom="12.34" data-lamp="off" role="img" aria-label="時計画面の表示例 12時34分56秒、TripB 12.34km"></div>
   <p class="meta">2026年10月版</p>
 </header>
 
@@ -329,6 +328,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
       <tr><td>速度警告</td><td>設定速度に近づくと上段の表示が点滅。</td></tr>
     </tbody>
   </table></div>
+  <div class="note"><p>このマニュアルの表示例の一部は動いています。時計はお使いのパソコンやスマートフォンの時刻と連動し、トリップや速度は時速36km（毎秒10m）で走っている想定で変化します。</p></div>
 </section>
 
 <!-- 2 表示部と入力 -->
@@ -398,19 +398,19 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <p class="lead">通常画面は5つあり、<span class="key blue">青</span> の短押しで順に切り替わります。5の次は1に戻ります。</p>
   <div class="screens">
     <figure>
-      <div class="lcd" data-top="12.34.56" data-bottom="12.34" role="img" aria-label="時計画面"></div>
+      <div class="lcd" data-demo="clock" data-top="12.34.56" data-bottom="12.34" role="img" aria-label="時計画面"></div>
       <figcaption><b>1 時計</b>時刻とTripB。RTCがないときは末尾の点が点滅します。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top=" 12.345" data-bottom="12.34" role="img" aria-label="TripA画面"></div>
+      <div class="lcd" data-demo="tripA" data-top=" 12.345" data-bottom="12.34" role="img" aria-label="TripA画面"></div>
       <figcaption><b>2 TripA</b>上段にTripA、下段にTripB。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top="S  45.3" data-bottom="12.34" role="img" aria-label="速度画面"></div>
+      <div class="lcd" data-demo="speed" data-top="S  45.3" data-bottom="12.34" role="img" aria-label="速度画面"></div>
       <figcaption><b>3 速度</b>「S」は現在速度、「P」は最高速。警告ONで2桁目に「A」。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top="Ft.-1.23" data-bottom="12.34" role="img" aria-label="ファイナル画面"></div>
+      <div class="lcd" data-demo="final" data-top="Ft.-1.23" data-bottom="12.34" role="img" aria-label="ファイナル画面"></div>
       <figcaption><b>4 ファイナル</b>Aveに対する早遅。7章を参照。</figcaption>
     </figure>
     <figure>
@@ -436,9 +436,9 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <h3>前進・停止・後退</h3>
   <p><span class="key">右下</span> の長押しで「前進 → 停止 → 後退」と切り替わり、上段左下の白いランプで状態がわかります。</p>
   <div class="screens">
-    <figure><div class="lcd" data-top=" 12.345" data-bottom="12.34" data-lamp="off" role="img" aria-label="前進 ランプ消灯"></div><figcaption><b>前進</b>ランプ消灯</figcaption></figure>
+    <figure><div class="lcd" data-demo="trip-fwd" data-top=" 12.345" data-bottom="12.34" data-lamp="off" role="img" aria-label="前進 ランプ消灯"></div><figcaption><b>前進</b>ランプ消灯</figcaption></figure>
     <figure><div class="lcd" data-top=" 12.345" data-bottom="12.34" data-lamp="on" role="img" aria-label="停止 ランプ点灯"></div><figcaption><b>停止</b>ランプ点灯</figcaption></figure>
-    <figure><div class="lcd" data-top=" 12.345" data-bottom="12.34" data-lamp="blink" role="img" aria-label="後退 ランプ点滅"></div><figcaption><b>後退</b>ランプ点滅</figcaption></figure>
+    <figure><div class="lcd" data-demo="trip-rev" data-top=" 12.345" data-bottom="12.34" data-lamp="blink" role="img" aria-label="後退 ランプ点滅"></div><figcaption><b>後退</b>ランプ点滅</figcaption></figure>
   </div>
   <div class="table-wrap"><table>
     <thead><tr><th>状態</th><th>ランプ</th><th>動作</th></tr></thead>
@@ -456,15 +456,15 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <p class="lead"><span class="key red">赤</span>（またはリモート）を押すと、次の「分」の00秒に向けてカウントダウンが始まります。タイムは0.1秒単位で、深夜0時をまたいでも正しく計測します。</p>
   <div class="screens">
     <figure>
-      <div class="lcd" data-top="   45. " data-bottom=" 0.00" role="img" aria-label="カウントダウン 残り45秒"></div>
+      <div class="lcd" data-demo="stage-cd" data-top="   45. " data-bottom=" 0.00" role="img" aria-label="カウントダウン 残り45秒"></div>
       <figcaption><b>カウントダウン</b>スタートまでの残り秒（最大60）。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top="  3.07.8" data-bottom=" 2.41" role="img" aria-label="計測中 3分07秒8"></div>
+      <div class="lcd" data-demo="stage-run" data-top="  3.07.8" data-bottom=" 2.41" role="img" aria-label="計測中 3分07秒8"></div>
       <figcaption><b>計測中</b>経過タイム。<span class="key blue">青</span> でTripA表示と切替。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top="S 2.418" data-bottom=" 2.41" role="img" aria-label="計測中のTripA表示"></div>
+      <div class="lcd" data-demo="stage-trip" data-top="S 2.418" data-bottom=" 2.41" role="img" aria-label="計測中のTripA表示"></div>
       <figcaption><b>計測中（TripA）</b>先頭の「S」が点滅します。</figcaption>
     </figure>
   </div>
@@ -549,8 +549,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
       <figcaption><b>最高速</b>「P」表示。速度画面で <span class="key">右上</span> 短押しで切替。</figcaption>
     </figure>
     <figure>
-      <div class="lcd" data-top="SA 45.3" data-bottom="12.34" role="img" aria-label="速度警告ON中の速度表示"></div>
-      <figcaption><b>警告ON</b>2桁目に「A」が出ます。</figcaption>
+      <div class="lcd" data-demo="speed-alert" data-top="SA 45.3" data-bottom="12.34" role="img" aria-label="速度警告ON中の速度表示"></div>
+      <figcaption><b>警告ON</b>2桁目に「A」。閾値30km/hを超えて36km/hで走っているので、速く点滅しています。</figcaption>
     </figure>
     <figure>
       <div class="lcd" data-top="A  . 30" data-bottom="12.34" role="img" aria-label="速度警告設定 閾値30km/h"></div>
@@ -695,17 +695,110 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     return s + '</svg>';
   }
 
+  // ---------- 表示部の描画 ----------
+  function render(p, top, bot, lamp) {
+    var key = top + '|' + bot + '|' + lamp;
+    if (p._key === key) return;            // 変化がなければ描き直さない
+    p._key = key;
+    var lampCls = (lamp === 'on' || lamp === 'blink') ? ' ' + lamp : '';
+    p.innerHTML =
+      '<div class="row top"><span class="lamp' + lampCls + '"></span>' + svg(parse(top, 6)) + '</div>' +
+      '<div class="row bottom"><span></span>' + svg(parse(bot, 4)) + '</div>';
+  }
+
+  // ---------- 本体と同じ表示の組み立て ----------
+  function d(n) { return String(Math.floor(n) % 10); }
+  var F = {
+    clock: function (h, m, s) {               // HH.MM.SS（時の十の位が0なら消灯）
+      return (h < 10 ? ' ' : d(h / 10)) + d(h) + '.' + d(m / 10) + d(m) + '.' + d(s / 10) + d(s);
+    },
+    tripA: function (m) {                     // 単位1：0.000〜99.999km
+      m = Math.max(0, Math.floor(m));
+      return (m >= 100000 ? d(m / 100000) : ' ') + (m >= 10000 ? d(m / 10000) : ' ') +
+             d(m / 1000) + '.' + d(m / 100) + d(m / 10) + d(m);
+    },
+    tripB: function (m) {                     // 0.00〜99.99km
+      m = Math.max(0, Math.floor(m));
+      return (m >= 10000 ? d(m / 10000) : ' ') + d(m / 1000) + '.' + d(m / 100) + d(m / 10);
+    },
+    stageTrip: function (m, sOn) {            // ステージ中のTripA（先頭の"S"が点滅）
+      m = Math.max(0, Math.floor(m));
+      return (sOn ? 'S' : ' ') + (m >= 10000 ? d(m / 10000) : ' ') +
+             d(m / 1000) + '.' + d(m / 100) + d(m / 10) + d(m);
+    },
+    speed: function (mark, v) {               // mark は2文字（"S " または "SA"）
+      var i = Math.floor(v), t = Math.floor(v * 10) % 10;
+      return mark + (v >= 100 ? d(i / 100) : ' ') + (v >= 10 ? d(i / 10) : ' ') + d(i) + '.' + t;
+    },
+    sw: function (t) {                        // ストップウォッチ（0.1秒単位）
+      t = Math.floor(t);
+      var h = Math.floor(t / 36000), m = Math.floor(t / 600) % 60, s = Math.floor(t / 10) % 60;
+      return (t >= 36000 ? d(h) + '.' : ' ') + (t >= 6000 ? d(m / 10) : ' ') +
+             (t >= 600 ? d(m) + '.' : ' ') + (t >= 100 ? d(s / 10) : ' ') + d(s) + '.' + d(t);
+    },
+    countdown: function (rest) {              // 残り秒（切り上げ）
+      var cd = Math.ceil(rest / 10);
+      return '   ' + (cd >= 10 ? d(cd / 10) : ' ') + d(cd) + '. ';
+    },
+    final: function (diff) {                  // "Ft.-1.23"（-＝遅れ）
+      var total = Math.min(35999, Math.round(Math.abs(diff)));
+      var h = Math.floor(total / 3600), m = Math.floor(total / 60) % 60, s = total % 60;
+      var sign = (diff < 0 && total > 0) ? '-' : ' ';
+      if (h > 0) return sign + d(h) + '.' + d(m / 10) + d(m) + '.' + d(s / 10) + d(s);
+      if (m >= 10) return 'F' + sign + d(m / 10) + d(m) + '.' + d(s / 10) + d(s);
+      return 'Ft.' + sign + d(m) + '.' + d(s / 10) + d(s);
+    }
+  };
+
+  // ---------- デモ（時速36km＝毎秒10mで走行中の想定） ----------
+  var T0 = Date.now();
+  function now() {
+    var dt = new Date();
+    return F.clock(dt.getHours(), dt.getMinutes(), dt.getSeconds());
+  }
+  var DEMO = {
+    'cover':       function (t) { return [now(), F.tripB(12340 + 10 * t)]; },
+    'clock':       function (t) { return [now(), F.tripB(12340 + 10 * t)]; },
+    'tripA':       function (t) { return [F.tripA(12345 + 10 * t), F.tripB(12340 + 10 * t)]; },
+    'speed':       function (t) { return [F.speed('S ', 36.0), F.tripB(12340 + 10 * t)]; },
+    'final':       function (t) { return [F.final(-83 - 0.1 * t), F.tripB(12340 + 10 * t)]; },   // Ave40で36km/h走行
+    'trip-fwd':    function (t) { return [F.tripA(12345 + 10 * t), F.tripB(12340 + 10 * t), 'off']; },
+    'trip-rev':    function (t) { return [F.tripA(12345 - 10 * t), F.tripB(12340 - 10 * t), 'blink']; },
+    'stage-cd':    function (t) { return [F.countdown(600 - Math.floor(t * 10) % 600), F.tripB(0)]; },
+    'stage-run':   function (t) { return [F.sw(1878 + t * 10), F.tripB(2410 + 10 * t)]; },
+    'stage-trip':  function (t) {
+      var sOn = (Date.now() % 1000) < 600;
+      return [F.stageTrip(2418 + 10 * t, sOn), F.tripB(2410 + 10 * t)];
+    },
+    'speed-alert': function (t) {           // 閾値30km/h以上 → 上段が速く点滅（ランプは残る）
+      var on = Math.floor(Date.now() / 100) % 2 === 0;
+      return [on ? F.speed('SA', 36.0) : '      ', F.tripB(12340 + 10 * t)];
+    }
+  };
+
   var panels = document.querySelectorAll('.lcd');
+  var live = [];
   for (var i = 0; i < panels.length; i++) {
     var p = panels[i];
-    var lampAttr = p.getAttribute('data-lamp');
-    var lampCls = (lampAttr === 'on' || lampAttr === 'blink') ? ' ' + lampAttr : '';
-    p.innerHTML =
-      '<div class="row top"><span class="lamp' + lampCls + '"></span>' +
-        svg(parse(p.getAttribute('data-top') || '', 6)) + '</div>' +
-      '<div class="row bottom"><span></span>' +
-        svg(parse(p.getAttribute('data-bottom') || '', 4)) + '</div>';
+    var name = p.getAttribute('data-demo');
+    if (name && DEMO[name]) {
+      live.push(p);
+    } else {
+      render(p, p.getAttribute('data-top') || '', p.getAttribute('data-bottom') || '', p.getAttribute('data-lamp') || '');
+    }
   }
+  function tick() {
+    var t = (Date.now() - T0) / 1000;
+    for (var i = 0; i < live.length; i++) {
+      var p = live[i];
+      var r = DEMO[p.getAttribute('data-demo')](t);
+      var lamp = r[2] || p.getAttribute('data-lamp') || '';
+      if (lamp === 'blink') lamp = (Date.now() % 1000) < 600 ? 'on' : 'off';
+      render(p, r[0], r[1], lamp);
+    }
+  }
+  tick();
+  if (live.length) setInterval(tick, 50);
 })();
 </script>
 </body>
