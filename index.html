@@ -104,16 +104,37 @@ body {
   background: var(--panel);
   border: 3px solid var(--panel-edge);
   border-radius: 10px;
-  padding: 12px 14px 10px;
+  padding: 14px 16px 12px;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
-.lcd .row { display: flex; align-items: center; gap: 8px; }
-.lcd .row + .row { margin-top: 8px; }
+/* 左の列は進行方向ランプ用。
+   桁の高さ比を 上段0.36インチ : 下段0.56インチ（1 : 1.56）にするため、
+   上段6桁の幅を下段4桁の幅の95.4%にしている */
+.lcd .row {
+  display: grid;
+  grid-template-columns: 6% 1fr;
+  column-gap: 3%;
+  align-items: end;
+}
+.lcd .row + .row { margin-top: 10px; }
 .lcd svg { display: block; height: auto; }
-.lcd .top svg { width: 86%; }
-.lcd .bottom svg { width: 58%; }
-.lcd .lamp { width: 9px; height: 9px; border-radius: 50%; background: var(--led-off); flex: none; }
+.lcd .top svg { width: 95.4%; }
+.lcd .bottom svg { width: 100%; }
+.lcd .lamp {
+  justify-self: center;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 8%;
+  background: rgba(255, 255, 255, 0.10);
+}
+.lcd .lamp.on,
+.lcd .lamp.blink { background: #ffffff; box-shadow: 0 0 6px rgba(255, 255, 255, 0.9); }
+.lcd .lamp.blink { animation: lampblink 1s steps(1) infinite; }
+@keyframes lampblink { 0% { opacity: 1; } 60% { opacity: 0.12; } }
+@media (prefers-reduced-motion: reduce) { .lcd .lamp.blink { animation: none; } }
+@media print { .lcd .lamp.blink { animation: none; } }
 .seg-on { fill: var(--led); }
 .seg-off { fill: var(--led-off); }
 @media screen { .lcd .seg-on { filter: drop-shadow(0 0 3px rgba(255, 58, 31, 0.55)); } }
@@ -238,9 +259,13 @@ footer a { color: var(--ink); }
   var panels = document.querySelectorAll('.lcd');
   for (var i = 0; i < panels.length; i++) {
     var p = panels[i];
+    var lampAttr = p.getAttribute('data-lamp');
+    var lampCls = (lampAttr === 'on' || lampAttr === 'blink') ? ' ' + lampAttr : '';
     p.innerHTML =
-      '<div class="row top">' + svg(parse(p.getAttribute('data-top') || '', 6)) + '<span class="lamp"></span></div>' +
-      '<div class="row bottom">' + svg(parse(p.getAttribute('data-bottom') || '', 4)) + '</div>';
+      '<div class="row top"><span class="lamp' + lampCls + '"></span>' +
+        svg(parse(p.getAttribute('data-top') || '', 6)) + '</div>' +
+      '<div class="row bottom"><span></span>' +
+        svg(parse(p.getAttribute('data-bottom') || '', 4)) + '</div>';
   }
 })();
 </script>
