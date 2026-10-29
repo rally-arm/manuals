@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>G-Compact 取扱説明書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --ink: #1c2127;
+  --sub: #5b6470;
+  --rule: #d5dadf;
+  --soft: #f2f4f6;
+  --panel: #17191c;
+  --panel-edge: #2a2e33;
+  --led: #ff3a1f;
+  --led-off: rgba(255, 58, 31, 0.09);
+  --lamp: #ffb21f;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238;
+    --soft: #1a1e23; --panel: #08090a; --panel-edge: #23272c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121519; --ink: #e6e9ed; --sub: #9aa3ad; --rule: #2c3238;
+  --soft: #1a1e23; --panel: #08090a; --panel-edge: #23272c;
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  -webkit-text-size-adjust: 100%;
+}
+.page { max-width: 820px; margin: 0 auto; padding: 0 24px 64px; }
+.back { padding-top: 20px; font-size: 13px; }
+.back a { color: var(--sub); }
+.back a:hover { color: var(--led); }
+
+/* ---------- 表紙 ---------- */
+.cover { padding: 56px 0 40px; border-bottom: 6px solid var(--ink); }
+.cover h1 {
+  font-family: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-weight: 400;
+  font-size: clamp(52px, 12vw, 104px);
+  line-height: 0.95;
+  margin: 0;
+}
+.cover .subtitle { font-size: clamp(17px, 3.2vw, 22px); font-weight: 700; margin: 14px 0 32px; }
+.cover .lcd { max-width: 460px; }
+.cover .meta { color: var(--sub); font-size: 13px; margin-top: 20px; }
+
+/* ---------- 目次 ---------- */
+.toc { padding: 28px 0 8px; }
+.toc h2 { font-size: 15px; margin: 0 0 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 32px; }
+.toc li { break-inside: avoid; border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 12px; padding: 7px 0; color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--led); }
+.toc a:focus-visible { outline: 2px solid var(--led); outline-offset: 2px; }
+.toc .no { font-weight: 700; min-width: 1.6em; color: var(--sub); }
+
+/* ---------- 章 ---------- */
+section.chapter { padding-top: 48px; }
+.chapter-head {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  border-top: 3px solid var(--ink);
+  margin-bottom: 20px;
+  break-after: avoid;
+}
+.chapter-head .no {
+  background: var(--ink); color: var(--paper);
+  font-family: "Dela Gothic One", sans-serif; font-size: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.chapter-head h2 {
+  font-family: "Dela Gothic One", "Hiragino Sans", sans-serif;
+  font-weight: 400; font-size: 26px; line-height: 1.3;
+  margin: 0; padding: 12px 16px; border-bottom: 1px solid var(--rule);
+}
+h3 {
+  font-size: 17px; margin: 32px 0 8px; padding-left: 10px;
+  border-left: 4px solid var(--led); break-after: avoid;
+}
+p { margin: 0 0 14px; max-width: 42em; }
+.lead { font-size: 16.5px; font-weight: 700; }
+ul, ol { margin: 0 0 16px; padding-left: 1.4em; max-width: 42em; }
+li { margin-bottom: 4px; }
+.key {
+  display: inline-block; border: 1.5px solid var(--ink); border-radius: 4px;
+  padding: 0 6px; line-height: 1.5; font-size: 0.92em; font-weight: 700; white-space: nowrap;
+}
+.key.red { border-color: var(--led); color: var(--led); }
+.key.blue { border-color: #2f6fd8; color: #2f6fd8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .key.blue { border-color: #6fa0ef; color: #6fa0ef; }
+}
+:root[data-theme="dark"] .key.blue { border-color: #6fa0ef; color: #6fa0ef; }
+
+/* ---------- 表 ---------- */
+.table-wrap { overflow-x: auto; margin: 0 0 20px; break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.6; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+th { font-weight: 700; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+td:first-child { font-weight: 700; white-space: nowrap; }
+td.none { color: var(--sub); }
+.num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #ffd400; color: #1c2127; font-size: 12px; font-weight: 700;
+}
+
+/* ---------- 手順 ---------- */
+ol.steps { list-style: none; padding: 0; counter-reset: st; }
+ol.steps > li { counter-increment: st; position: relative; padding: 0 0 12px 44px; margin: 0; break-inside: avoid; }
+ol.steps > li::before {
+  content: counter(st); position: absolute; left: 0; top: 2px;
+  width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 50%;
+  font-weight: 700; font-size: 14px; line-height: 24px; text-align: center;
+}
+ol.steps ul { margin: 6px 0 0; }
+
+/* ---------- 表示部の図 ---------- */
+.lcd {
+  background: var(--panel);
+  border: 3px solid var(--panel-edge);
+  border-radius: 10px;
+  padding: 10px 12px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.lcd > svg, .panel-fig > svg { display: block; width: 100%; height: auto; }
+.panel-fig { max-width: 680px; margin: 0 0 16px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.seg-on { fill: var(--led); }
+.seg-off { fill: var(--led-off); }
+.lg { fill: #36d957; } .lg.off { fill: rgba(54, 217, 87, 0.14); }
+.lb { fill: #3b82ff; } .lb.off { fill: rgba(59, 130, 255, 0.16); }
+.lw { fill: #ffffff; } .lw.off { fill: rgba(255, 255, 255, 0.12); }
+.lr { fill: #ff2a1a; } .lr.off { fill: rgba(255, 42, 26, 0.16); }
+@media screen {
+  .seg-on { filter: drop-shadow(0 0 3px rgba(255, 58, 31, 0.55)); }
+  .lg:not(.off) { filter: drop-shadow(0 0 4px #36d957); }
+  .lb:not(.off) { filter: drop-shadow(0 0 4px #3b82ff); }
+  .lw:not(.off) { filter: drop-shadow(0 0 4px #ffffff); }
+  .lr:not(.off) { filter: drop-shadow(0 0 4px #ff2a1a); }
+}
+
+.screens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px 18px;
+  margin: 8px 0 24px;
+}
+figure { margin: 0; break-inside: avoid; }
+figcaption { font-size: 13px; margin-top: 6px; line-height: 1.55; }
+figcaption b { display: block; font-size: 14px; }
+
+.note {
+  background: var(--soft); border-left: 4px solid var(--lamp);
+  padding: 12px 16px; margin: 0 0 20px; font-size: 14px; break-inside: avoid;
+}
+.note p { margin: 0; }
+
+footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--sub); font-size: 12px; }
+
+@media (max-width: 560px) {
+  .page { padding: 0 16px 48px; }
+  .toc ol { columns: 1; }
+  .chapter-head { grid-template-columns: 48px 1fr; }
+  .chapter-head .no { font-size: 22px; }
+  .chapter-head h2 { font-size: 21px; padding: 10px 12px; }
+}
+
+/* ---------- 印刷（A4） ---------- */
+@page { size: A4; margin: 14mm 15mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --paper: #ffffff; --ink: #1c2127; --sub: #5b6470; --rule: #c9ced4;
+    --soft: #f2f4f6; --panel: #17191c; --panel-edge: #2a2e33;
+    color-scheme: light; padding: 0;
+  }
+  body { font-size: 10pt; line-height: 1.7; }
+  .page { max-width: none; padding: 0; }
+  .cover { min-height: 255mm; display: flex; flex-direction: column; justify-content: center; break-after: page; }
+  .cover .lcd { max-width: 110mm; }
+  .toc { break-after: page; }
+  .toc a { color: var(--ink); }
+  section.chapter { padding-top: 0; margin-top: 10mm; }
+  section.break { break-before: page; margin-top: 0; }
+  .screens { grid-template-columns: repeat(3, 1fr); gap: 5mm 4mm; }
+  .lcd { padding: 2mm 2.5mm; border-width: 2px; }
+  figcaption { font-size: 8.5pt; }
+  table { font-size: 9pt; }
+  h3 { font-size: 11.5pt; }
+  .chapter-head h2 { font-size: 17pt; }
+  p, ul, ol { max-width: none; }
+  footer, .back { display: none; }
+}
+code { font-family: inherit; font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="back"><a href="index.html">取扱説明書の一覧</a></nav>
+
+<header class="cover">
+  <h1>G-Compact</h1>
+  <p class="subtitle">コンパクトGPSトリップメーター 取扱説明書</p>
+  <div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="時計表示の例。現在時刻"></div>
+  <p class="meta">2026年10月版</p>
+</header>
+
+<nav class="toc" aria-label="目次">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#overview"><span class="no">1</span>概要</a></li>
+    <li><a href="#parts"><span class="no">2</span>各部の名称</a></li>
+    <li><a href="#power"><span class="no">3</span>電源と起動</a></li>
+    <li><a href="#buttons"><span class="no">4</span>ボタン操作の基本</a></li>
+    <li><a href="#modes"><span class="no">5</span>表示モード</a></li>
+    <li><a href="#trip"><span class="no">6</span>トリップ（距離）</a></li>
+    <li><a href="#unit"><span class="no">7</span>単位と表示形式の切り替え</a></li>
+    <li><a href="#calib"><span class="no">8</span>補正（校正）</a></li>
+    <li><a href="#gps"><span class="no">9</span>GPSと時刻・時差</a></li>
+    <li><a href="#bright"><span class="no">10</span>明るさの自動調整</a></li>
+    <li><a href="#help"><span class="no">11</span>表示記号と困ったとき</a></li>
+  </ol>
+</nav>
+
+<!-- 1 概要 -->
+<section class="chapter" id="overview">
+  <div class="chapter-head"><div class="no">1</div><h2>概要</h2></div>
+  <p class="lead">G-Compactは、GPSで時刻・距離・速度を表示する小型のトリップメーターです。ボタン2つとリモートだけで、すぐに使えます。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>機能</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>表示モード</td><td>TIME（時計）、DISTANCE（トリップ）、SPEED（速度）の3つ。</td></tr>
+      <tr><td>トリップ</td><td>レッキモードとノーマルモードの2つの表示形式。電源を切っても保持されます。</td></tr>
+      <tr><td>単位</td><td>km と mile を切り替えられます。</td></tr>
+      <tr><td>補正</td><td>距離と速度を、桁ごとに入力した係数で補正。</td></tr>
+      <tr><td>明るさ</td><td>照度センサーで、周囲の明るさに合わせて自動で切り替え。</td></tr>
+      <tr><td>リモート</td><td>3.5mmジャックにつないだリモートボタンでトリップをリセット。</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p>このマニュアルの表示例の一部は動いています。時計はお使いのパソコンやスマートフォンの時刻と連動し、トリップは時速36km（毎秒10m）で走っている想定で変化します。</p></div>
+</section>
+
+<!-- 2 各部の名称 -->
+<section class="chapter" id="parts">
+  <div class="chapter-head"><div class="no">2</div><h2>各部の名称</h2></div>
+  <p class="lead">前面に表示部、ボタン2個、照度センサーがあります。左右の側面に端子があります。</p>
+  <div class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>番号</th><th>名称</th><th>主な役割</th></tr></thead>
+    <tbody>
+      <tr><td><span class="num">1</span></td><td>照度センサー（丸窓）</td><td>周囲の明るさを測り、表示の明るさを自動で切り替え</td></tr>
+      <tr><td><span class="num">2</span></td><td>表示部（6桁）</td><td>時計・トリップ・速度、各設定</td></tr>
+      <tr><td><span class="num">3</span></td><td>単位表示（mi／km）</td><td>トリップ表示の右端の点が点灯＝mile、消灯＝km</td></tr>
+      <tr><td><span class="num">4</span></td><td>赤ボタン</td><td>短押し：表示モードの切替<br>長押し：補正・時差の設定</td></tr>
+      <tr><td><span class="num">5</span></td><td>白ボタン</td><td>短押し：トリップのリセット（設定中は数字を変える）<br>長押し：設定値を初期値に戻す</td></tr>
+      <tr><td><span class="num">6</span></td><td>リモート端子（左側面）</td><td>3.5mmジャック。リモートボタンは白ボタンと同じ動作</td></tr>
+      <tr><td><span class="num">7</span></td><td>電源端子（右側面）</td><td>USB-C（5V）</td></tr>
+    </tbody>
+  </table></div>
+  <p>白ボタンの左上にある「TIME／DISTANCE／SPEED」は、3つの表示モードの名前です。表示モードの切り替えは赤ボタンで行います。</p>
+</section>
+
+<!-- 3 電源と起動 -->
+<section class="chapter" id="power">
+  <div class="chapter-head"><div class="no">3</div><h2>電源と起動</h2></div>
+  <p class="lead">電源スイッチはありません。右側面のUSB-Cに5Vの電源をつなぐと、自動で起動します。</p>
+  <ul>
+    <li>起動すると、前回電源を切ったときの表示モードで始まります。</li>
+    <li>トリップの距離も、前回の値から続きます。</li>
+    <li>起動直後は、すべてのボタンを一度離すまでボタン操作を受け付けません（誤操作を防ぐため）。</li>
+  </ul>
+  <p>ボタンを押しながら電源をつなぐと、単位と表示形式を切り替えられます（7章）。</p>
+</section>
+
+<!-- 4 ボタン操作 -->
+<section class="chapter" id="buttons">
+  <div class="chapter-head"><div class="no">4</div><h2>ボタン操作の基本</h2></div>
+  <p class="lead">短押しは押して離したとき、長押しは1.6秒押し続けた時点で動作します。</p>
+  <p>長押しは指を離す前に切り替わるので、画面が変わったら離してください。0.06秒より短い入力は無視されます。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ボタン</th><th>時計・トリップ・速度</th><th>補正モード</th><th>時差設定</th></tr></thead>
+    <tbody>
+      <tr><td><span class="key red">赤</span> 短押し</td><td>次の表示モードへ</td><td>点滅する桁を右へ</td><td>終了して時計へ</td></tr>
+      <tr><td><span class="key red">赤</span> 長押し</td><td>時計 → 時差設定<br>トリップ → 補正モード</td><td>確定してトリップへ</td><td>終了して時計へ</td></tr>
+      <tr><td><span class="key">白</span> 短押し</td><td>トリップをリセット</td><td>点滅中の桁を＋1</td><td>時差を＋1</td></tr>
+      <tr><td><span class="key">白</span> 長押し</td><td class="none">なし</td><td>1.000に戻す</td><td>＋9に戻す</td></tr>
+    </tbody>
+  </table></div>
+  <p>リモートボタンは、白ボタンとまったく同じ動作です。</p>
+</section>
+
+<!-- 5 表示モード -->
+<section class="chapter break" id="modes">
+  <div class="chapter-head"><div class="no">5</div><h2>表示モード</h2></div>
+  <p class="lead"><span class="key red">赤</span> の短押しで「TIME → DISTANCE → SPEED → TIME」と切り替わります。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="TIME 時計"></div><figcaption><b>TIME（時計）</b>GPSの時刻。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="recce" role="img" aria-label="DISTANCE トリップ"></div><figcaption><b>DISTANCE（トリップ）</b>先頭の「t」に続けて距離。図はレッキモード。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="speed" role="img" aria-label="SPEED 速度"></div><figcaption><b>SPEED（速度）</b>「SP」と速度（1km/h単位）。</figcaption></figure>
+  </div>
+  <p>表示中のモードは記憶され、次に電源を入れたときも同じモードで始まります。</p>
+</section>
+
+<!-- 6 トリップ -->
+<section class="chapter break" id="trip">
+  <div class="chapter-head"><div class="no">6</div><h2>トリップ（距離）</h2></div>
+  <p class="lead">トリップは、<span class="key">白</span> またはリモートボタンの短押しで0に戻ります。時計・トリップ・速度のどの画面でもリセットできます。</p>
+  <p>距離は5m進むごとに保存され、電源を切っても次に電源を入れたときに続きから表示されます。リセットはすぐに保存されます。</p>
+
+  <h3>表示形式</h3>
+  <p>表示形式はレッキモードとノーマルモードの2つです。はじめはレッキモードになっています。切り替え方は7章を参照してください。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="recce-cross" role="img" aria-label="レッキモード 1km付近"></div><figcaption><b>レッキモード</b>1km未満はm、1km以上はkmで表示。図は1km付近の切り替わり。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="normal" role="img" aria-label="ノーマルモード"></div><figcaption><b>ノーマルモード</b>km、小数点以下2桁。</figcaption></figure>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>形式</th><th>表示例</th><th>範囲</th></tr></thead>
+    <tbody>
+      <tr><td>レッキモード</td><td>1km未満：<code>t  520</code>（m）<br>1km以上：<code>t12.340</code>（km、最下桁は0）</td><td>0〜99.990km（10m単位）</td></tr>
+      <tr><td>ノーマルモード</td><td><code>t 12.34</code></td><td>0.00〜999.99km（10m単位）</td></tr>
+    </tbody>
+  </table></div>
+  <p>レッキモードでは100km以上の上の桁が表示されないので、100km以上の距離を走るときはノーマルモードを使ってください。</p>
+</section>
+
+<!-- 7 単位と表示形式 -->
+<section class="chapter" id="unit">
+  <div class="chapter-head"><div class="no">7</div><h2>単位と表示形式の切り替え</h2></div>
+  <p class="lead">ボタンを押しながら電源をつなぐと切り替わります。切り替えた設定は保存されます。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>操作</th><th>切り替わる設定</th></tr></thead>
+    <tbody>
+      <tr><td><span class="key red">赤</span> を押しながら電源をつなぐ</td><td>km ⇔ mile</td></tr>
+      <tr><td><span class="key">白</span> を押しながら電源をつなぐ</td><td>レッキモード ⇔ ノーマルモード</td></tr>
+    </tbody>
+  </table></div>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="mile" role="img" aria-label="mile表示 右端の点が点灯"></div><figcaption><b>mile のとき</b>トリップ表示の右端の点（mi）が点灯。</figcaption></figure>
+  </div>
+  <p>mile にすると、トリップも速度もマイル（mph）で表示します。トリップ表示の右端の点が、本体の「● mi」の位置で点灯します。</p>
+</section>
+
+<!-- 8 補正 -->
+<section class="chapter break" id="calib">
+  <div class="chapter-head"><div class="no">8</div><h2>補正（校正）</h2></div>
+  <p class="lead">表示される距離と速度を、実際の値に合わせる係数です。表示は「GPSから求めた値 ÷ 係数」なので、表示が長すぎるときは係数を大きくします。</p>
+  <p>たとえば公式の1.000kmで表示が1.020kmなら、係数は1.020です。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="calib" role="img" aria-label="補正モード 係数1.000 先頭の桁が点滅"></div><figcaption><b>補正モード</b>「C」と係数。点滅している桁を変更できます。</figcaption></figure>
+  </div>
+  <ol class="steps">
+    <li>トリップ画面で <span class="key red">赤</span> を長押しすると、補正モードになります。</li>
+    <li><span class="key red">赤</span> の短押しで、点滅する桁を右へ移動します（4桁目の次は1桁目）。</li>
+    <li><span class="key">白</span> の短押しで、点滅中の桁を1つずつ増やします（9の次は0）。白の長押しで1.000に戻せます。</li>
+    <li><span class="key red">赤</span> を長押しすると、係数を保存してトリップ画面に戻ります。</li>
+  </ol>
+  <div class="note"><p>係数は0.500〜2.000の範囲で有効です。範囲外の値（0.000など）で確定すると、入力は反映されず、前の係数のままになります。</p></div>
+</section>
+
+<!-- 9 GPS -->
+<section class="chapter" id="gps">
+  <div class="chapter-head"><div class="no">9</div><h2>GPSと時刻・時差</h2></div>
+  <p class="lead">時刻・距離・速度はGPSから取得します。GPSで位置を測れていないときは、表示全体が1秒ごとに点滅します。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="nofix" role="img" aria-label="GPS測位待ち 表示が点滅"></div><figcaption><b>測位待ち</b>表示が1秒ごとに点滅。距離は増えません。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-top="Utc  9" role="img" aria-label="時差設定 9"></div><figcaption><b>時差設定</b>日本は9。</figcaption></figure>
+  </div>
+  <p>表示される時刻は、GPSの時刻（世界標準時）に時差を加えたものです。電源を入れた直後、GPSの時刻を受け取るまでは「9.00.00」（時差の値の時刻）が表示されます。</p>
+  <h3>時差を設定する</h3>
+  <ol class="steps">
+    <li>時計画面で <span class="key red">赤</span> を長押しすると、時差設定になります。</li>
+    <li><span class="key">白</span> の短押しで1ずつ増やします（−12〜＋14、＋14の次は−12）。白の長押しで＋9に戻ります。変えた値はすぐに保存されます。</li>
+    <li><span class="key red">赤</span> を押すと時計画面に戻ります。</li>
+  </ol>
+</section>
+
+<!-- 10 明るさ -->
+<section class="chapter" id="bright">
+  <div class="chapter-head"><div class="no">10</div><h2>明るさの自動調整</h2></div>
+  <p class="lead">表示の左の丸窓にある照度センサーが周囲の明るさを測り、表示の明るさを2段階で自動的に切り替えます。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="明るい場所での表示"></div><figcaption><b>明るい場所</b>明るく表示。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" data-dim="1" role="img" aria-label="暗い場所での表示"></div><figcaption><b>暗い場所</b>まぶしくないよう暗く表示。</figcaption></figure>
+  </div>
+  <p>手動で明るさを設定する機能はありません。丸窓をふさがないように取り付けてください。</p>
+</section>
+
+<!-- 11 困ったとき -->
+<section class="chapter break" id="help">
+  <div class="chapter-head"><div class="no">11</div><h2>表示記号と困ったとき</h2></div>
+  <h3>表示記号</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>表示</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td>t</td><td>トリップ（DISTANCE）</td></tr>
+      <tr><td>SP</td><td>速度（SPEED）</td></tr>
+      <tr><td>C</td><td>補正モード</td></tr>
+      <tr><td>Utc</td><td>時差設定</td></tr>
+      <tr><td>右端の点</td><td>トリップ表示で点灯＝mile</td></tr>
+    </tbody>
+  </table></div>
+  <h3>困ったとき</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>症状</th><th>対処</th></tr></thead>
+    <tbody>
+      <tr><td>表示全体が点滅する</td><td>GPSで位置を測れていません。空が開けた場所でしばらく待ってください。</td></tr>
+      <tr><td>時計が「9.00.00」で止まっている</td><td>GPSの時刻をまだ受け取っていません。しばらく待ってください。</td></tr>
+      <tr><td>時刻が数時間ずれている</td><td>時差の設定を確認してください。日本は9です。</td></tr>
+      <tr><td>起動直後にボタンが効かない</td><td>すべてのボタンから一度指を離してください。</td></tr>
+      <tr><td>距離が公式距離と合わない</td><td>補正で係数を合わせてください。</td></tr>
+      <tr><td>距離や速度がマイルになっている</td><td><span class="key red">赤</span> を押しながら電源をつなぎ直すと km に戻ります。</td></tr>
+      <tr><td>1km未満なのに「520」のように表示される</td><td>レッキモードでは1km未満をmで表示します。</td></tr>
+      <tr><td>100km以上で表示がおかしい</td><td>レッキモードは99.990kmまでです。<span class="key">白</span> を押しながら電源をつなぎ、ノーマルモードにしてください。</td></tr>
+      <tr><td>表示が暗い／明るすぎる</td><td>照度センサーの丸窓がふさがれていないか確認してください。</td></tr>
+    </tbody>
+  </table></div>
+  <h3>電源を切っても残る設定</h3>
+  <p>表示モード・トリップ・補正係数・時差・単位（km／mile）・表示形式は保存されます。</p>
+</section>
+
+<footer>G-Compact 取扱説明書 2026年10月版　<a href="index.html" style="color:inherit">取扱説明書の一覧</a></footer>
+</div>
+
+<script>
+(function () {
+  // ---------- 7セグ（MAX7219 の setRow と同じビット配置：DP a b c d e f g） ----------
+  var SEG = {
+    '0':0x7E,'1':0x30,'2':0x6D,'3':0x79,'4':0x33,'5':0x5B,'6':0x5F,'7':0x70,'8':0x7F,'9':0x7B,
+    'S':0x5B,'P':0x67,'C':0x4E,'U':0x3E,'t':0x0F,'c':0x0D,' ':0x00
+  };
+  var SHAPES = [
+    ['a', '8,4 32,4 35,7 32,10 8,10 5,7'], ['b', '30,10 33,7 36,10 36,30 33,33 30,30'],
+    ['c', '30,40 33,37 36,40 36,60 33,63 30,60'], ['d', '8,60 32,60 35,63 32,66 8,66 5,63'],
+    ['e', '4,40 7,37 10,40 10,60 7,63 4,60'], ['f', '4,10 7,7 10,10 10,30 7,33 4,30'],
+    ['g', '8,32 32,32 35,35 32,38 8,38 5,35']
+  ];
+  var BIT = { a:0x40, b:0x20, c:0x10, d:0x08, e:0x04, f:0x02, g:0x01 };
+  var CW = 47;
+
+  function parse(str, n) {
+    var cells = [];
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i];
+      if (ch === '.') { if (cells.length) cells[cells.length - 1] |= 0x80; else cells.push(0x80); continue; }
+      cells.push(SEG.hasOwnProperty(ch) ? SEG[ch] : 0);
+    }
+    while (cells.length < n) cells.push(0);
+    return cells.slice(0, n);
+  }
+  function digits(cells, x, y, s) {
+    var o = '<g transform="translate(' + x + ',' + y + ') scale(' + s + ')">';
+    for (var i = 0; i < cells.length; i++) {
+      var v = cells[i];
+      o += '<g transform="translate(' + (i * CW) + ',0) skewX(-6)">';
+      for (var k = 0; k < SHAPES.length; k++) o += '<polygon points="' + SHAPES[k][1] + '" class="' + ((v & BIT[SHAPES[k][0]]) ? 'seg-on' : 'seg-off') + '"/>';
+      o += '<circle cx="41.5" cy="63" r="3.2" class="' + ((v & 0x80) ? 'seg-on' : 'seg-off') + '"/></g>';
+    }
+    return o + '</g>';
+  }
+
+  // 表示例：6桁1段
+  function dispSVG(top, dim) {
+    return '<svg viewBox="0 0 306 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+           '<g opacity="' + (dim ? 0.38 : 1) + '">' + digits(parse(top, 6), 20, 3, 1) + '</g></svg>';
+  }
+  // 本体前面の図（番号付き）
+  function panelSVG(top) {
+    var n = function (x, y, t) {
+      return '<circle cx="' + x + '" cy="' + y + '" r="14" fill="#ffd400"/>' +
+             '<text x="' + x + '" y="' + (y + 5) + '" text-anchor="middle" font-size="14" font-weight="700" fill="#1c2127" font-family="sans-serif">' + t + '</text>';
+    };
+    var txt = function (x, y, t, size, anchor, extra) {
+      return '<text x="' + x + '" y="' + y + '" text-anchor="' + (anchor || 'middle') + '" font-size="' + size + '" font-weight="700" fill="#ffffff" font-family="sans-serif" ' + (extra || '') + '>' + t + '</text>';
+    };
+    return '<svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+      // 側面の端子（左：3.5mmジャック、右：USB-C）
+      '<rect x="2" y="170" width="14" height="34" rx="3" fill="#555"/>' +
+      '<rect x="804" y="150" width="14" height="50" rx="3" fill="#555"/>' +
+      '<rect x="10" y="10" width="800" height="400" rx="48" fill="#1a1a1a" stroke="#000" stroke-width="3"/>' +
+      '<rect x="40" y="40" width="742" height="340" rx="22" fill="#000"/>' +
+      '<rect x="114" y="61" width="600" height="146" rx="8" fill="#161616"/>' +
+      digits(parse(top, 6), 196, 76, 1.72) +
+      '<circle cx="84" cy="137" r="17" fill="#2a0707" stroke="#3a1010" stroke-width="2"/>' +
+      '<circle cx="729" cy="167" r="6" fill="#fff"/>' + txt(744, 174, 'mi', 20, 'start') +
+      '<circle cx="729" cy="197" r="6" fill="none" stroke="#fff" stroke-width="2"/>' + txt(744, 204, 'km', 20, 'start') +
+      '<circle cx="84" cy="294" r="36" fill="#111"/><circle cx="84" cy="294" r="29" fill="#c41010"/>' +
+      txt(330, 272, 'compact', 26, 'middle', 'font-style="italic"') +
+      txt(270, 336, 'GTRIP', 72, 'middle', 'font-style="italic"') +
+      txt(572, 236, 'TIME', 16, 'end', 'font-style="italic"') +
+      txt(572, 256, 'DISTANCE', 16, 'end', 'font-style="italic"') +
+      txt(572, 276, 'SPEED', 16, 'end', 'font-style="italic"') +
+      '<circle cx="490" cy="314" r="12" fill="none" stroke="#fff" stroke-width="3"/>' + txt(546, 326, 'ARM', 34) +
+      '<circle cx="667" cy="294" r="62" fill="#1b1b1b"/><circle cx="667" cy="294" r="40" fill="#d9d9d9"/>' +
+      n(84, 92, 1) + n(735, 52, 2) + n(796, 120, 3) + n(132, 254, 4) + n(744, 244, 5) + n(30, 240, 6) + n(796, 232, 7) +
+      '</svg>';
+  }
+
+  // ---------- 本体と同じ表示の組み立て ----------
+  function d(n) { return String(Math.floor(n) % 10); }
+  var F = {
+    clock: function (h, m, s) {
+      return (h < 10 ? ' ' : d(h / 10)) + d(h) + '.' + d(m / 10) + d(m) + '.' + d(s / 10) + d(s);
+    },
+    recce: function (m, mi) {      // レッキモード：1km未満はm、1km以上は km（最下桁0）
+      m = Math.max(0, Math.floor(m)) % 1000000;
+      return 't' + (m >= 10000 ? d(m / 10000) : ' ') + (m >= 1000 ? d(m / 1000) + '.' : ' ') +
+             (m >= 100 ? d(m / 100) : ' ') + (m >= 10 ? d(m / 10) : ' ') + '0' + (mi ? '.' : '');
+    },
+    normal: function (m, mi) {     // ノーマルモード：0.00〜999.99km
+      m = Math.max(0, Math.floor(m)) % 1000000;
+      return 't' + (m >= 100000 ? d(m / 100000) : ' ') + (m >= 10000 ? d(m / 10000) : ' ') +
+             d(m / 1000) + '.' + d(m / 100) + d(m / 10) + (mi ? '.' : '');
+    },
+    speed: function (v) {
+      var i = Math.floor(v);
+      return 'SP ' + (i >= 100 ? d(i / 100) : ' ') + (i >= 10 ? d(i / 10) : ' ') + d(i);
+    }
+  };
+
+  function now() {
+    var dt = new Date();
+    return F.clock(dt.getHours(), dt.getMinutes(), dt.getSeconds());
+  }
+  var DEMO = {
+    'clock':       function () { return now(); },
+    'recce':       function (t) { return F.recce(12340 + 10 * t, false); },
+    'recce-cross': function (t) { return F.recce(900 + (10 * t) % 300, false); },
+    'normal':      function (t) { return F.normal(12340 + 10 * t, false); },
+    'mile':        function (t) { return F.recce(7660 + 10 * t, true); },
+    'speed':       function () { return F.speed(36); },
+    'nofix':       function (t, ms) { return (ms % 1000) >= 700 ? '      ' : now(); },
+    'calib':       function (t, ms) { return (ms % 1000) < 600 ? 'C 1.000' : 'C  .000'; }
+  };
+
+  function render(el, t, ms) {
+    var name = el.getAttribute('data-demo');
+    var top = (name && DEMO[name]) ? DEMO[name](t, ms) : (el.getAttribute('data-top') || '');
+    var dim = el.getAttribute('data-dim') === '1';
+    var kind = el.getAttribute('data-kind');
+    var key = kind + '|' + top + '|' + dim;
+    if (el._key === key) return;
+    el._key = key;
+    el.innerHTML = (kind === 'panel') ? panelSVG(top) : dispSVG(top, dim);
+  }
+
+  var T0 = Date.now();
+  var els = document.querySelectorAll('[data-kind]');
+  function tick() {
+    var ms = Date.now(), t = (ms - T0) / 1000;
+    for (var i = 0; i < els.length; i++) render(els[i], t, ms);
+  }
+  tick();
+  setInterval(tick, 50);
+})();
+</script>
+</body>
+</html>

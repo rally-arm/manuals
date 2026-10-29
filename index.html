@@ -121,6 +121,8 @@ body {
 .lcd svg { display: block; height: auto; }
 .lcd .top svg { width: 95.4%; }
 .lcd .bottom svg { width: 100%; }
+.lcd .row.single { display: block; padding: 18% 0; }
+.lcd .single svg { width: 100%; }
 .lcd .lamp {
   justify-self: center;
   width: 70%;
@@ -208,13 +210,13 @@ footer a { color: var(--ink); }
     </div>
   </li>
 
-  <li class="product pending">
-    <div class="lcd" data-top=" G-C  " data-bottom="----" role="img" aria-label="G-Compact"></div>
+  <li class="product">
+    <div class="lcd" data-top="t 20.27" role="img" aria-label="G-Compact"></div>
     <div>
       <h2>G-Compact</h2>
-      <p class="type">追加予定モデル</p>
-      <p class="desc">詳細は決まりしだい掲載します。</p>
-      <span class="soon">準備中</span>
+      <p class="type">コンパクトGPSトリップメーター</p>
+      <p class="desc">GPSで時刻・距離・速度を表示する小型モデル。レッキモード、km／mile切替、照度センサーによる自動調光、リモートに対応。</p>
+      <a class="open" href="g-compact.html">取扱説明書を開く</a>
     </div>
   </li>
 
@@ -271,6 +273,10 @@ footer a { color: var(--ink); }
     var p = panels[i];
     var lampAttr = p.getAttribute('data-lamp');
     var lampCls = (lampAttr === 'on' || lampAttr === 'blink') ? ' ' + lampAttr : '';
+    if (!p.hasAttribute('data-bottom')) {            // 1行の機種（G-Compact）
+      p.innerHTML = '<div class="row single">' + svg(parse(p.getAttribute('data-top') || '', 6)) + '</div>';
+      continue;
+    }
     p.innerHTML =
       '<div class="row top"><span class="lamp' + lampCls + '"></span>' +
         svg(parse(p.getAttribute('data-top') || '', 6)) + '</div>' +
