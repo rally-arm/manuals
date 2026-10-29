@@ -223,7 +223,7 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 <header class="cover">
   <h1>G-Compact</h1>
   <p class="subtitle">コンパクトGPSトリップメーター 取扱説明書</p>
-  <div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="時計表示の例。現在時刻"></div>
+  <div class="lcd" data-kind="disp" data-demo="clock" translate="no" role="img" aria-label="時計表示の例。現在時刻"></div>
   <p class="meta">2026年10月版</p>
 </header>
 
@@ -235,28 +235,34 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
     <li><a href="#power"><span class="no">3</span>電源と起動</a></li>
     <li><a href="#buttons"><span class="no">4</span>ボタン操作の基本</a></li>
     <li><a href="#modes"><span class="no">5</span>表示モード</a></li>
-    <li><a href="#trip"><span class="no">6</span>トリップ（距離）</a></li>
-    <li><a href="#unit"><span class="no">7</span>単位と表示形式の切り替え</a></li>
-    <li><a href="#calib"><span class="no">8</span>補正（校正）</a></li>
-    <li><a href="#gps"><span class="no">9</span>GPSと時刻・時差</a></li>
-    <li><a href="#bright"><span class="no">10</span>明るさの自動調整</a></li>
-    <li><a href="#help"><span class="no">11</span>表示記号と困ったとき</a></li>
+    <li><a href="#clock"><span class="no">6</span>時計と時刻ホールド</a></li>
+    <li><a href="#trip"><span class="no">7</span>トリップ（距離）</a></li>
+    <li><a href="#dir"><span class="no">8</span>進行方向（F／N／R）</a></li>
+    <li><a href="#speed"><span class="no">9</span>速度と速度警告</a></li>
+    <li><a href="#unit"><span class="no">10</span>単位と表示形式の切り替え</a></li>
+    <li><a href="#calib"><span class="no">11</span>補正（校正）</a></li>
+    <li><a href="#gps"><span class="no">12</span>GPSと時刻・時差</a></li>
+    <li><a href="#bright"><span class="no">13</span>明るさの自動調整</a></li>
+    <li><a href="#help"><span class="no">14</span>表示の見分け方と困ったとき</a></li>
   </ol>
 </nav>
 
 <!-- 1 概要 -->
 <section class="chapter" id="overview">
   <div class="chapter-head"><div class="no">1</div><h2>概要</h2></div>
-  <p class="lead">G-Compactは、GPSで時刻・距離・速度を表示する小型のトリップメーターです。ボタン2つとリモートだけで、すぐに使えます。</p>
+  <p class="lead">G-Compactは、GPSで時刻・距離・速度を表示する小型のトリップメーターです。ボタン2つとリモートだけで、走行中でも迷わず操作できます。</p>
   <div class="table-wrap"><table>
     <thead><tr><th>機能</th><th>内容</th></tr></thead>
     <tbody>
       <tr><td>表示モード</td><td>TIME（時計）、DISTANCE（トリップ）、SPEED（速度）の3つ。</td></tr>
+      <tr><td>時刻ホールド</td><td>ボタンを押した瞬間の時刻を5秒間表示。練習やスプリットの確認に。</td></tr>
       <tr><td>トリップ</td><td>レッキモードとノーマルモードの2つの表示形式。電源を切っても保持されます。</td></tr>
+      <tr><td>進行方向</td><td>前進・停止・後退を切り替え。後退は速度が上がると自動で前進に戻ります。</td></tr>
+      <tr><td>速度警告</td><td>設定した速度以上になると、表示全体が速く点滅。</td></tr>
       <tr><td>単位</td><td>km と mile を切り替えられます。</td></tr>
       <tr><td>補正</td><td>距離と速度を、桁ごとに入力した係数で補正。</td></tr>
       <tr><td>明るさ</td><td>照度センサーで、周囲の明るさに合わせて自動で切り替え。</td></tr>
-      <tr><td>リモート</td><td>3.5mmジャックにつないだリモートボタンでトリップをリセット。</td></tr>
+      <tr><td>リモート</td><td>3.5mmジャックにつないだリモートボタンで、トリップのリセットや時刻ホールド。</td></tr>
     </tbody>
   </table></div>
   <div class="note"><p>このマニュアルの表示例の一部は動いています。時計はお使いのパソコンやスマートフォンの時刻と連動し、トリップは時速36km（毎秒10m）で走っている想定で変化します。</p></div>
@@ -266,16 +272,16 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 <section class="chapter" id="parts">
   <div class="chapter-head"><div class="no">2</div><h2>各部の名称</h2></div>
   <p class="lead">前面に表示部、ボタン2個、照度センサーがあります。左右の側面に端子があります。</p>
-  <div translate="no" class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
+  <div class="panel-fig" data-kind="panel" data-demo="clock" translate="no" role="img" aria-label="本体前面の各部の位置"></div>
   <div class="table-wrap"><table>
     <thead><tr><th>番号</th><th>名称</th><th>主な役割</th></tr></thead>
     <tbody>
       <tr><td><span class="num">1</span></td><td>照度センサー（丸窓）</td><td>周囲の明るさを測り、表示の明るさを自動で切り替え</td></tr>
       <tr><td><span class="num">2</span></td><td>表示部（6桁）</td><td>時計・トリップ・速度、各設定</td></tr>
       <tr><td><span class="num">3</span></td><td>単位表示（mi／km）</td><td>トリップ表示の右端の点が点灯＝mile、消灯＝km</td></tr>
-      <tr><td><span class="num">4</span></td><td>赤ボタン</td><td>短押し：表示モードの切替<br>長押し：補正・時差の設定</td></tr>
-      <tr><td><span class="num">5</span></td><td>白ボタン</td><td>短押し：トリップのリセット（設定中は数字を変える）<br>長押し：設定値を初期値に戻す</td></tr>
-      <tr><td><span class="num">6</span></td><td>リモート端子（左側面）</td><td>3.5mmジャック。リモートボタンは白ボタンと同じ動作</td></tr>
+      <tr><td><span class="num">4</span></td><td>赤ボタン</td><td>短押し：表示モードの切替<br>長押し：各画面の設定に入る／出る</td></tr>
+      <tr><td><span class="num">5</span></td><td>白ボタン</td><td>短押し：各画面の主な操作（ホールド・リセット・警告ON/OFF）<br>長押し：進行方向の切替</td></tr>
+      <tr><td><span class="num">6</span></td><td>リモート端子（左側面）</td><td>3.5mmジャック。リモートボタンでリセットと時刻ホールド</td></tr>
       <tr><td><span class="num">7</span></td><td>電源端子（右側面）</td><td>USB-C（5V）</td></tr>
     </tbody>
   </table></div>
@@ -289,135 +295,205 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <ul>
     <li>起動すると、前回電源を切ったときの表示モードで始まります。</li>
     <li>トリップの距離も、前回の値から続きます。</li>
+    <li>進行方向は必ず前進（F）、速度警告は必ずOFFで始まります。</li>
     <li>起動直後は、すべてのボタンを一度離すまでボタン操作を受け付けません（誤操作を防ぐため）。</li>
   </ul>
-  <p>ボタンを押しながら電源をつなぐと、単位と表示形式を切り替えられます（7章）。</p>
+  <p>ボタンを押しながら電源をつなぐと、単位と表示形式を切り替えられます（10章）。</p>
 </section>
 
 <!-- 4 ボタン操作 -->
 <section class="chapter" id="buttons">
   <div class="chapter-head"><div class="no">4</div><h2>ボタン操作の基本</h2></div>
   <p class="lead">短押しは押して離したとき、長押しは1.6秒押し続けた時点で動作します。</p>
-  <p>長押しは指を離す前に切り替わるので、画面が変わったら離してください。0.06秒より短い入力は無視されます。</p>
+  <p>ボタンの役割は、どの画面でも同じ考え方です。赤の短押しで画面を切り替え、赤の長押しでその画面の設定に入ります。白の短押しはその画面の主な操作、白の長押しは進行方向の切り替えです。</p>
   <div class="table-wrap"><table>
-    <thead><tr><th>ボタン</th><th>時計・トリップ・速度</th><th>補正モード</th><th>時差設定</th></tr></thead>
+    <thead><tr><th>ボタン</th><th>TIME</th><th>DISTANCE</th><th>SPEED</th></tr></thead>
     <tbody>
-      <tr><td><span translate="no" class="key red">赤</span> 短押し</td><td>次の表示モードへ</td><td>点滅する桁を右へ</td><td>終了して時計へ</td></tr>
-      <tr><td><span translate="no" class="key red">赤</span> 長押し</td><td>時計 → 時差設定<br>トリップ → 補正モード</td><td>確定してトリップへ</td><td>終了して時計へ</td></tr>
-      <tr><td><span translate="no" class="key">白</span> 短押し</td><td>トリップをリセット</td><td>点滅中の桁を＋1</td><td>時差を＋1</td></tr>
-      <tr><td><span translate="no" class="key">白</span> 長押し</td><td class="none">なし</td><td>1.000に戻す</td><td>＋9に戻す</td></tr>
+      <tr><td><span class="key red" translate="no">赤</span> 短押し</td><td colspan="3">次の表示モードへ</td></tr>
+      <tr><td><span class="key red" translate="no">赤</span> 長押し</td><td>時差設定へ</td><td>補正モードへ</td><td>速度警告の設定へ</td></tr>
+      <tr><td><span class="key" translate="no">白</span> 短押し</td><td>時刻ホールド</td><td>トリップをリセット</td><td>速度警告 ON／OFF</td></tr>
+      <tr><td><span class="key" translate="no">白</span> 長押し</td><td colspan="3">進行方向を F → N → R → F</td></tr>
+      <tr><td>リモート 短押し</td><td>時刻ホールド</td><td>トリップをリセット</td><td class="none">なし</td></tr>
+      <tr><td>リモート 長押し</td><td colspan="3">進行方向を F → N → R → F</td></tr>
     </tbody>
   </table></div>
-  <p>リモートボタンは、白ボタンとまったく同じ動作です。</p>
+  <p>設定画面（時差・補正・速度警告）での操作は、それぞれの章で説明します。設定画面では、リモートボタンは働きません。</p>
 </section>
 
 <!-- 5 表示モード -->
 <section class="chapter break" id="modes">
   <div class="chapter-head"><div class="no">5</div><h2>表示モード</h2></div>
-  <p class="lead"><span translate="no" class="key red">赤</span> の短押しで「TIME → DISTANCE → SPEED → TIME」と切り替わります。</p>
+  <p class="lead"><span class="key red" translate="no">赤</span> の短押しで「TIME → DISTANCE → SPEED → TIME」と切り替わります。</p>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="TIME 時計"></div><figcaption><b>TIME（時計）</b>GPSの時刻。</figcaption></figure>
-    <figure><div class="lcd" data-kind="disp" data-demo="recce" role="img" aria-label="DISTANCE トリップ"></div><figcaption><b>DISTANCE（トリップ）</b>先頭の「t」に続けて距離。図はレッキモード。</figcaption></figure>
-    <figure><div class="lcd" data-kind="disp" data-demo="speed" role="img" aria-label="SPEED 速度"></div><figcaption><b>SPEED（速度）</b>「SP」と速度（1km/h単位）。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" translate="no" role="img" aria-label="TIME 時計"></div><figcaption><b>TIME（時計）</b>GPSの時刻。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="recce" translate="no" role="img" aria-label="DISTANCE トリップ"></div><figcaption><b>DISTANCE（トリップ）</b>先頭の「t」に続けて距離。図はレッキモード。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="speed" translate="no" role="img" aria-label="SPEED 速度"></div><figcaption><b>SPEED（速度）</b>「SP」と速度（1km/h単位）。</figcaption></figure>
   </div>
   <p>表示中のモードは記憶され、次に電源を入れたときも同じモードで始まります。</p>
 </section>
 
-<!-- 6 トリップ -->
+<!-- 6 時計と時刻ホールド -->
+<section class="chapter" id="clock">
+  <div class="chapter-head"><div class="no">6</div><h2>時計と時刻ホールド</h2></div>
+  <p class="lead">時計画面で <span class="key" translate="no">白</span> またはリモートボタンを短押しすると、押した瞬間の時刻を5秒間表示します。練習やスプリットタイムの確認に使えます。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="hold" translate="no" role="img" aria-label="時刻ホールド 区切りの点が点滅"></div><figcaption><b>時刻ホールド</b>数字はそのままで、区切りの点が点滅。</figcaption></figure>
+  </div>
+  <ul>
+    <li>記録されるのは、ボタンを離したときではなく、押した瞬間の時刻です。</li>
+    <li>ホールド中にもう一度押すと、新しい時刻を記録して、5秒を数え直します。</li>
+    <li>5秒たつと、現在時刻の表示に戻ります。</li>
+  </ul>
+</section>
+
+<!-- 7 トリップ -->
 <section class="chapter break" id="trip">
-  <div class="chapter-head"><div class="no">6</div><h2>トリップ（距離）</h2></div>
-  <p class="lead">トリップは、<span translate="no" class="key">白</span> またはリモートボタンの短押しで0に戻ります。時計・トリップ・速度のどの画面でもリセットできます。</p>
+  <div class="chapter-head"><div class="no">7</div><h2>トリップ（距離）</h2></div>
+  <p class="lead">トリップ画面で <span class="key" translate="no">白</span> またはリモートボタンを短押しすると、トリップが0に戻ります。誤操作を防ぐため、リセットはトリップ画面でだけ働きます。</p>
   <p>距離は5m進むごとに保存され、電源を切っても次に電源を入れたときに続きから表示されます。リセットはすぐに保存されます。</p>
 
   <h3>表示形式</h3>
-  <p>表示形式はレッキモードとノーマルモードの2つです。はじめはレッキモードになっています。切り替え方は7章を参照してください。</p>
+  <p>表示形式はレッキモードとノーマルモードの2つです。はじめはレッキモードになっています。切り替え方は10章を参照してください。</p>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="recce-cross" role="img" aria-label="レッキモード 1km付近"></div><figcaption><b>レッキモード</b>1km未満はm、1km以上はkmで表示。図は1km付近の切り替わり。</figcaption></figure>
-    <figure><div class="lcd" data-kind="disp" data-demo="normal" role="img" aria-label="ノーマルモード"></div><figcaption><b>ノーマルモード</b>km、小数点以下2桁。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="recce-cross" translate="no" role="img" aria-label="レッキモード 1km付近"></div><figcaption><b>レッキモード</b>1km未満はm、1km以上はkmで表示。図は1km付近の切り替わり。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="normal" translate="no" role="img" aria-label="ノーマルモード"></div><figcaption><b>ノーマルモード</b>km、小数点以下2桁。</figcaption></figure>
   </div>
   <div class="table-wrap"><table>
     <thead><tr><th>形式</th><th>表示例</th><th>範囲</th></tr></thead>
     <tbody>
-      <tr><td>レッキモード</td><td>1km未満：<code>t  520</code>（m）<br>1km以上：<code>t12.340</code>（km、最下桁は0）</td><td>0〜99.990km（10m単位）</td></tr>
-      <tr><td>ノーマルモード</td><td><code>t 12.34</code></td><td>0.00〜999.99km（10m単位）</td></tr>
+      <tr><td>レッキモード</td><td>1km未満：<code translate="no">t  520</code>（m）<br>1km以上：<code translate="no">t12.340</code>（km、最下桁は0）</td><td>0〜99.990km（10m単位）</td></tr>
+      <tr><td>ノーマルモード</td><td><code translate="no">t 12.34</code></td><td>0.00〜999.99km（10m単位）</td></tr>
     </tbody>
   </table></div>
   <p>レッキモードでは100km以上の上の桁が表示されないので、100km以上の距離を走るときはノーマルモードを使ってください。</p>
 </section>
 
-<!-- 7 単位と表示形式 -->
+<!-- 8 進行方向 -->
+<section class="chapter break" id="dir">
+  <div class="chapter-head"><div class="no">8</div><h2>進行方向（F／N／R）</h2></div>
+  <p class="lead"><span class="key" translate="no">白</span> またはリモートボタンを長押しするたびに、前進（F）→ 停止（N）→ 後退（R）→ 前進（F）と切り替わります。時計・トリップ・速度のどの画面でも操作できます。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="dirF" translate="no" role="img" aria-label="前進"></div><figcaption><b>F（前進）</b>先頭は「t」。距離が増えます。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="dirN" translate="no" role="img" aria-label="停止"></div><figcaption><b>N（停止）</b>先頭の「n」が点滅。距離を数えません。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="dirR" translate="no" role="img" aria-label="後退"></div><figcaption><b>R（後退）</b>先頭の「r」が点滅。距離が減ります（0で止まる）。</figcaption></figure>
+  </div>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="dirmsg" translate="no" role="img" aria-label="切り替えた瞬間の表示"></div><figcaption><b>切り替えた瞬間</b>1秒間「dir」と新しい状態（F／n／r）を表示。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="clockR" translate="no" role="img" aria-label="後退中の時計画面"></div><figcaption><b>時計・速度の画面</b>N・Rのときは、左端の点が点滅。</figcaption></figure>
+  </div>
+  <h3>前進への自動復帰</h3>
+  <p>後退（R）のまま、速度が20km/h以上の状態が2秒続くと、自動で前進（F）に戻ります。後退の戻し忘れで距離が減り続けるのを防ぐためです。戻ったときは「dir  F」が表示されます。停止（N）は自動では戻りません。</p>
+  <p>電源を入れたときは、必ず前進（F）から始まります。</p>
+</section>
+
+<!-- 9 速度と速度警告 -->
+<section class="chapter break" id="speed">
+  <div class="chapter-head"><div class="no">9</div><h2>速度と速度警告</h2></div>
+  <p class="lead">速度警告をONにすると、設定した制限速度以上になったときに、表示全体が速く点滅して知らせます。時計・トリップ・速度のどの画面を表示していても点滅します。</p>
+  <div class="screens">
+    <figure><div class="lcd" data-kind="disp" data-demo="alerton" translate="no" role="img" aria-label="速度警告ON"></div><figcaption><b>警告ON</b>「SP」の次の「A」が点滅。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="over" translate="no" role="img" aria-label="制限速度以上"></div><figcaption><b>制限速度以上</b>表示全体が速く点滅。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-top="A   60" translate="no" role="img" aria-label="速度警告の設定 60"></div><figcaption><b>警告の設定</b>制限速度60の例。</figcaption></figure>
+  </div>
+  <h3>警告のON／OFF</h3>
+  <p>速度画面で <span class="key" translate="no">白</span> を短押しすると、警告のON／OFFが切り替わります。ONのあいだは「SP」の次に「A」が点滅し、OFFのときは表示されません。リモートボタンでは切り替わりません。警告は、電源を入れるたびにOFFから始まります。</p>
+  <h3>制限速度の設定</h3>
+  <ol class="steps">
+    <li>速度画面で <span class="key red" translate="no">赤</span> を長押しすると、設定画面（<code translate="no">A   60</code>）になります。</li>
+    <li><span class="key" translate="no">白</span> を短押しするたびに10ずつ上がります（30〜90、90の次は30）。</li>
+    <li><span class="key red" translate="no">赤</span> を長押しすると、保存して速度画面に戻ります。設定した速度は、次に電源を入れたときも使われます。</li>
+  </ol>
+  <div class="note"><p>速度と制限速度の比較には、画面に表示している速度（補正係数を反映した値）を使います。mile 設定のときは mph で比べます。GPSで位置を測れていないときは、警告は働きません。</p></div>
+</section>
+
+<!-- 10 単位と表示形式 -->
 <section class="chapter" id="unit">
-  <div class="chapter-head"><div class="no">7</div><h2>単位と表示形式の切り替え</h2></div>
+  <div class="chapter-head"><div class="no">10</div><h2>単位と表示形式の切り替え</h2></div>
   <p class="lead">ボタンを押しながら電源をつなぐと切り替わります。切り替えた設定は保存されます。</p>
   <div class="table-wrap"><table>
     <thead><tr><th>操作</th><th>切り替わる設定</th></tr></thead>
     <tbody>
-      <tr><td><span translate="no" class="key red">赤</span> を押しながら電源をつなぐ</td><td>km ⇔ mile</td></tr>
-      <tr><td><span translate="no" class="key">白</span> を押しながら電源をつなぐ</td><td>レッキモード ⇔ ノーマルモード</td></tr>
+      <tr><td><span class="key red" translate="no">赤</span> を押しながら電源をつなぐ</td><td>km ⇔ mile</td></tr>
+      <tr><td><span class="key" translate="no">白</span> を押しながら電源をつなぐ</td><td>レッキモード ⇔ ノーマルモード</td></tr>
     </tbody>
   </table></div>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="mile" role="img" aria-label="mile表示 右端の点が点灯"></div><figcaption><b>mile のとき</b>トリップ表示の右端の点（mi）が点灯。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="mile" translate="no" role="img" aria-label="mile表示 右端の点が点灯"></div><figcaption><b>mile のとき</b>トリップ表示の右端の点（mi）が点灯。</figcaption></figure>
   </div>
   <p>mile にすると、トリップも速度もマイル（mph）で表示します。トリップ表示の右端の点が、本体の「● mi」の位置で点灯します。</p>
 </section>
 
-<!-- 8 補正 -->
+<!-- 11 補正 -->
 <section class="chapter break" id="calib">
-  <div class="chapter-head"><div class="no">8</div><h2>補正（校正）</h2></div>
+  <div class="chapter-head"><div class="no">11</div><h2>補正（校正）</h2></div>
   <p class="lead">表示される距離と速度を、実際の値に合わせる係数です。表示は「GPSから求めた値 ÷ 係数」なので、表示が長すぎるときは係数を大きくします。</p>
   <p>たとえば公式の1.000kmで表示が1.020kmなら、係数は1.020です。</p>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="calib" role="img" aria-label="補正モード 係数1.000 先頭の桁が点滅"></div><figcaption><b>補正モード</b>「C」と係数。点滅している桁を変更できます。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="calib" translate="no" role="img" aria-label="補正モード 係数1.000 先頭の桁が点滅"></div><figcaption><b>補正モード</b>「C」と係数。点滅している桁を変更できます。</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>トリップ画面で <span translate="no" class="key red">赤</span> を長押しすると、補正モードになります。</li>
-    <li><span translate="no" class="key red">赤</span> の短押しで、点滅する桁を右へ移動します（4桁目の次は1桁目）。</li>
-    <li><span translate="no" class="key">白</span> の短押しで、点滅中の桁を1つずつ増やします（9の次は0）。白の長押しで1.000に戻せます。</li>
-    <li><span translate="no" class="key red">赤</span> を長押しすると、係数を保存してトリップ画面に戻ります。</li>
+    <li>トリップ画面で <span class="key red" translate="no">赤</span> を長押しすると、補正モードになります。</li>
+    <li><span class="key red" translate="no">赤</span> の短押しで、点滅する桁を右へ移動します（4桁目の次は1桁目）。</li>
+    <li><span class="key" translate="no">白</span> の短押しで、点滅中の桁を1つずつ増やします（9の次は0）。白の長押しで1.000に戻せます。</li>
+    <li><span class="key red" translate="no">赤</span> を長押しすると、係数を保存してトリップ画面に戻ります。</li>
   </ol>
   <div class="note"><p>係数は0.500〜2.000の範囲で有効です。範囲外の値（0.000など）で確定すると、入力は反映されず、前の係数のままになります。</p></div>
 </section>
 
-<!-- 9 GPS -->
+<!-- 12 GPS -->
 <section class="chapter" id="gps">
-  <div class="chapter-head"><div class="no">9</div><h2>GPSと時刻・時差</h2></div>
-  <p class="lead">時刻・距離・速度はGPSから取得します。GPSで位置を測れていないときは、表示全体が1秒ごとに点滅します。</p>
+  <div class="chapter-head"><div class="no">12</div><h2>GPSと時刻・時差</h2></div>
+  <p class="lead">時刻・距離・速度はGPSから取得します。GPSで位置を測れていないときは、表示全体が1秒ごとに消えます。</p>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="nofix" role="img" aria-label="GPS測位待ち 表示が点滅"></div><figcaption><b>測位待ち</b>表示が1秒ごとに点滅。距離は増えません。</figcaption></figure>
-    <figure><div class="lcd" data-kind="disp" data-top="Utc  9" role="img" aria-label="時差設定 9"></div><figcaption><b>時差設定</b>日本は9。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="nofix" translate="no" role="img" aria-label="GPS測位待ち 表示が点滅"></div><figcaption><b>測位待ち</b>1秒ごとに消える。距離は増えません。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-top="Utc  9" translate="no" role="img" aria-label="時差設定 9"></div><figcaption><b>時差設定</b>日本は9。</figcaption></figure>
   </div>
   <p>表示される時刻は、GPSの時刻（世界標準時）に時差を加えたものです。電源を入れた直後、GPSの時刻を受け取るまでは「9.00.00」（時差の値の時刻）が表示されます。</p>
   <h3>時差を設定する</h3>
   <ol class="steps">
-    <li>時計画面で <span translate="no" class="key red">赤</span> を長押しすると、時差設定になります。</li>
-    <li><span translate="no" class="key">白</span> の短押しで1ずつ増やします（−12〜＋14、＋14の次は−12）。白の長押しで＋9に戻ります。変えた値はすぐに保存されます。</li>
-    <li><span translate="no" class="key red">赤</span> を押すと時計画面に戻ります。</li>
+    <li>時計画面で <span class="key red" translate="no">赤</span> を長押しすると、時差設定になります。</li>
+    <li><span class="key" translate="no">白</span> の短押しで1ずつ増やします（−12〜＋14、＋14の次は−12）。白の長押しで＋9に戻ります。変えた値はすぐに保存されます。</li>
+    <li><span class="key red" translate="no">赤</span> を押すと時計画面に戻ります。</li>
   </ol>
 </section>
 
-<!-- 10 明るさ -->
+<!-- 13 明るさ -->
 <section class="chapter" id="bright">
-  <div class="chapter-head"><div class="no">10</div><h2>明るさの自動調整</h2></div>
+  <div class="chapter-head"><div class="no">13</div><h2>明るさの自動調整</h2></div>
   <p class="lead">表示の左の丸窓にある照度センサーが周囲の明るさを測り、表示の明るさを2段階で自動的に切り替えます。</p>
   <div class="screens">
-    <figure><div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="明るい場所での表示"></div><figcaption><b>明るい場所</b>明るく表示。</figcaption></figure>
-    <figure><div class="lcd" data-kind="disp" data-demo="clock" data-dim="1" role="img" aria-label="暗い場所での表示"></div><figcaption><b>暗い場所</b>まぶしくないよう暗く表示。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" translate="no" role="img" aria-label="明るい場所での表示"></div><figcaption><b>明るい場所</b>明るく表示。</figcaption></figure>
+    <figure><div class="lcd" data-kind="disp" data-demo="clock" data-dim="1" translate="no" role="img" aria-label="暗い場所での表示"></div><figcaption><b>暗い場所</b>まぶしくないよう暗く表示。</figcaption></figure>
   </div>
   <p>手動で明るさを設定する機能はありません。丸窓をふさがないように取り付けてください。</p>
 </section>
 
-<!-- 11 困ったとき -->
+<!-- 14 困ったとき -->
 <section class="chapter break" id="help">
-  <div class="chapter-head"><div class="no">11</div><h2>表示記号と困ったとき</h2></div>
+  <div class="chapter-head"><div class="no">14</div><h2>表示の見分け方と困ったとき</h2></div>
+  <h3>点滅の見分け方</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>見え方</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td>表示全体が1秒ごとに消える</td><td>GPSで位置を測れていない</td></tr>
+      <tr><td>表示全体が細かく点滅</td><td>制限速度以上（速度警告）</td></tr>
+      <tr><td>時刻の区切りの点だけ点滅</td><td>時刻ホールド中</td></tr>
+      <tr><td>トリップの先頭の n／r が点滅</td><td>停止中／後退中</td></tr>
+      <tr><td>左端の点が点滅（時計・速度）</td><td>停止中または後退中</td></tr>
+      <tr><td>SP の次の A が点滅</td><td>速度警告ON</td></tr>
+    </tbody>
+  </table></div>
   <h3>表示記号</h3>
   <div class="table-wrap"><table>
     <thead><tr><th>表示</th><th>意味</th></tr></thead>
     <tbody>
-      <tr><td>t</td><td>トリップ（DISTANCE）</td></tr>
-      <tr><td>SP</td><td>速度（SPEED）</td></tr>
-      <tr><td>C</td><td>補正モード</td></tr>
-      <tr><td>Utc</td><td>時差設定</td></tr>
+      <tr><td translate="no">t</td><td>トリップ（前進）</td></tr>
+      <tr><td translate="no">n／r</td><td>トリップ（停止／後退）</td></tr>
+      <tr><td translate="no">SP</td><td>速度</td></tr>
+      <tr><td translate="no">A</td><td>速度警告（速度画面ではON、設定画面では制限速度）</td></tr>
+      <tr><td translate="no">dir</td><td>進行方向を切り替えた</td></tr>
+      <tr><td translate="no">C</td><td>補正モード</td></tr>
+      <tr><td translate="no">Utc</td><td>時差設定</td></tr>
       <tr><td>右端の点</td><td>トリップ表示で点灯＝mile</td></tr>
     </tbody>
   </table></div>
@@ -425,19 +501,22 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <div class="table-wrap"><table>
     <thead><tr><th>症状</th><th>対処</th></tr></thead>
     <tbody>
-      <tr><td>表示全体が点滅する</td><td>GPSで位置を測れていません。空が開けた場所でしばらく待ってください。</td></tr>
+      <tr><td>表示全体が1秒ごとに消える</td><td>GPSで位置を測れていません。空が開けた場所でしばらく待ってください。</td></tr>
       <tr><td>時計が「9.00.00」で止まっている</td><td>GPSの時刻をまだ受け取っていません。しばらく待ってください。</td></tr>
       <tr><td>時刻が数時間ずれている</td><td>時差の設定を確認してください。日本は9です。</td></tr>
+      <tr><td>白ボタンでトリップがリセットできない</td><td>リセットはトリップ画面でだけ働きます。</td></tr>
+      <tr><td>距離が増えない</td><td>先頭が「n」（停止）になっていないか確認してください。白の長押しで切り替えます。</td></tr>
+      <tr><td>距離が減っていく</td><td>先頭が「r」（後退）になっています。白の長押しで前進に戻してください。</td></tr>
+      <tr><td>速度警告が点滅しない</td><td>速度画面で警告がONか（Aが点滅しているか）、GPSを受信しているかを確認してください。</td></tr>
       <tr><td>起動直後にボタンが効かない</td><td>すべてのボタンから一度指を離してください。</td></tr>
       <tr><td>距離が公式距離と合わない</td><td>補正で係数を合わせてください。</td></tr>
-      <tr><td>距離や速度がマイルになっている</td><td><span translate="no" class="key red">赤</span> を押しながら電源をつなぎ直すと km に戻ります。</td></tr>
+      <tr><td>距離や速度がマイルになっている</td><td><span class="key red" translate="no">赤</span> を押しながら電源をつなぎ直すと km に戻ります。</td></tr>
       <tr><td>1km未満なのに「520」のように表示される</td><td>レッキモードでは1km未満をmで表示します。</td></tr>
-      <tr><td>100km以上で表示がおかしい</td><td>レッキモードは99.990kmまでです。<span translate="no" class="key">白</span> を押しながら電源をつなぎ、ノーマルモードにしてください。</td></tr>
-      <tr><td>表示が暗い／明るすぎる</td><td>照度センサーの丸窓がふさがれていないか確認してください。</td></tr>
+      <tr><td>100km以上で表示がおかしい</td><td>レッキモードは99.990kmまでです。<span class="key" translate="no">白</span> を押しながら電源をつなぎ、ノーマルモードにしてください。</td></tr>
     </tbody>
   </table></div>
   <h3>電源を切っても残る設定</h3>
-  <p>表示モード・トリップ・補正係数・時差・単位（km／mile）・表示形式は保存されます。</p>
+  <p>表示モード・トリップ・補正係数・時差・制限速度・単位（km／mile）・表示形式は保存されます。進行方向と速度警告のON／OFFは保存されず、毎回、前進・警告OFFで始まります。</p>
 </section>
 
 <footer>G-Compact 取扱説明書 2026年10月版　<a href="index.html" style="color:inherit">取扱説明書の一覧</a></footer>
@@ -448,7 +527,8 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   // ---------- 7セグ（MAX7219 の setRow と同じビット配置：DP a b c d e f g） ----------
   var SEG = {
     '0':0x7E,'1':0x30,'2':0x6D,'3':0x79,'4':0x33,'5':0x5B,'6':0x5F,'7':0x70,'8':0x7F,'9':0x7B,
-    'S':0x5B,'P':0x67,'C':0x4E,'U':0x3E,'t':0x0F,'c':0x0D,' ':0x00
+    'S':0x5B,'P':0x67,'C':0x4E,'U':0x3E,'t':0x0F,'c':0x0D,'n':0x15,'r':0x05,'d':0x3D,'i':0x04,
+    'F':0x47,'A':0x77,' ':0x00
   };
   var SHAPES = [
     ['a', '8,4 32,4 35,7 32,10 8,10 5,7'], ['b', '30,10 33,7 36,10 36,30 33,33 30,30'],
@@ -520,12 +600,14 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   // ---------- 本体と同じ表示の組み立て ----------
   function d(n) { return String(Math.floor(n) % 10); }
   var F = {
-    clock: function (h, m, s) {
-      return (h < 10 ? ' ' : d(h / 10)) + d(h) + '.' + d(m / 10) + d(m) + '.' + d(s / 10) + d(s);
+    clock: function (h, m, s, dots, dp0) {     // dots：区切りの点、dp0：左端の点
+      if (dots === undefined) dots = true;
+      return (h < 10 ? (dp0 ? '.' : ' ') : d(h / 10) + (dp0 ? '.' : '')) + d(h) + (dots ? '.' : '') +
+             d(m / 10) + d(m) + (dots ? '.' : '') + d(s / 10) + d(s);
     },
-    recce: function (m, mi) {      // レッキモード：1km未満はm、1km以上は km（最下桁0）
+    recce: function (m, mi, head) {      // レッキモード：1km未満はm、1km以上は km（最下桁0）
       m = Math.max(0, Math.floor(m)) % 1000000;
-      return 't' + (m >= 10000 ? d(m / 10000) : ' ') + (m >= 1000 ? d(m / 1000) + '.' : ' ') +
+      return (head === undefined ? 't' : head) + (m >= 10000 ? d(m / 10000) : ' ') + (m >= 1000 ? d(m / 1000) + '.' : ' ') +
              (m >= 100 ? d(m / 100) : ' ') + (m >= 10 ? d(m / 10) : ' ') + '0' + (mi ? '.' : '');
     },
     normal: function (m, mi) {     // ノーマルモード：0.00〜999.99km
@@ -533,25 +615,38 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
       return 't' + (m >= 100000 ? d(m / 100000) : ' ') + (m >= 10000 ? d(m / 10000) : ' ') +
              d(m / 1000) + '.' + d(m / 100) + d(m / 10) + (mi ? '.' : '');
     },
-    speed: function (v) {
+    speed: function (v, a) {
       var i = Math.floor(v);
-      return 'SP ' + (i >= 100 ? d(i / 100) : ' ') + (i >= 10 ? d(i / 10) : ' ') + d(i);
+      return 'SP' + (a ? 'A' : ' ') + (i >= 100 ? d(i / 100) : ' ') + (i >= 10 ? d(i / 10) : ' ') + d(i);
     }
   };
 
-  function now() {
+  function now(dots, dp0) {
     var dt = new Date();
-    return F.clock(dt.getHours(), dt.getMinutes(), dt.getSeconds());
+    return F.clock(dt.getHours(), dt.getMinutes(), dt.getSeconds(), dots, dp0);
   }
+  function slow(ms) { return (ms % 1000) < 600; }       // 600ms点灯／400ms消灯
+  var holdT = null;
   var DEMO = {
     'clock':       function () { return now(); },
+    'hold':        function (t, ms) {                    // 5秒ごとにホールドし直す
+      var dt = new Date(ms - (ms % 5000) - 2000);
+      return F.clock(dt.getHours(), dt.getMinutes(), dt.getSeconds(), Math.floor(ms / 250) % 2 === 0);
+    },
     'recce':       function (t) { return F.recce(12340 + 10 * t, false); },
     'recce-cross': function (t) { return F.recce(900 + (10 * t) % 300, false); },
     'normal':      function (t) { return F.normal(12340 + 10 * t, false); },
     'mile':        function (t) { return F.recce(7660 + 10 * t, true); },
-    'speed':       function () { return F.speed(36); },
+    'speed':       function () { return F.speed(36, false); },
+    'alerton':     function (t, ms) { return F.speed(36, slow(ms)); },
+    'over':        function (t, ms) { return (ms % 160) < 80 ? F.speed(72, slow(ms)) : '      '; },
+    'dirF':        function (t) { return F.recce(12340 + 10 * t, false, 't'); },
+    'dirN':        function (t, ms) { return F.recce(12340, false, slow(ms) ? 'n' : ' '); },
+    'dirR':        function (t, ms) { return F.recce(12340 - 10 * t, false, slow(ms) ? 'r' : ' '); },
+    'dirmsg':      function (t) { var k = Math.floor(t / 1.5) % 3; return 'dir  ' + ['F', 'n', 'r'][k]; },
+    'clockR':      function (t, ms) { return now(true, slow(ms)); },
     'nofix':       function (t, ms) { return (ms % 1000) >= 700 ? '      ' : now(); },
-    'calib':       function (t, ms) { return (ms % 1000) < 600 ? 'C 1.000' : 'C  .000'; }
+    'calib':       function (t, ms) { return slow(ms) ? 'C 1.000' : 'C  .000'; }
   };
 
   function render(el, t, ms) {
