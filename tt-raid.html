@@ -266,7 +266,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <section class="chapter" id="parts">
   <div class="chapter-head"><div class="no">2</div><h2>各部の名称</h2></div>
   <p class="lead">前面にボタン6個、レバー2本、表示部、LED2個があります。</p>
-  <div class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
+  <div translate="no" class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
   <div class="table-wrap"><table>
     <thead><tr><th>番号</th><th>名称</th><th>主な役割</th></tr></thead>
     <tbody>
@@ -295,12 +295,12 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="table-wrap"><table>
     <thead><tr><th>ボタン</th><th>短押し</th><th>長押し</th></tr></thead>
     <tbody>
-      <tr><td><span class="key">TOTAL</span></td><td>TOTALリセット</td><td>TOTALの距離入力</td></tr>
-      <tr><td><span class="key">PART</span></td><td>PARTリセット</td><td>PARTの距離入力</td></tr>
-      <tr><td><span class="key">▼10</span></td><td>10m減らす</td><td>連続で減らす</td></tr>
-      <tr><td><span class="key">▲10</span></td><td>10m増やす</td><td>連続で増やす</td></tr>
-      <tr><td><span class="key blue">FUNC</span></td><td>上段の表示を切替（カウントダウン中は取消）</td><td>設定へ</td></tr>
-      <tr><td><span class="key red">CALIB</span></td><td>ストップウォッチ画面でステージ操作</td><td>校正へ</td></tr>
+      <tr><td><span translate="no" class="key">TOTAL</span></td><td>TOTALリセット</td><td>TOTALの距離入力</td></tr>
+      <tr><td><span translate="no" class="key">PART</span></td><td>PARTリセット</td><td>PARTの距離入力</td></tr>
+      <tr><td><span translate="no" class="key">▼10</span></td><td>10m減らす</td><td>連続で減らす</td></tr>
+      <tr><td><span translate="no" class="key">▲10</span></td><td>10m増やす</td><td>連続で増やす</td></tr>
+      <tr><td><span translate="no" class="key blue">FUNC</span></td><td>上段の表示を切替（カウントダウン中は取消）</td><td>設定へ</td></tr>
+      <tr><td><span translate="no" class="key red">CALIB</span></td><td>ストップウォッチ画面でステージ操作</td><td>校正へ</td></tr>
     </tbody>
   </table></div>
   <p>レバーはどの画面でも働きます。設定画面と校正画面での操作は、それぞれの章で説明します。</p>
@@ -309,7 +309,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <!-- 4 上段の表示 -->
 <section class="chapter break" id="modes">
   <div class="chapter-head"><div class="no">4</div><h2>上段の表示</h2></div>
-  <p class="lead">上段は5種類の表示を、<span class="key blue">FUNC</span> の短押しで順に切り替えます。下段は常にPARTです。</p>
+  <p class="lead">上段は5種類の表示を、<span translate="no" class="key blue">FUNC</span> の短押しで順に切り替えます。下段は常にPARTです。</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="total" role="img" aria-label="TOTAL表示"></div><figcaption><b>1 TOTAL</b>上段にTOTAL、下段にPART。</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="clock" role="img" aria-label="時計表示"></div><figcaption><b>2 時計</b>GPSの時刻。</figcaption></figure>
@@ -327,8 +327,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="table-wrap"><table>
     <thead><tr><th>操作</th><th>TOTAL</th><th>PART</th></tr></thead>
     <tbody>
-      <tr><td>リセット</td><td><span class="key">TOTAL</span> 短押し</td><td><span class="key">PART</span> 短押し</td></tr>
-      <tr><td>距離を入力</td><td><span class="key">TOTAL</span> 長押し</td><td><span class="key">PART</span> 長押し</td></tr>
+      <tr><td>リセット</td><td><span translate="no" class="key">TOTAL</span> 短押し</td><td><span translate="no" class="key">PART</span> 短押し</td></tr>
+      <tr><td>距離を入力</td><td><span translate="no" class="key">TOTAL</span> 長押し</td><td><span translate="no" class="key">PART</span> 長押し</td></tr>
       <tr><td>自動リセット</td><td>ストップウォッチのカウントダウン開始時</td><td>カウントダウン開始時、フィニッシュ時</td></tr>
     </tbody>
   </table></div>
@@ -352,24 +352,24 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </table></div>
 
   <h3>10m単位の補正（▼10／▲10）</h3>
-  <p><span class="key">▲10</span> で10m増やし、<span class="key">▼10</span> で10m減らします。0.8秒押し続けると連続で変わります。どのトリップを補正するかは、設定の「±10の対象」で選びます（初期値はTOTALとPARTの両方）。10m未満の状態では、それ以上減りません。</p>
+  <p><span translate="no" class="key">▲10</span> で10m増やし、<span translate="no" class="key">▼10</span> で10m減らします。0.8秒押し続けると連続で変わります。どのトリップを補正するかは、設定の「±10の対象」で選びます（初期値はTOTALとPARTの両方）。10m未満の状態では、それ以上減りません。</p>
 
   <h3>距離を入力する</h3>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="setA" role="img" aria-label="TOTALの距離入力 先頭の桁が点滅"></div><figcaption><b>TOTALの入力</b>点滅している桁が変更できる桁。</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>TOTALは <span class="key">TOTAL</span>、PARTは <span class="key">PART</span> を長押しすると、入力画面になります。5桁（100km〜10m）が入力できます。</li>
-    <li><span class="key">▼10</span>／<span class="key">▲10</span> で点滅する桁を左右に移動します。</li>
-    <li><span class="key">TOTAL</span> で＋、<span class="key">PART</span> で－です。</li>
-    <li>始めたときと同じボタン（TOTALなら <span class="key">TOTAL</span>）を長押しすると確定します。</li>
+    <li>TOTALは <span translate="no" class="key">TOTAL</span>、PARTは <span translate="no" class="key">PART</span> を長押しすると、入力画面になります。5桁（100km〜10m）が入力できます。</li>
+    <li><span translate="no" class="key">▼10</span>／<span translate="no" class="key">▲10</span> で点滅する桁を左右に移動します。</li>
+    <li><span translate="no" class="key">TOTAL</span> で＋、<span translate="no" class="key">PART</span> で－です。</li>
+    <li>始めたときと同じボタン（TOTALなら <span translate="no" class="key">TOTAL</span>）を長押しすると確定します。</li>
   </ol>
 </section>
 
 <!-- 6 ストップウォッチ -->
 <section class="chapter break" id="stage">
   <div class="chapter-head"><div class="no">6</div><h2>ストップウォッチ（ステージ）</h2></div>
-  <p class="lead">上段をストップウォッチ表示にして <span class="key red">CALIB</span> を押すと、次の「分」の00秒に向けてカウントダウンが始まります。タイムは1秒単位です。</p>
+  <p class="lead">上段をストップウォッチ表示にして <span translate="no" class="key red">CALIB</span> を押すと、次の「分」の00秒に向けてカウントダウンが始まります。タイムは1秒単位です。</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="------" data-bottom=" 12.34 " role="img" aria-label="待機中"></div><figcaption><b>待機中</b>「------」。</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="sw-cd" role="img" aria-label="カウントダウン"></div><figcaption><b>カウントダウン</b>スタートまでの残り秒。</figcaption></figure>
@@ -377,12 +377,12 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <figure><div class="lcd" data-kind="main" data-demo="sw-fin" role="img" aria-label="フィニッシュ"></div><figcaption><b>フィニッシュ</b>確定したタイムを点滅表示。</figcaption></figure>
   </div>
   <ol class="steps">
-    <li><strong>カウントダウン開始</strong>：待機中に <span class="key red">CALIB</span> 短押し。TOTALとPARTが0になります。</li>
-    <li><strong>スタート</strong>：カウントダウンが0になると自動でスタートします。カウントダウン中に <span class="key red">CALIB</span> を短押しすると、その瞬間にスタートします。</li>
-    <li><strong>フィニッシュ</strong>：計測中に <span class="key red">CALIB</span> 短押し。タイムが確定して点滅表示になり、PARTが0になります。</li>
-    <li><strong>待機に戻る</strong>：フィニッシュ後に <span class="key red">CALIB</span> 短押し。</li>
+    <li><strong>カウントダウン開始</strong>：待機中に <span translate="no" class="key red">CALIB</span> 短押し。TOTALとPARTが0になります。</li>
+    <li><strong>スタート</strong>：カウントダウンが0になると自動でスタートします。カウントダウン中に <span translate="no" class="key red">CALIB</span> を短押しすると、その瞬間にスタートします。</li>
+    <li><strong>フィニッシュ</strong>：計測中に <span translate="no" class="key red">CALIB</span> 短押し。タイムが確定して点滅表示になり、PARTが0になります。</li>
+    <li><strong>待機に戻る</strong>：フィニッシュ後に <span translate="no" class="key red">CALIB</span> 短押し。</li>
   </ol>
-  <div class="note"><p>カウントダウン中に <span class="key blue">FUNC</span> を短押しすると、取り消して待機に戻ります。計測中に上段を別の表示に切り替えても、計測は続きます。ストップウォッチはGPSの時刻を使うので、GPS LEDが点灯してから使ってください。</p></div>
+  <div class="note"><p>カウントダウン中に <span translate="no" class="key blue">FUNC</span> を短押しすると、取り消して待機に戻ります。計測中に上段を別の表示に切り替えても、計測は続きます。ストップウォッチはGPSの時刻を使うので、GPS LEDが点灯してから使ってください。</p></div>
 </section>
 
 <!-- 7 GPS -->
@@ -419,8 +419,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <!-- 9 設定 -->
 <section class="chapter break" id="settings">
   <div class="chapter-head"><div class="no">9</div><h2>設定</h2></div>
-  <p class="lead"><span class="key blue">FUNC</span> を長押しすると設定に入ります。<span class="key blue">FUNC</span> の短押しで「明るさ → 時差 → ±10の対象 → 終了」と進みます。</p>
-  <p>値は <span class="key">TOTAL</span>（＋）／<span class="key">PART</span>（－）で変え、変えた瞬間に保存されます。途中で <span class="key red">CALIB</span> を短押しすると、すぐに設定を終わります。</p>
+  <p class="lead"><span translate="no" class="key blue">FUNC</span> を長押しすると設定に入ります。<span translate="no" class="key blue">FUNC</span> の短押しで「明るさ → 時差 → ±10の対象 → 終了」と進みます。</p>
+  <p>値は <span translate="no" class="key">TOTAL</span>（＋）／<span translate="no" class="key">PART</span>（－）で変え、変えた瞬間に保存されます。途中で <span translate="no" class="key red">CALIB</span> を短押しすると、すぐに設定を終わります。</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="ILL   " data-bottom="    HI" role="img" aria-label="明るさ HI"></div><figcaption><b>明るさ</b>HI（明）／Lo（暗）。</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-top="Utc   " data-bottom="     9" role="img" aria-label="時差 9"></div><figcaption><b>時差</b>－15〜＋15時間。日本は9。</figcaption></figure>
@@ -445,10 +445,10 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <figure><div class="lcd" data-kind="main" data-demo="calib" role="img" aria-label="校正画面 係数1.0200"></div><figcaption><b>校正画面</b>上段に「CALIb」、下段に係数。</figcaption></figure>
   </div>
   <ol class="steps">
-    <li><span class="key red">CALIB</span> を長押しすると、校正画面になります。</li>
-    <li><span class="key">▼10</span>／<span class="key">▲10</span> で点滅する桁を左右に移動します。</li>
-    <li><span class="key">TOTAL</span> で＋、<span class="key">PART</span> で－です（0.0000〜2.9999）。変えた値はすぐに保存されます。</li>
-    <li>もう一度 <span class="key red">CALIB</span> を長押しすると、通常の画面に戻ります。</li>
+    <li><span translate="no" class="key red">CALIB</span> を長押しすると、校正画面になります。</li>
+    <li><span translate="no" class="key">▼10</span>／<span translate="no" class="key">▲10</span> で点滅する桁を左右に移動します。</li>
+    <li><span translate="no" class="key">TOTAL</span> で＋、<span translate="no" class="key">PART</span> で－です（0.0000〜2.9999）。変えた値はすぐに保存されます。</li>
+    <li>もう一度 <span translate="no" class="key red">CALIB</span> を長押しすると、通常の画面に戻ります。</li>
   </ol>
 </section>
 
@@ -483,7 +483,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </table></div>
   <h3>電源を切っても残る設定</h3>
   <p>TOTAL・PART・校正係数・明るさ・時差・±10の対象は保存されます。ストップウォッチの状態は消えます。</p>
-  <p>電源を入れるときに <span class="key red">CALIB</span> を押したままにすると、下段にソフトウェアのバージョンが2秒間表示されます。</p>
+  <p>電源を入れるときに <span translate="no" class="key red">CALIB</span> を押したままにすると、下段にソフトウェアのバージョンが2秒間表示されます。</p>
 </section>
 
 <footer>TT-Raid 取扱説明書 2026年10月版　<a href="index.html" style="color:inherit">取扱説明書の一覧</a></footer>

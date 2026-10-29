@@ -275,7 +275,7 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
 <section class="chapter" id="parts">
   <div class="chapter-head"><div class="no">2</div><h2>ชื่อและหน้าที่ของแต่ละส่วน</h2></div>
   <p class="lead">ด้านหน้าตัวเครื่องมีปุ่ม 6 ปุ่ม คันโยก 2 อัน จอแสดงผล และไฟ LED 2 ดวง</p>
-  <div class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="ด้านหน้าตัวเครื่องพร้อมหมายเลขกำกับแต่ละส่วน"></div>
+  <div translate="no" class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="ด้านหน้าตัวเครื่องพร้อมหมายเลขกำกับแต่ละส่วน"></div>
   <div class="table-wrap"><table>
     <thead><tr><th>หมายเลข</th><th>ชื่อ</th><th>หน้าที่หลัก</th></tr></thead>
     <tbody>
@@ -304,12 +304,12 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
   <div class="table-wrap"><table>
     <thead><tr><th>ปุ่ม</th><th>กดสั้น</th><th>กดค้าง</th></tr></thead>
     <tbody>
-      <tr><td><span class="key">TOTAL</span></td><td>รีเซ็ต TOTAL</td><td>ป้อนระยะทางของ TOTAL</td></tr>
-      <tr><td><span class="key">PART</span></td><td>รีเซ็ต PART</td><td>ป้อนระยะทางของ PART</td></tr>
-      <tr><td><span class="key">▼10</span></td><td>ลด 10 ม.</td><td>ลดต่อเนื่อง</td></tr>
-      <tr><td><span class="key">▲10</span></td><td>เพิ่ม 10 ม.</td><td>เพิ่มต่อเนื่อง</td></tr>
-      <tr><td><span class="key blue">FUNC</span></td><td>สลับการแสดงผลแถวบน (ยกเลิกการนับถอยหลัง)</td><td>เข้าสู่การตั้งค่า</td></tr>
-      <tr><td><span class="key red">CALIB</span></td><td>ควบคุมสเตจเมื่ออยู่ที่หน้าจอนาฬิกาจับเวลา</td><td>เข้าสู่การปรับเทียบ</td></tr>
+      <tr><td><span translate="no" class="key">TOTAL</span></td><td>รีเซ็ต TOTAL</td><td>ป้อนระยะทางของ TOTAL</td></tr>
+      <tr><td><span translate="no" class="key">PART</span></td><td>รีเซ็ต PART</td><td>ป้อนระยะทางของ PART</td></tr>
+      <tr><td><span translate="no" class="key">▼10</span></td><td>ลด 10 ม.</td><td>ลดต่อเนื่อง</td></tr>
+      <tr><td><span translate="no" class="key">▲10</span></td><td>เพิ่ม 10 ม.</td><td>เพิ่มต่อเนื่อง</td></tr>
+      <tr><td><span translate="no" class="key blue">FUNC</span></td><td>สลับการแสดงผลแถวบน (ยกเลิกการนับถอยหลัง)</td><td>เข้าสู่การตั้งค่า</td></tr>
+      <tr><td><span translate="no" class="key red">CALIB</span></td><td>ควบคุมสเตจเมื่ออยู่ที่หน้าจอนาฬิกาจับเวลา</td><td>เข้าสู่การปรับเทียบ</td></tr>
     </tbody>
   </table></div>
   <p>คันโยกใช้งานได้ทุกหน้าจอ การใช้ปุ่มในหน้าจอการตั้งค่าและการปรับเทียบอธิบายไว้ในบทของแต่ละหัวข้อ</p>
@@ -318,7 +318,7 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
 <!-- 4 จอแถวบน -->
 <section class="chapter break" id="modes">
   <div class="chapter-head"><div class="no">4</div><h2>จอแสดงผลแถวบน</h2></div>
-  <p class="lead">กด <span class="key blue">FUNC</span> สั้นๆ เพื่อสลับการแสดงผลแถวบนทั้ง 5 แบบตามลำดับ ส่วนแถวล่างจะแสดง PART เสมอ</p>
+  <p class="lead">กด <span translate="no" class="key blue">FUNC</span> สั้นๆ เพื่อสลับการแสดงผลแถวบนทั้ง 5 แบบตามลำดับ ส่วนแถวล่างจะแสดง PART เสมอ</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="total" role="img" aria-label="หน้าจอ TOTAL"></div><figcaption><b>1 TOTAL</b>แถวบนแสดง TOTAL แถวล่างแสดง PART</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="clock" role="img" aria-label="หน้าจอนาฬิกา"></div><figcaption><b>2 นาฬิกา</b>เวลาจาก GPS</figcaption></figure>
@@ -336,8 +336,8 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
   <div class="table-wrap"><table>
     <thead><tr><th>การทำงาน</th><th>TOTAL</th><th>PART</th></tr></thead>
     <tbody>
-      <tr><td>รีเซ็ต</td><td>กด <span class="key">TOTAL</span> สั้น</td><td>กด <span class="key">PART</span> สั้น</td></tr>
-      <tr><td>ป้อนระยะทาง</td><td>กด <span class="key">TOTAL</span> ค้าง</td><td>กด <span class="key">PART</span> ค้าง</td></tr>
+      <tr><td>รีเซ็ต</td><td>กด <span translate="no" class="key">TOTAL</span> สั้น</td><td>กด <span translate="no" class="key">PART</span> สั้น</td></tr>
+      <tr><td>ป้อนระยะทาง</td><td>กด <span translate="no" class="key">TOTAL</span> ค้าง</td><td>กด <span translate="no" class="key">PART</span> ค้าง</td></tr>
       <tr><td>รีเซ็ตอัตโนมัติ</td><td>เมื่อเริ่มนับถอยหลังของนาฬิกาจับเวลา</td><td>เมื่อเริ่มนับถอยหลัง และเมื่อเข้าเส้นชัย</td></tr>
     </tbody>
   </table></div>
@@ -361,24 +361,24 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
   </table></div>
 
   <h3>การปรับแก้ทีละ 10 ม. (▼10 / ▲10)</h3>
-  <p><span class="key">▲10</span> เพิ่ม 10 ม. และ <span class="key">▼10</span> ลด 10 ม. กดค้าง 0.8 วินาทีเพื่อเปลี่ยนค่าต่อเนื่อง เลือกทริปที่จะปรับแก้ได้ที่ “เป้าหมาย ±10” ในการตั้งค่า (ค่าเริ่มต้น: ทั้ง TOTAL และ PART) หากทริปมีค่าน้อยกว่า 10 ม. จะลดลงอีกไม่ได้</p>
+  <p><span translate="no" class="key">▲10</span> เพิ่ม 10 ม. และ <span translate="no" class="key">▼10</span> ลด 10 ม. กดค้าง 0.8 วินาทีเพื่อเปลี่ยนค่าต่อเนื่อง เลือกทริปที่จะปรับแก้ได้ที่ “เป้าหมาย ±10” ในการตั้งค่า (ค่าเริ่มต้น: ทั้ง TOTAL และ PART) หากทริปมีค่าน้อยกว่า 10 ม. จะลดลงอีกไม่ได้</p>
 
   <h3>การป้อนระยะทาง</h3>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="setA" role="img" aria-label="กำลังป้อนระยะทาง TOTAL หลักแรกกะพริบ"></div><figcaption><b>การป้อน TOTAL</b>หลักที่กะพริบคือหลักที่เปลี่ยนค่าได้</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>กด <span class="key">TOTAL</span> ค้างสำหรับ TOTAL หรือกด <span class="key">PART</span> ค้างสำหรับ PART เพื่อเข้าสู่หน้าจอป้อนค่า ป้อนได้ 5 หลัก (100 กม. ถึง 10 ม.)</li>
-    <li>ใช้ <span class="key">▼10</span> / <span class="key">▲10</span> เลื่อนหลักที่กะพริบไปทางซ้ายหรือขวา</li>
-    <li><span class="key">TOTAL</span> เพิ่มค่า และ <span class="key">PART</span> ลดค่า</li>
-    <li>กดค้างที่ปุ่มเดียวกับที่ใช้เริ่ม (สำหรับ TOTAL คือ <span class="key">TOTAL</span>) เพื่อยืนยัน</li>
+    <li>กด <span translate="no" class="key">TOTAL</span> ค้างสำหรับ TOTAL หรือกด <span translate="no" class="key">PART</span> ค้างสำหรับ PART เพื่อเข้าสู่หน้าจอป้อนค่า ป้อนได้ 5 หลัก (100 กม. ถึง 10 ม.)</li>
+    <li>ใช้ <span translate="no" class="key">▼10</span> / <span translate="no" class="key">▲10</span> เลื่อนหลักที่กะพริบไปทางซ้ายหรือขวา</li>
+    <li><span translate="no" class="key">TOTAL</span> เพิ่มค่า และ <span translate="no" class="key">PART</span> ลดค่า</li>
+    <li>กดค้างที่ปุ่มเดียวกับที่ใช้เริ่ม (สำหรับ TOTAL คือ <span translate="no" class="key">TOTAL</span>) เพื่อยืนยัน</li>
   </ol>
 </section>
 
 <!-- 6 นาฬิกาจับเวลา -->
 <section class="chapter break" id="stage">
   <div class="chapter-head"><div class="no">6</div><h2>นาฬิกาจับเวลา (สเตจ)</h2></div>
-  <p class="lead">เมื่อแถวบนแสดงนาฬิกาจับเวลา ให้กด <span class="key red">CALIB</span> เพื่อเริ่มนับถอยหลังไปยังวินาทีที่ 00 ของนาทีถัดไป เวลาแสดงละเอียดถึงหลักวินาที</p>
+  <p class="lead">เมื่อแถวบนแสดงนาฬิกาจับเวลา ให้กด <span translate="no" class="key red">CALIB</span> เพื่อเริ่มนับถอยหลังไปยังวินาทีที่ 00 ของนาทีถัดไป เวลาแสดงละเอียดถึงหลักวินาที</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="------" data-bottom=" 12.34 " role="img" aria-label="สถานะรอ"></div><figcaption><b>สถานะรอ</b>“------”</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="sw-cd" role="img" aria-label="นับถอยหลัง"></div><figcaption><b>นับถอยหลัง</b>จำนวนวินาทีที่เหลือก่อนออกตัว</figcaption></figure>
@@ -386,12 +386,12 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
     <figure><div class="lcd" data-kind="main" data-demo="sw-fin" role="img" aria-label="เข้าเส้นชัย"></div><figcaption><b>เข้าเส้นชัย</b>เวลาที่บันทึกจะกะพริบ</figcaption></figure>
   </div>
   <ol class="steps">
-    <li><strong>เริ่มนับถอยหลัง</strong>: ในสถานะรอ กด <span class="key red">CALIB</span> สั้น TOTAL และ PART จะเป็น 0</li>
-    <li><strong>ออกตัว</strong>: เมื่อนับถอยหลังถึง 0 จะเริ่มจับเวลาอัตโนมัติ หากกด <span class="key red">CALIB</span> ระหว่างนับถอยหลัง จะเริ่มจับเวลาทันที</li>
-    <li><strong>เข้าเส้นชัย</strong>: ระหว่างจับเวลา กด <span class="key red">CALIB</span> สั้น เวลาจะถูกบันทึกและกะพริบ และ PART จะเป็น 0</li>
-    <li><strong>กลับสู่สถานะรอ</strong>: หลังเข้าเส้นชัย กด <span class="key red">CALIB</span> สั้น</li>
+    <li><strong>เริ่มนับถอยหลัง</strong>: ในสถานะรอ กด <span translate="no" class="key red">CALIB</span> สั้น TOTAL และ PART จะเป็น 0</li>
+    <li><strong>ออกตัว</strong>: เมื่อนับถอยหลังถึง 0 จะเริ่มจับเวลาอัตโนมัติ หากกด <span translate="no" class="key red">CALIB</span> ระหว่างนับถอยหลัง จะเริ่มจับเวลาทันที</li>
+    <li><strong>เข้าเส้นชัย</strong>: ระหว่างจับเวลา กด <span translate="no" class="key red">CALIB</span> สั้น เวลาจะถูกบันทึกและกะพริบ และ PART จะเป็น 0</li>
+    <li><strong>กลับสู่สถานะรอ</strong>: หลังเข้าเส้นชัย กด <span translate="no" class="key red">CALIB</span> สั้น</li>
   </ol>
-  <div class="note"><p>หากกด <span class="key blue">FUNC</span> สั้นระหว่างนับถอยหลัง จะยกเลิกและกลับสู่สถานะรอ หากสลับแถวบนไปแสดงข้อมูลอื่นระหว่างจับเวลา การจับเวลาจะยังดำเนินต่อไป นาฬิกาจับเวลาใช้เวลาจาก GPS จึงควรรอให้ไฟ GPS ติดก่อนใช้งาน</p></div>
+  <div class="note"><p>หากกด <span translate="no" class="key blue">FUNC</span> สั้นระหว่างนับถอยหลัง จะยกเลิกและกลับสู่สถานะรอ หากสลับแถวบนไปแสดงข้อมูลอื่นระหว่างจับเวลา การจับเวลาจะยังดำเนินต่อไป นาฬิกาจับเวลาใช้เวลาจาก GPS จึงควรรอให้ไฟ GPS ติดก่อนใช้งาน</p></div>
 </section>
 
 <!-- 7 GPS -->
@@ -428,8 +428,8 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
 <!-- 9 การตั้งค่า -->
 <section class="chapter break" id="settings">
   <div class="chapter-head"><div class="no">9</div><h2>การตั้งค่า</h2></div>
-  <p class="lead">กด <span class="key blue">FUNC</span> ค้างเพื่อเข้าสู่การตั้งค่า กด <span class="key blue">FUNC</span> สั้นแต่ละครั้งเพื่อไปยังรายการถัดไป: ความสว่าง เขตเวลา เป้าหมาย ±10 แล้วออก</p>
-  <p>เปลี่ยนค่าด้วย <span class="key">TOTAL</span> (+) และ <span class="key">PART</span> (−) ค่าจะถูกบันทึกทันที กด <span class="key red">CALIB</span> สั้นเพื่อออกจากการตั้งค่าได้ทุกเมื่อ</p>
+  <p class="lead">กด <span translate="no" class="key blue">FUNC</span> ค้างเพื่อเข้าสู่การตั้งค่า กด <span translate="no" class="key blue">FUNC</span> สั้นแต่ละครั้งเพื่อไปยังรายการถัดไป: ความสว่าง เขตเวลา เป้าหมาย ±10 แล้วออก</p>
+  <p>เปลี่ยนค่าด้วย <span translate="no" class="key">TOTAL</span> (+) และ <span translate="no" class="key">PART</span> (−) ค่าจะถูกบันทึกทันที กด <span translate="no" class="key red">CALIB</span> สั้นเพื่อออกจากการตั้งค่าได้ทุกเมื่อ</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="ILL   " data-bottom="    HI" role="img" aria-label="ความสว่าง HI"></div><figcaption><b>ความสว่าง</b>HI (สว่าง) หรือ Lo (หรี่)</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-top="Utc   " data-bottom="     7" role="img" aria-label="เขตเวลา 7"></div><figcaption><b>เขตเวลา</b>−15 ถึง +15 ชั่วโมง ประเทศไทยคือ 7</figcaption></figure>
@@ -454,10 +454,10 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
     <figure><div class="lcd" data-kind="main" data-demo="calib" role="img" aria-label="หน้าจอปรับเทียบ ค่า 1.0200"></div><figcaption><b>หน้าจอปรับเทียบ</b>แถวบนแสดง “CALIb” แถวล่างแสดงค่าปรับเทียบ</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>กด <span class="key red">CALIB</span> ค้างเพื่อเข้าสู่หน้าจอปรับเทียบ</li>
-    <li>ใช้ <span class="key">▼10</span> / <span class="key">▲10</span> เลื่อนหลักที่กะพริบไปทางซ้ายหรือขวา</li>
-    <li><span class="key">TOTAL</span> เพิ่มค่า และ <span class="key">PART</span> ลดค่า (0.0000–2.9999) ค่าจะถูกบันทึกทันที</li>
-    <li>กด <span class="key red">CALIB</span> ค้างอีกครั้งเพื่อกลับสู่หน้าจอปกติ</li>
+    <li>กด <span translate="no" class="key red">CALIB</span> ค้างเพื่อเข้าสู่หน้าจอปรับเทียบ</li>
+    <li>ใช้ <span translate="no" class="key">▼10</span> / <span translate="no" class="key">▲10</span> เลื่อนหลักที่กะพริบไปทางซ้ายหรือขวา</li>
+    <li><span translate="no" class="key">TOTAL</span> เพิ่มค่า และ <span translate="no" class="key">PART</span> ลดค่า (0.0000–2.9999) ค่าจะถูกบันทึกทันที</li>
+    <li>กด <span translate="no" class="key red">CALIB</span> ค้างอีกครั้งเพื่อกลับสู่หน้าจอปกติ</li>
   </ol>
 </section>
 
@@ -492,7 +492,7 @@ body { font-family: "Noto Sans Thai", "Leelawadee UI", "Thonburi", sans-serif; l
   </table></div>
   <h3>ค่าที่ยังคงอยู่เมื่อปิดเครื่อง</h3>
   <p>TOTAL, PART, ค่าปรับเทียบ, ความสว่าง, เขตเวลา และเป้าหมาย ±10 จะถูกบันทึกไว้ ส่วนสถานะของนาฬิกาจับเวลาจะหายไป</p>
-  <p>หากกด <span class="key red">CALIB</span> ค้างไว้ขณะเปิดเครื่อง แถวล่างจะแสดงเวอร์ชันซอฟต์แวร์เป็นเวลา 2 วินาที</p>
+  <p>หากกด <span translate="no" class="key red">CALIB</span> ค้างไว้ขณะเปิดเครื่อง แถวล่างจะแสดงเวอร์ชันซอฟต์แวร์เป็นเวลา 2 วินาที</p>
 </section>
 
 <footer>คู่มือการใช้งาน TT-Raid ฉบับเดือนตุลาคม 2026　<a href="../index.html" style="color:inherit">รายการคู่มือ</a></footer>

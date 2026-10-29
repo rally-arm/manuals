@@ -271,7 +271,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <section class="chapter" id="parts">
   <div class="chapter-head"><div class="no">2</div><h2>Parts and controls</h2></div>
   <p class="lead">The front panel has six buttons, two levers, the display and two LEDs.</p>
-  <div class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="Front panel with numbered parts"></div>
+  <div translate="no" class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="Front panel with numbered parts"></div>
   <div class="table-wrap"><table>
     <thead><tr><th>No.</th><th>Name</th><th>Main function</th></tr></thead>
     <tbody>
@@ -300,12 +300,12 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="table-wrap"><table>
     <thead><tr><th>Button</th><th>Short press</th><th>Long press</th></tr></thead>
     <tbody>
-      <tr><td><span class="key">TOTAL</span></td><td>Reset TOTAL</td><td>Enter a TOTAL distance</td></tr>
-      <tr><td><span class="key">PART</span></td><td>Reset PART</td><td>Enter a PART distance</td></tr>
-      <tr><td><span class="key">▼10</span></td><td>Subtract 10 m</td><td>Subtract continuously</td></tr>
-      <tr><td><span class="key">▲10</span></td><td>Add 10 m</td><td>Add continuously</td></tr>
-      <tr><td><span class="key blue">FUNC</span></td><td>Change the upper display (cancels a countdown)</td><td>Open settings</td></tr>
-      <tr><td><span class="key red">CALIB</span></td><td>Stage operation on the stopwatch display</td><td>Open calibration</td></tr>
+      <tr><td><span translate="no" class="key">TOTAL</span></td><td>Reset TOTAL</td><td>Enter a TOTAL distance</td></tr>
+      <tr><td><span translate="no" class="key">PART</span></td><td>Reset PART</td><td>Enter a PART distance</td></tr>
+      <tr><td><span translate="no" class="key">▼10</span></td><td>Subtract 10 m</td><td>Subtract continuously</td></tr>
+      <tr><td><span translate="no" class="key">▲10</span></td><td>Add 10 m</td><td>Add continuously</td></tr>
+      <tr><td><span translate="no" class="key blue">FUNC</span></td><td>Change the upper display (cancels a countdown)</td><td>Open settings</td></tr>
+      <tr><td><span translate="no" class="key red">CALIB</span></td><td>Stage operation on the stopwatch display</td><td>Open calibration</td></tr>
     </tbody>
   </table></div>
   <p>The levers work on every screen. Button use on the settings and calibration screens is described in their chapters.</p>
@@ -314,7 +314,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <!-- 4 Upper display -->
 <section class="chapter break" id="modes">
   <div class="chapter-head"><div class="no">4</div><h2>Upper display</h2></div>
-  <p class="lead">Press <span class="key blue">FUNC</span> briefly to cycle the upper row through five displays. The lower row always shows PART.</p>
+  <p class="lead">Press <span translate="no" class="key blue">FUNC</span> briefly to cycle the upper row through five displays. The lower row always shows PART.</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="total" role="img" aria-label="TOTAL display"></div><figcaption><b>1 TOTAL</b>TOTAL on the upper row, PART on the lower row.</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="clock" role="img" aria-label="Clock display"></div><figcaption><b>2 Clock</b>GPS time.</figcaption></figure>
@@ -332,8 +332,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   <div class="table-wrap"><table>
     <thead><tr><th>Action</th><th>TOTAL</th><th>PART</th></tr></thead>
     <tbody>
-      <tr><td>Reset</td><td>Short press <span class="key">TOTAL</span></td><td>Short press <span class="key">PART</span></td></tr>
-      <tr><td>Enter a distance</td><td>Long press <span class="key">TOTAL</span></td><td>Long press <span class="key">PART</span></td></tr>
+      <tr><td>Reset</td><td>Short press <span translate="no" class="key">TOTAL</span></td><td>Short press <span translate="no" class="key">PART</span></td></tr>
+      <tr><td>Enter a distance</td><td>Long press <span translate="no" class="key">TOTAL</span></td><td>Long press <span translate="no" class="key">PART</span></td></tr>
       <tr><td>Automatic reset</td><td>When a stopwatch countdown starts</td><td>When a countdown starts and at the finish</td></tr>
     </tbody>
   </table></div>
@@ -357,24 +357,24 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </table></div>
 
   <h3>10 m corrections (▼10 / ▲10)</h3>
-  <p><span class="key">▲10</span> adds 10 m and <span class="key">▼10</span> subtracts 10 m. Hold for 0.8 seconds to change continuously. Choose which trips are corrected with “±10 target” in the settings (default: both TOTAL and PART). A trip below 10 m is not reduced further.</p>
+  <p><span translate="no" class="key">▲10</span> adds 10 m and <span translate="no" class="key">▼10</span> subtracts 10 m. Hold for 0.8 seconds to change continuously. Choose which trips are corrected with “±10 target” in the settings (default: both TOTAL and PART). A trip below 10 m is not reduced further.</p>
 
   <h3>Entering a distance</h3>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-demo="setA" role="img" aria-label="Entering a TOTAL distance, first digit blinking"></div><figcaption><b>Entering TOTAL</b>The blinking digit is the one you can change.</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>Long press <span class="key">TOTAL</span> for TOTAL, or <span class="key">PART</span> for PART, to open the entry screen. Five digits (100 km to 10 m) can be entered.</li>
-    <li>Move the blinking digit left or right with <span class="key">▼10</span> / <span class="key">▲10</span>.</li>
-    <li><span class="key">TOTAL</span> increases the digit and <span class="key">PART</span> decreases it.</li>
-    <li>Long press the button you started with (for TOTAL, <span class="key">TOTAL</span>) to confirm.</li>
+    <li>Long press <span translate="no" class="key">TOTAL</span> for TOTAL, or <span translate="no" class="key">PART</span> for PART, to open the entry screen. Five digits (100 km to 10 m) can be entered.</li>
+    <li>Move the blinking digit left or right with <span translate="no" class="key">▼10</span> / <span translate="no" class="key">▲10</span>.</li>
+    <li><span translate="no" class="key">TOTAL</span> increases the digit and <span translate="no" class="key">PART</span> decreases it.</li>
+    <li>Long press the button you started with (for TOTAL, <span translate="no" class="key">TOTAL</span>) to confirm.</li>
   </ol>
 </section>
 
 <!-- 6 Stopwatch -->
 <section class="chapter break" id="stage">
   <div class="chapter-head"><div class="no">6</div><h2>Stopwatch (stage)</h2></div>
-  <p class="lead">With the stopwatch on the upper row, press <span class="key red">CALIB</span> to start a countdown to 00 seconds of the next minute. Times are shown to the second.</p>
+  <p class="lead">With the stopwatch on the upper row, press <span translate="no" class="key red">CALIB</span> to start a countdown to 00 seconds of the next minute. Times are shown to the second.</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="------" data-bottom=" 12.34 " role="img" aria-label="Standby"></div><figcaption><b>Standby</b>“------”.</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-demo="sw-cd" role="img" aria-label="Countdown"></div><figcaption><b>Countdown</b>Seconds left until the start.</figcaption></figure>
@@ -382,12 +382,12 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <figure><div class="lcd" data-kind="main" data-demo="sw-fin" role="img" aria-label="Finish"></div><figcaption><b>Finish</b>The final time blinks.</figcaption></figure>
   </div>
   <ol class="steps">
-    <li><strong>Start the countdown</strong>: in standby, press <span class="key red">CALIB</span> briefly. TOTAL and PART are reset to 0.</li>
-    <li><strong>Start</strong>: the stage starts automatically when the countdown reaches 0. Pressing <span class="key red">CALIB</span> during the countdown starts it immediately.</li>
-    <li><strong>Finish</strong>: while running, press <span class="key red">CALIB</span> briefly. The time is fixed and blinks, and PART is reset to 0.</li>
-    <li><strong>Back to standby</strong>: after the finish, press <span class="key red">CALIB</span> briefly.</li>
+    <li><strong>Start the countdown</strong>: in standby, press <span translate="no" class="key red">CALIB</span> briefly. TOTAL and PART are reset to 0.</li>
+    <li><strong>Start</strong>: the stage starts automatically when the countdown reaches 0. Pressing <span translate="no" class="key red">CALIB</span> during the countdown starts it immediately.</li>
+    <li><strong>Finish</strong>: while running, press <span translate="no" class="key red">CALIB</span> briefly. The time is fixed and blinks, and PART is reset to 0.</li>
+    <li><strong>Back to standby</strong>: after the finish, press <span translate="no" class="key red">CALIB</span> briefly.</li>
   </ol>
-  <div class="note"><p>Pressing <span class="key blue">FUNC</span> during the countdown cancels it and returns to standby. If you switch the upper row to another display while running, timing continues. The stopwatch uses GPS time, so wait until the GPS LED is on before using it.</p></div>
+  <div class="note"><p>Pressing <span translate="no" class="key blue">FUNC</span> during the countdown cancels it and returns to standby. If you switch the upper row to another display while running, timing continues. The stopwatch uses GPS time, so wait until the GPS LED is on before using it.</p></div>
 </section>
 
 <!-- 7 GPS -->
@@ -424,8 +424,8 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
 <!-- 9 Settings -->
 <section class="chapter break" id="settings">
   <div class="chapter-head"><div class="no">9</div><h2>Settings</h2></div>
-  <p class="lead">Long press <span class="key blue">FUNC</span> to open the settings. Each short press of <span class="key blue">FUNC</span> moves on: brightness, time-zone offset, ±10 target, then exit.</p>
-  <p>Change values with <span class="key">TOTAL</span> (+) and <span class="key">PART</span> (−). Changes are saved immediately. A short press of <span class="key red">CALIB</span> leaves the settings at any point.</p>
+  <p class="lead">Long press <span translate="no" class="key blue">FUNC</span> to open the settings. Each short press of <span translate="no" class="key blue">FUNC</span> moves on: brightness, time-zone offset, ±10 target, then exit.</p>
+  <p>Change values with <span translate="no" class="key">TOTAL</span> (+) and <span translate="no" class="key">PART</span> (−). Changes are saved immediately. A short press of <span translate="no" class="key red">CALIB</span> leaves the settings at any point.</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="main" data-top="ILL   " data-bottom="    HI" role="img" aria-label="Brightness HI"></div><figcaption><b>Brightness</b>HI (bright) or Lo (dim).</figcaption></figure>
     <figure><div class="lcd" data-kind="main" data-top="Utc   " data-bottom="     9" role="img" aria-label="Time-zone offset 9"></div><figcaption><b>Time-zone offset</b>−15 to +15 hours. Japan is 9, Thailand is 7.</figcaption></figure>
@@ -450,10 +450,10 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     <figure><div class="lcd" data-kind="main" data-demo="calib" role="img" aria-label="Calibration screen, factor 1.0200"></div><figcaption><b>Calibration screen</b>“CALIb” on the upper row, the factor on the lower row.</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>Long press <span class="key red">CALIB</span> to open the calibration screen.</li>
-    <li>Move the blinking digit left or right with <span class="key">▼10</span> / <span class="key">▲10</span>.</li>
-    <li><span class="key">TOTAL</span> increases and <span class="key">PART</span> decreases the digit (0.0000–2.9999). Changes are saved immediately.</li>
-    <li>Long press <span class="key red">CALIB</span> again to return to the normal display.</li>
+    <li>Long press <span translate="no" class="key red">CALIB</span> to open the calibration screen.</li>
+    <li>Move the blinking digit left or right with <span translate="no" class="key">▼10</span> / <span translate="no" class="key">▲10</span>.</li>
+    <li><span translate="no" class="key">TOTAL</span> increases and <span translate="no" class="key">PART</span> decreases the digit (0.0000–2.9999). Changes are saved immediately.</li>
+    <li>Long press <span translate="no" class="key red">CALIB</span> again to return to the normal display.</li>
   </ol>
 </section>
 
@@ -488,7 +488,7 @@ footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
   </table></div>
   <h3>Settings kept when the power is off</h3>
   <p>TOTAL, PART, the calibration factor, brightness, time-zone offset and ±10 target are saved. The stopwatch state is lost.</p>
-  <p>Holding <span class="key red">CALIB</span> while switching on shows the software version on the lower row for 2 seconds.</p>
+  <p>Holding <span translate="no" class="key red">CALIB</span> while switching on shows the software version on the lower row for 2 seconds.</p>
 </section>
 
 <footer>TT-Raid user manual, October 2026 edition　<a href="../index.html" style="color:inherit">Manual list</a></footer>

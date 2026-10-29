@@ -266,7 +266,7 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 <section class="chapter" id="parts">
   <div class="chapter-head"><div class="no">2</div><h2>各部の名称</h2></div>
   <p class="lead">前面に表示部、ボタン2個、照度センサーがあります。左右の側面に端子があります。</p>
-  <div class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
+  <div translate="no" class="panel-fig" data-kind="panel" data-demo="clock" role="img" aria-label="本体前面の各部の位置"></div>
   <div class="table-wrap"><table>
     <thead><tr><th>番号</th><th>名称</th><th>主な役割</th></tr></thead>
     <tbody>
@@ -302,10 +302,10 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <div class="table-wrap"><table>
     <thead><tr><th>ボタン</th><th>時計・トリップ・速度</th><th>補正モード</th><th>時差設定</th></tr></thead>
     <tbody>
-      <tr><td><span class="key red">赤</span> 短押し</td><td>次の表示モードへ</td><td>点滅する桁を右へ</td><td>終了して時計へ</td></tr>
-      <tr><td><span class="key red">赤</span> 長押し</td><td>時計 → 時差設定<br>トリップ → 補正モード</td><td>確定してトリップへ</td><td>終了して時計へ</td></tr>
-      <tr><td><span class="key">白</span> 短押し</td><td>トリップをリセット</td><td>点滅中の桁を＋1</td><td>時差を＋1</td></tr>
-      <tr><td><span class="key">白</span> 長押し</td><td class="none">なし</td><td>1.000に戻す</td><td>＋9に戻す</td></tr>
+      <tr><td><span translate="no" class="key red">赤</span> 短押し</td><td>次の表示モードへ</td><td>点滅する桁を右へ</td><td>終了して時計へ</td></tr>
+      <tr><td><span translate="no" class="key red">赤</span> 長押し</td><td>時計 → 時差設定<br>トリップ → 補正モード</td><td>確定してトリップへ</td><td>終了して時計へ</td></tr>
+      <tr><td><span translate="no" class="key">白</span> 短押し</td><td>トリップをリセット</td><td>点滅中の桁を＋1</td><td>時差を＋1</td></tr>
+      <tr><td><span translate="no" class="key">白</span> 長押し</td><td class="none">なし</td><td>1.000に戻す</td><td>＋9に戻す</td></tr>
     </tbody>
   </table></div>
   <p>リモートボタンは、白ボタンとまったく同じ動作です。</p>
@@ -314,7 +314,7 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 <!-- 5 表示モード -->
 <section class="chapter break" id="modes">
   <div class="chapter-head"><div class="no">5</div><h2>表示モード</h2></div>
-  <p class="lead"><span class="key red">赤</span> の短押しで「TIME → DISTANCE → SPEED → TIME」と切り替わります。</p>
+  <p class="lead"><span translate="no" class="key red">赤</span> の短押しで「TIME → DISTANCE → SPEED → TIME」と切り替わります。</p>
   <div class="screens">
     <figure><div class="lcd" data-kind="disp" data-demo="clock" role="img" aria-label="TIME 時計"></div><figcaption><b>TIME（時計）</b>GPSの時刻。</figcaption></figure>
     <figure><div class="lcd" data-kind="disp" data-demo="recce" role="img" aria-label="DISTANCE トリップ"></div><figcaption><b>DISTANCE（トリップ）</b>先頭の「t」に続けて距離。図はレッキモード。</figcaption></figure>
@@ -326,7 +326,7 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 <!-- 6 トリップ -->
 <section class="chapter break" id="trip">
   <div class="chapter-head"><div class="no">6</div><h2>トリップ（距離）</h2></div>
-  <p class="lead">トリップは、<span class="key">白</span> またはリモートボタンの短押しで0に戻ります。時計・トリップ・速度のどの画面でもリセットできます。</p>
+  <p class="lead">トリップは、<span translate="no" class="key">白</span> またはリモートボタンの短押しで0に戻ります。時計・トリップ・速度のどの画面でもリセットできます。</p>
   <p>距離は5m進むごとに保存され、電源を切っても次に電源を入れたときに続きから表示されます。リセットはすぐに保存されます。</p>
 
   <h3>表示形式</h3>
@@ -352,8 +352,8 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <div class="table-wrap"><table>
     <thead><tr><th>操作</th><th>切り替わる設定</th></tr></thead>
     <tbody>
-      <tr><td><span class="key red">赤</span> を押しながら電源をつなぐ</td><td>km ⇔ mile</td></tr>
-      <tr><td><span class="key">白</span> を押しながら電源をつなぐ</td><td>レッキモード ⇔ ノーマルモード</td></tr>
+      <tr><td><span translate="no" class="key red">赤</span> を押しながら電源をつなぐ</td><td>km ⇔ mile</td></tr>
+      <tr><td><span translate="no" class="key">白</span> を押しながら電源をつなぐ</td><td>レッキモード ⇔ ノーマルモード</td></tr>
     </tbody>
   </table></div>
   <div class="screens">
@@ -371,10 +371,10 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
     <figure><div class="lcd" data-kind="disp" data-demo="calib" role="img" aria-label="補正モード 係数1.000 先頭の桁が点滅"></div><figcaption><b>補正モード</b>「C」と係数。点滅している桁を変更できます。</figcaption></figure>
   </div>
   <ol class="steps">
-    <li>トリップ画面で <span class="key red">赤</span> を長押しすると、補正モードになります。</li>
-    <li><span class="key red">赤</span> の短押しで、点滅する桁を右へ移動します（4桁目の次は1桁目）。</li>
-    <li><span class="key">白</span> の短押しで、点滅中の桁を1つずつ増やします（9の次は0）。白の長押しで1.000に戻せます。</li>
-    <li><span class="key red">赤</span> を長押しすると、係数を保存してトリップ画面に戻ります。</li>
+    <li>トリップ画面で <span translate="no" class="key red">赤</span> を長押しすると、補正モードになります。</li>
+    <li><span translate="no" class="key red">赤</span> の短押しで、点滅する桁を右へ移動します（4桁目の次は1桁目）。</li>
+    <li><span translate="no" class="key">白</span> の短押しで、点滅中の桁を1つずつ増やします（9の次は0）。白の長押しで1.000に戻せます。</li>
+    <li><span translate="no" class="key red">赤</span> を長押しすると、係数を保存してトリップ画面に戻ります。</li>
   </ol>
   <div class="note"><p>係数は0.500〜2.000の範囲で有効です。範囲外の値（0.000など）で確定すると、入力は反映されず、前の係数のままになります。</p></div>
 </section>
@@ -390,9 +390,9 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <p>表示される時刻は、GPSの時刻（世界標準時）に時差を加えたものです。電源を入れた直後、GPSの時刻を受け取るまでは「9.00.00」（時差の値の時刻）が表示されます。</p>
   <h3>時差を設定する</h3>
   <ol class="steps">
-    <li>時計画面で <span class="key red">赤</span> を長押しすると、時差設定になります。</li>
-    <li><span class="key">白</span> の短押しで1ずつ増やします（−12〜＋14、＋14の次は−12）。白の長押しで＋9に戻ります。変えた値はすぐに保存されます。</li>
-    <li><span class="key red">赤</span> を押すと時計画面に戻ります。</li>
+    <li>時計画面で <span translate="no" class="key red">赤</span> を長押しすると、時差設定になります。</li>
+    <li><span translate="no" class="key">白</span> の短押しで1ずつ増やします（−12〜＋14、＋14の次は−12）。白の長押しで＋9に戻ります。変えた値はすぐに保存されます。</li>
+    <li><span translate="no" class="key red">赤</span> を押すと時計画面に戻ります。</li>
   </ol>
 </section>
 
@@ -430,9 +430,9 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
       <tr><td>時刻が数時間ずれている</td><td>時差の設定を確認してください。日本は9です。</td></tr>
       <tr><td>起動直後にボタンが効かない</td><td>すべてのボタンから一度指を離してください。</td></tr>
       <tr><td>距離が公式距離と合わない</td><td>補正で係数を合わせてください。</td></tr>
-      <tr><td>距離や速度がマイルになっている</td><td><span class="key red">赤</span> を押しながら電源をつなぎ直すと km に戻ります。</td></tr>
+      <tr><td>距離や速度がマイルになっている</td><td><span translate="no" class="key red">赤</span> を押しながら電源をつなぎ直すと km に戻ります。</td></tr>
       <tr><td>1km未満なのに「520」のように表示される</td><td>レッキモードでは1km未満をmで表示します。</td></tr>
-      <tr><td>100km以上で表示がおかしい</td><td>レッキモードは99.990kmまでです。<span class="key">白</span> を押しながら電源をつなぎ、ノーマルモードにしてください。</td></tr>
+      <tr><td>100km以上で表示がおかしい</td><td>レッキモードは99.990kmまでです。<span translate="no" class="key">白</span> を押しながら電源をつなぎ、ノーマルモードにしてください。</td></tr>
       <tr><td>表示が暗い／明るすぎる</td><td>照度センサーの丸窓がふさがれていないか確認してください。</td></tr>
     </tbody>
   </table></div>
