@@ -40,8 +40,11 @@ button{font:inherit;font-size:.85rem;padding:.6rem 1rem;border-radius:999px;bord
   background:var(--btn);color:var(--btn-fg);cursor:pointer}
 button[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--on-fg)}
 button:focus-visible{outline:3px solid var(--on);outline-offset:2px}
-.hint{position:fixed;right:22px;top:calc(env(safe-area-inset-top,0px) + 22px);font-size:.75rem;color:var(--muted)}
+.hint{position:fixed;right:22px;max-width:16rem;text-align:right;line-height:1.5;top:calc(env(safe-area-inset-top,0px) + 22px);font-size:.75rem;color:var(--muted)}
 @media (max-width:560px){.hint{display:none}}
+.range{display:flex;align-items:center;gap:.6rem;font-size:.85rem;padding:.3rem .9rem;border-radius:999px;
+  border:1px solid var(--line);background:var(--btn);color:var(--btn-fg)}
+.range input{width:9rem;accent-color:var(--on)}
 </style>
 </head>
 <body>
@@ -50,10 +53,11 @@ button:focus-visible{outline:3px solid var(--on);outline-offset:2px}
   <h1>G-Trip Compact　日除け取り付け3Dイメージ</h1>
   <p>現在開発中のコンパクトGPSトリップメーターの日よけイメージアニメーションです。</p>
 </header>
-<div class="hint">ドラッグで回転・ホイール／ピンチで拡大</div>
+<div class="hint">日よけを上下にドラッグで開閉／ほかの場所のドラッグで回転</div>
 <div class="bar">
   <button id="play">取り付けを再生</button>
   <button id="lid" aria-pressed="false">蓋をする</button>
+  <label class="range">開閉<input type="range" id="open" min="0" max="1000" value="0" aria-label="日よけの開閉"></label>
   <button id="spin" aria-pressed="true">自動回転</button>
   <button id="visor" aria-pressed="true">日よけ</button>
   <button id="front">正面から見る</button>
@@ -206,6 +210,7 @@ function tabShape(){
   return s;
 }
 const tabGeo = new THREE.ExtrudeGeometry(tabShape(), {depth:T, bevelEnabled:false, curveSegments:12});
+const screws = [];
 [[-hw, 1], [hw + T, -1]].forEach(([x]) => {
   const m = new THREE.Mesh(tabGeo, vMat);
   m.rotation.y = -Math.PI / 2; m.position.x = x; m.castShadow = true; m.receiveShadow = true;
@@ -214,13 +219,18 @@ const tabGeo = new THREE.ExtrudeGeometry(tabShape(), {depth:T, bevelEnabled:fals
     new THREE.MeshStandardMaterial({color:0x8d949a, metalness:0.8, roughness:0.35}));
   screw.rotation.z = Math.PI / 2;
   screw.position.set(x < 0 ? -hw - T - 0.6 : hw + T + 0.6, yt - SLOT_DROP, zb + SLOT_Z);
-  visor.add(screw);
+  screws.push(screw);
 });
 // hinge on the screw axis: the visor tilts forward around it
 const PY = yt - SLOT_DROP, PZ = zb + SLOT_Z;
 const hinge = new THREE.Group(); hinge.position.set(0, PY, PZ);
 visor.position.set(0, -PY, -PZ);
 hinge.add(visor); scene.add(hinge);
+// screws stay fixed in the case; the visor slides along its slots around them
+const screwGroup = new THREE.Group(); hinge.add(screwGroup);
+screws.forEach(s => { s.position.y = 0; s.position.z = 0; screwGroup.add(s); });
+const UP = SLOT_H / 2 - SLOT_W / 2;   // slot travel from the centre position
+const IN = -1.2;                        // slid toward the display in the lid position
 
 // ---- interaction ----
 const btnPlay = document.getElementById('play'), btnSpin = document.getElementById('spin'),
@@ -230,8 +240,7 @@ let anim = null;
 const LIFT = 70;
 function playMount(){
   visor.visible = true; btnVisor.setAttribute('aria-pressed', 'true');
-  lid.angle = 0; lid.target = 0; lid.anim = null; hinge.rotation.x = 0;
-  btnLid.setAttribute('aria-pressed', 'false'); btnLid.textContent = '蓋をする';
+  lid.p = 0; lid.anim = null; applyLid(); screwGroup.visible = true;
   if (reduce){ visor.position.set(0, -PY, -PZ); return; }
   anim = {t0: performance.now(), dur: 2200};
 }
@@ -242,22 +251,70 @@ btnSpin.addEventListener('click', () => {
 });
 btnVisor.addEventListener('click', () => {
   visor.visible = !visor.visible;
+  screwGroup.visible = visor.visible;
   btnVisor.setAttribute('aria-pressed', String(visor.visible));
 });
 const btnLid = document.getElementById('lid');
-const lid = {angle: 0, target: 0, anim: null};
-function setLid(closed){
-  lid.target = closed ? Math.PI / 2 : 0;
+const slider = document.getElementById('open');
+// p: 0 = sunshade, 1 = lid. Path: lift along the slots -> tilt around the screws -> slide toward the display
+const Q = Math.PI / 2, P1 = 0.15, P2 = 0.85;
+const lid = {p: 0, anim: null};
+function applyLid(){
+  const p = lid.p; let u, a;
+  if (p < P1){ u = UP * p / P1; a = 0; }
+  else if (p < P2){ u = UP; a = Q * (p - P1) / (P2 - P1); }
+  else { u = UP + (IN - UP) * (p - P2) / (1 - P2); a = Q; }
+  hinge.rotation.x = a; visor.position.y = -PY + u;
+  slider.value = Math.round(p * 1000);
+  const closed = p > 0.5;
   btnLid.setAttribute('aria-pressed', String(closed));
   btnLid.textContent = closed ? '日よけに戻す' : '蓋をする';
-  if (reduce){ lid.angle = lid.target; hinge.rotation.x = lid.angle; return; }
-  lid.anim = {t0: performance.now(), from: lid.angle};
+}
+function ensureVisor(){
+  if (anim){ anim = null; visor.position.z = -PZ; }
+  visor.visible = true; screwGroup.visible = true; btnVisor.setAttribute('aria-pressed', 'true');
 }
 btnLid.addEventListener('click', () => {
-  anim = null; visor.position.set(0, -PY, -PZ);
-  visor.visible = true; btnVisor.setAttribute('aria-pressed', 'true');
-  setLid(btnLid.getAttribute('aria-pressed') !== 'true');
+  ensureVisor();
+  const to = lid.p > 0.5 ? 0 : 1;
+  if (reduce){ lid.p = to; applyLid(); return; }
+  lid.anim = {t0: performance.now(), from: lid.p, to, dur: 600 + 2400 * Math.abs(to - lid.p)};
 });
+slider.addEventListener('input', () => { ensureVisor(); lid.anim = null; lid.p = slider.value / 1000; applyLid(); });
+
+// drag the visor itself: down closes, up opens
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+const cvsEl = renderer.domElement;
+function hitVisor(e){
+  if (!visor.visible) return false;
+  const r = cvsEl.getBoundingClientRect();
+  ndc.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  return ray.intersectObject(visor, true).length > 0;
+}
+let drag = null;
+cvsEl.addEventListener('pointerdown', e => {
+  if (!hitVisor(e)) return;
+  e.stopImmediatePropagation(); e.preventDefault();
+  ensureVisor(); lid.anim = null;
+  drag = {id: e.pointerId, y: e.clientY, p: lid.p, spin: controls.autoRotate};
+  controls.autoRotate = false; controls.enabled = false;
+  cvsEl.setPointerCapture(e.pointerId); cvsEl.style.cursor = 'grabbing';
+}, true);
+cvsEl.addEventListener('pointermove', e => {
+  if (drag && e.pointerId === drag.id){
+    lid.p = Math.min(1, Math.max(0, drag.p + (e.clientY - drag.y) / 260));
+    applyLid(); return;
+  }
+  if (e.pointerType === 'mouse') cvsEl.style.cursor = hitVisor(e) ? 'grab' : '';
+});
+function endDrag(e){
+  if (!drag || e.pointerId !== drag.id) return;
+  controls.enabled = true; controls.autoRotate = drag.spin; drag = null;
+  cvsEl.style.cursor = '';
+}
+cvsEl.addEventListener('pointerup', endDrag);
+cvsEl.addEventListener('pointercancel', endDrag);
 let camAnim = null;
 btnFront.addEventListener('click', () => {
   controls.autoRotate = false; btnSpin.setAttribute('aria-pressed', 'false');
@@ -283,10 +340,10 @@ function frame(now){
     if (p >= 1) anim = null;
   }
   if (lid.anim){
-    const p = Math.min((now - lid.anim.t0) / 1800, 1);
-    lid.angle = lid.anim.from + (lid.target - lid.anim.from) * ease(p);
-    hinge.rotation.x = lid.angle;
-    if (p >= 1) lid.anim = null;
+    const k = Math.min((now - lid.anim.t0) / lid.anim.dur, 1);
+    lid.p = lid.anim.from + (lid.anim.to - lid.anim.from) * ease(k);
+    applyLid();
+    if (k >= 1) lid.anim = null;
   }
   if (camAnim){
     const p = Math.min((now - camAnim.t0) / 1200, 1), e = ease(p);
