@@ -202,7 +202,7 @@ const lid = {angle: 0, target: 0, anim: null};
 function setLid(closed){
   lid.target = closed ? Math.PI / 2 : 0;
   btnLid.setAttribute('aria-pressed', String(closed));
-  btnLid.textContent = closed ? '日よけに戻す' : '蓋にする';
+  btnLid.textContent = closed ? '日よけに戻す' : '蓋をする';
   if (reduce){ lid.angle = lid.target; hinge.rotation.x = lid.angle; return; }
   lid.anim = {t0: performance.now(), from: lid.angle};
 }
