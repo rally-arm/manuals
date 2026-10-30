@@ -38,6 +38,8 @@ header p{margin:.35rem 0 0;font-size:.8rem;color:var(--muted);max-width:36rem;li
   display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100% - 24px)}
 button{font:inherit;font-size:.85rem;padding:.6rem 1rem;border-radius:999px;border:1px solid var(--line);
   background:var(--btn);color:var(--btn-fg);cursor:pointer}
+button{white-space:nowrap}
+#lid{min-width:7.8rem;text-align:center}
 button[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--on-fg)}
 button:focus-visible{outline:3px solid var(--on);outline-offset:2px}
 .hint{position:fixed;right:22px;max-width:16rem;text-align:right;line-height:1.5;top:calc(env(safe-area-inset-top,0px) + 22px);font-size:.75rem;color:var(--muted)}
@@ -267,8 +269,11 @@ function applyLid(){
   hinge.rotation.x = a; visor.position.y = -PY + u;
   slider.value = Math.round(p * 1000);
   const closed = p > 0.5;
-  btnLid.setAttribute('aria-pressed', String(closed));
-  btnLid.textContent = closed ? '日よけに戻す' : '蓋をする';
+  const label = closed ? '日よけに戻す' : '蓋をする';
+  if (btnLid.textContent !== label){
+    btnLid.setAttribute('aria-pressed', String(closed));
+    btnLid.textContent = label;
+  }
 }
 function ensureVisor(){
   if (anim){ anim = null; visor.position.z = -PZ; }
