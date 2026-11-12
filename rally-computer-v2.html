@@ -226,6 +226,9 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 .sim-box a.go:hover { background: var(--led); color: #ffffff; }
 .sim-box a.go:focus-visible { outline: 3px solid var(--led); outline-offset: 2px; }
 @media print { .sim-box { display: none; } }
+.sim-box .links { display: flex; gap: 10px; flex-wrap: wrap; }
+.sim-box a.go.pdf { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding: 7px 18px; }
+.sim-box a.go.pdf:hover { background: var(--led); border-color: var(--led); color: #ffffff; }
 </style>
 </head>
 <body>
@@ -241,8 +244,11 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
 </header>
 
 <div class="sim-box">
-  <p><strong>ブラウザで操作を練習できます。</strong>ボタンを押すと実機と同じように動くシミュレーターで、CP・PCの手順やファイナルの見方を試せます。</p>
-  <a class="go" href="simulator/rallycomputer_v2.html">シミュレーターを開く</a>
+  <p><strong>ブラウザで操作を練習できます。</strong>ボタンを押すと実機と同じように動くシミュレーターで、CP・PCの手順やファイナルの見方を試せます。印刷用のPDF版もあります。</p>
+  <div class="links">
+    <a class="go" href="simulator/rallycomputer_v2.html">シミュレーターを開く</a>
+    <a class="go pdf" href="pdf/arm_rallycomputer_v2_manual_jp.pdf" target="_blank" rel="noopener">PDFをダウンロード</a>
+  </div>
 </div>
 
 <nav class="toc" aria-label="目次">
@@ -572,7 +578,7 @@ code { font-family: inherit; font-weight: 700; white-space: nowrap; }
   <p>時刻（内蔵の時計）とパルス数は保たれます。トリップ、ログ、スタート時刻、AVE、休憩時間、校正係数、明るさは消えるので、電源を入れたら設定し直してください。</p>
 </section>
 
-<footer>ARM Rally Computer V2 取扱説明書 2026年10月版　<a href="index.html" style="color:inherit">取扱説明書の一覧</a></footer>
+<footer>ARM Rally Computer V2 取扱説明書 2026年11月版　<a href="pdf/arm_rallycomputer_v2_manual_jp.pdf" style="color:inherit">PDF版</a>　<a href="index.html" style="color:inherit">取扱説明書の一覧</a></footer>
 </div>
 
 <script>
