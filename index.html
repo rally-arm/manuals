@@ -4,6 +4,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<style>
+/* 言語ボタンに合わせてマニュアルの行を切り替える（日本語＝日本語の行だけ／English＝英語とタイ語の行） */
+body.show-ja .row[data-row="en"], body.show-en .row[data-row="ja"] { display: none; }
+</style>
 </head><body>
 <header class="nav" id="top"><div class="wrap">
 <a class="logo" href="https://www.rally-arm.com/">ARM<small>products</small></a>
@@ -15,19 +19,42 @@
 <p><span data-l="ja">ARM products の各製品の取扱説明書です。Web で読むか、PDF をダウンロードしてください。</span><span data-l="en">User manuals for ARM products. Read them online or download the PDF.</span></p></div></div></section>
 <section><div class="wrap">
 <div class="ltabs" role="group" aria-label="Language"><button type="button" data-set="ja">日本語</button><button type="button" data-set="en">English</button></div>
-<div class="mgrid"><article class="mcard"><div class="shot"><img src="img/gps2027-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
-<span class="model">GPS2027</span><h3>ARM Twin Trip</h3><p><span data-l="ja">GPS ラリートリップメーター</span><span data-l="en">GPS rally tripmeter</span></p><div class="rows"><div class="row"><b>日本語</b><a href="gps2027.html">Web で読む</a><a href="pdf/arm_gps2027_manual_jp.pdf" download>PDF</a></div><div class="row"><b>English</b><a href="gps2027-en.html">Read online</a><a href="pdf/arm_gps2027_manual_en.pdf" download>PDF</a></div></div></div></article><article class="mcard"><div class="shot"><img src="img/ss2027-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
-<span class="model">SS2027</span><h3>ARM Twin Trip</h3><p><span data-l="ja">車速パルス式ラリートリップメーター</span><span data-l="en">Speed-pulse rally tripmeter</span></p><div class="rows"><div class="row"><b>日本語</b><a href="ss2027.html">Web で読む</a><a href="pdf/arm_ss2027_manual_jp.pdf" download>PDF</a></div><div class="row"><b>English</b><a href="ss2027-en.html">Read online</a><a href="pdf/arm_ss2027_manual_en.pdf" download>PDF</a></div></div></div></article><article class="mcard"><div class="shot"><span class="tag best">Best seller</span><img src="img/ss2018-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
-<span class="model">SS2018</span><h3>ARM Twin Trip</h3><p><span data-l="ja">車速信号式ラリートリップメーター（ベストセラー）</span><span data-l="en">Speed-signal rally tripmeter (best seller)</span></p><div class="rows"><div class="row"><b>日本語</b><a href="ss2018.html">Web で読む</a><a href="pdf/arm_ss2018_manual_jp.pdf" download>PDF</a></div><div class="row"><b>English</b><a href="ss2018-en.html">Read online</a><a href="pdf/arm_ss2018_manual_en.pdf" download>PDF</a></div></div></div></article><article class="mcard"><div class="shot"><img src="img/tt-raid-front.png" alt="ARM TT Raid front panel" loading="lazy"></div><div class="txt">
-<span class="model">Rally raid</span><h3>ARM TT Raid</h3><p><span data-l="ja">GPS ラリーレイド用トリップメーター</span><span data-l="en">GPS tripmeter for rally raid</span></p><div class="rows"><div class="row"><b>日本語</b><a href="tt-raid.html">Web で読む</a><a href="pdf/arm_ttraid2026_manual_jp.pdf" download>PDF</a></div><div class="row"><b>English</b><a href="tt-raid-en.html">Read online</a><a href="pdf/arm_ttraid2026_manual_en.pdf" download>PDF</a></div><div class="row"><b>ไทย</b><a href="tt-raid-th.html">อ่านออนไลน์</a><a href="pdf/arm_ttraid2026_manual_th.pdf" download>PDF</a></div></div></div></article><article class="mcard"><div class="shot"><span class="tag">Coming soon</span><img src="img/g-trip-compact-front.png" alt="ARM G-Trip Compact front panel" loading="lazy"></div><div class="txt">
-<span class="model">Compact</span><h3>ARM G-Trip Compact</h3><p><span data-l="ja">コンパクト GPS トリップメーター</span><span data-l="en">Compact GPS tripmeter</span></p><div class="rows"><div class="row"><b>日本語</b><a href="g-compact.html">Web で読む</a><a href="pdf/arm_gtrip2027_manual_jp.pdf" download>PDF</a></div><div class="row"><b>English</b><a href="g-compact-en.html">Read online</a><a href="pdf/arm_gtrip2027_manual_en.pdf" download>PDF</a></div></div></div></article><article class="mcard"><div class="shot"><img src="img/rally-computer-front.png" alt="ARM Rally Computer front panel" loading="lazy"></div><div class="txt">
+<div class="mgrid">
+
+<article class="mcard"><div class="shot"><img src="img/gps2027-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
+<span class="model">GPS2027</span><h3>ARM Twin Trip</h3><p><span data-l="ja">GPS ラリートリップメーター</span><span data-l="en">GPS rally tripmeter</span></p>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="gps2027.html">Web で読む</a><a href="pdf/arm_gps2027_manual_jp.pdf" download>PDF</a></div><div class="row" data-row="en"><b>English</b><a href="gps2027-en.html">Read online</a><a href="pdf/arm_gps2027_manual_en.pdf" download>PDF</a></div></div></div></article>
+
+<article class="mcard"><div class="shot"><img src="img/ss2027-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
+<span class="model">SS2027</span><h3>ARM Twin Trip</h3><p><span data-l="ja">車速パルス式ラリートリップメーター</span><span data-l="en">Speed-pulse rally tripmeter</span></p>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="ss2027.html">Web で読む</a><a href="pdf/arm_ss2027_manual_jp.pdf" download>PDF</a></div><div class="row" data-row="en"><b>English</b><a href="ss2027-en.html">Read online</a><a href="pdf/arm_ss2027_manual_en.pdf" download>PDF</a></div></div></div></article>
+
+<article class="mcard"><div class="shot"><span class="tag best">Best seller</span><img src="img/ss2018-front.png" alt="ARM Twin Trip front panel" loading="lazy"></div><div class="txt">
+<span class="model">SS2018</span><h3>ARM Twin Trip</h3><p><span data-l="ja">車速信号式ラリートリップメーター（ベストセラー）</span><span data-l="en">Speed-signal rally tripmeter (best seller)</span></p>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="ss2018.html">Web で読む</a><a href="pdf/arm_ss2018_manual_jp.pdf" download>PDF</a></div><div class="row" data-row="en"><b>English</b><a href="ss2018-en.html">Read online</a><a href="pdf/arm_ss2018_manual_en.pdf" download>PDF</a></div></div></div></article>
+
+<article class="mcard"><div class="shot"><img src="img/tt-raid-front.png" alt="ARM TT Raid front panel" loading="lazy"></div><div class="txt">
+<span class="model">Rally raid</span><h3>ARM TT Raid</h3><p><span data-l="ja">GPS ラリーレイド用トリップメーター</span><span data-l="en">GPS tripmeter for rally raid</span></p>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="tt-raid.html">Web で読む</a><a href="pdf/arm_ttraid2026_manual_jp.pdf" download>PDF</a></div><div class="row" data-row="en"><b>English</b><a href="tt-raid-en.html">Read online</a><a href="pdf/arm_ttraid2026_manual_en.pdf" download>PDF</a></div><div class="row" data-row="en"><b>ไทย</b><a href="tt-raid-th.html">อ่านออนไลน์</a><a href="pdf/arm_ttraid2026_manual_th.pdf" download>PDF</a></div></div></div></article>
+
+<article class="mcard"><div class="shot"><span class="tag">Coming soon</span><img src="img/g-trip-compact-front.png" alt="ARM G-Trip Compact front panel" loading="lazy"></div><div class="txt">
+<span class="model">Compact</span><h3>ARM G-Trip Compact</h3><p><span data-l="ja">コンパクト GPS トリップメーター</span><span data-l="en">Compact GPS tripmeter</span></p>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="g-compact.html">Web で読む</a><a href="pdf/arm_gtrip2027_manual_jp.pdf" download>PDF</a></div><div class="row" data-row="en"><b>English</b><a href="g-compact-en.html">Read online</a><a href="pdf/arm_gtrip2027_manual_en.pdf" download>PDF</a></div></div></div></article>
+
+<article class="mcard"><div class="shot"><img src="img/rally-computer-front.png" alt="ARM Rally Computer front panel" loading="lazy"></div><div class="txt">
 <span class="model">Regularity</span><h3>ARM Rally Computer V2</h3><p><span data-l="ja">アベレージラリー用ラリーコンピューター</span><span data-l="en">Rally computer for regularity rallies</span></p>
-<div class="rows"><div class="row"><b>日本語</b><a href="rally-computer-v2.html">Web で読む</a><a href="pdf/arm_rallycomputer_v2_manual_jp.pdf" download>PDF</a><a href="simulator/rallycomputer_v2.html">シミュレーター</a></div></div></div></article>
+<div class="rows"><div class="row" data-row="ja"><b>日本語</b><a href="rally-computer-v2.html">Web で読む</a><a href="pdf/arm_rallycomputer_v2_manual_jp.pdf" download>PDF</a><a href="simulator/rallycomputer_v2.html">シミュレーター</a></div></div>
+<p class="note"><span data-l="en">The English manual is not available yet.</span></p></div></article>
+
 <article class="mcard is-soon"><div class="shot"><span class="tag">Coming soon</span><img src="img/p-trip-front.png" alt="ARM P-Trip front panel" loading="lazy"></div><div class="txt">
 <span class="model">Compact</span><h3>ARM P-Trip</h3><p><span data-l="ja">コンパクト車速パルス式トリップメーター</span><span data-l="en">Compact speed-pulse tripmeter</span></p>
-<p class="note"><span data-l="ja">2027 年初めに発売予定。取扱説明書は発売時に公開します。</span><span data-l="en">Launching early 2027. The manual will be published at launch.</span></p></div></article><article class="mcard is-soon"><div class="shot"><span class="tag">Coming soon</span><img src="img/rally-computer-front.png" alt="ARM Rally Computer (GPS) front panel" loading="lazy"></div><div class="txt">
+<p class="note"><span data-l="ja">2027 年初めに発売予定。取扱説明書は発売時に公開します。</span><span data-l="en">Launching early 2027. The manual will be published at launch.</span></p></div></article>
+
+<article class="mcard is-soon"><div class="shot"><span class="tag">Coming soon</span><img src="img/rally-computer-front.png" alt="ARM Rally Computer (GPS) front panel" loading="lazy"></div><div class="txt">
 <span class="model">Regularity / GPS</span><h3>ARM Rally Computer (GPS)</h3><p><span data-l="ja">GPS 版アベレージラリー用ラリーコンピューター</span><span data-l="en">GPS version of the regularity rally computer</span></p>
-<p class="note"><span data-l="ja">取扱説明書は発売時に公開します。</span><span data-l="en">The manual will be published at launch.</span></p></div></article></div></div></section>
+<p class="note"><span data-l="ja">取扱説明書は発売時に公開します。</span><span data-l="en">The manual will be published at launch.</span></p></div></article>
+
+</div></div></section>
 <script>
 (function(){
   const pick = l => { document.body.classList.remove('show-ja','show-en'); document.body.classList.add('show-' + l);
