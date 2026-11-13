@@ -37,3 +37,28 @@
 
 const nav = document.querySelector('.nav'), btn = document.getElementById('menuBtn');
 if (btn) { btn.addEventListener('click', () => { const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', String(o)); }); }
+
+// ===== メニューを全ページで rally-arm.com と同じ構成にそろえる（Store を追加） =====
+(function(){
+  const STORE = 'https://rallymonitor.saleshop.jp/';
+  const items = [
+    ['Home', 'https://www.rally-arm.com/'],
+    ['GNSS models', 'https://www.rally-arm.com/p/gnss-model.html'],
+    ['Speed-signal models', 'https://www.rally-arm.com/p/speed-signal-model.html'],
+    ['User manuals', 'https://manual.rally-arm.com/'],
+    ['Application', 'https://www.rally-arm.com/p/arm.html'],
+    ['About', 'https://www.rally-arm.com/p/about-us.html'],
+    ['Contact', 'https://www.rally-arm.com/p/contact-us.html']
+  ];
+  const menu = document.getElementById('menu');
+  if (menu) {
+    menu.innerHTML = items.map(([t, u]) => '<li><a href="' + u + '">' + t + '</a></li>').join('')
+      + '<li class="sm-only"><a href="' + STORE + '">Store</a></li>';
+  }
+  const cta = document.querySelector('.nav .cta');
+  if (cta) { cta.href = STORE; cta.textContent = 'Store'; }
+  const fl = document.querySelector('footer ul');
+  if (fl && !fl.querySelector('a[href^="' + STORE + '"]')) {
+    fl.insertAdjacentHTML('beforeend', '<li><a href="' + STORE + '">Store</a></li>');
+  }
+})();
