@@ -234,3 +234,5 @@ footer .logo:not(:has(.logo-mark)){width:84px;height:21px}
 .logo-mark{height:24px;width:auto;display:block}
 footer .logo-mark{height:21px}
 @media print{.nav,.mtoc,.langs,.totop,footer,.dl{display:none!important}.mbody{display:block;padding:0}.mhead{background:#fff;color:#000;border:0}}
+.nav ul .sm-only{display:none}
+@media (max-width:900px){ .nav.open ul .sm-only{display:list-item} }
