@@ -62,3 +62,8 @@ if (btn) { btn.addEventListener('click', () => { const o = nav.classList.toggle(
     fl.insertAdjacentHTML('beforeend', '<li><a href="' + STORE + '">Store</a></li>');
   }
 })();
+// ===== ロゴの文字を画像に差し替える（画像本来の比率で表示） =====
+document.querySelectorAll('.logo').forEach(a => {
+  if (a.querySelector('.logo-mark')) return;
+  a.innerHTML = '<img class="logo-mark" src="https://manual.rally-arm.com/assets/arm-logo.png" alt="ARM products">';
+});
