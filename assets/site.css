@@ -230,3 +230,10 @@ footer .logo-mark{height:21px}
 @media (max-width:900px){ .nav.open ul .sm-only{display:list-item} }
 
 @media print{.nav,.mtoc,.langs,.totop,footer,.dl{display:none!important}.mbody{display:block;padding:0}.mhead{background:#fff;color:#000;border:0}}
+/* ヒーローの背景写真（トップページと同じ処理） */
+.hero,.mhead{position:relative;overflow:hidden}
+.hero::before,.mhead::before{content:"";position:absolute;inset:0;background:url(manual-bg-color.jpg) 50% 60%/cover no-repeat;opacity:.32;pointer-events:none}
+.hero::after,.mhead::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(75,86,96,.45) 0%,rgba(75,86,96,.15) 45%,rgba(75,86,96,0) 75%);pointer-events:none}
+.hero .wrap,.mhead .wrap{position:relative;z-index:1}
+@media (max-width:900px){.hero::before,.mhead::before{opacity:.24}}
+@media print{.hero::before,.hero::after,.mhead::before,.mhead::after{display:none}}
