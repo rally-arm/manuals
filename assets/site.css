@@ -218,4 +218,19 @@ hr.sep{border:0;height:0;margin:0}
 [data-l]{display:none}
 .show-ja [data-l~="ja"],.show-en [data-l~="en"]{display:revert}
 @media (max-width:900px){.mhead .wrap,.mbody{grid-template-columns:minmax(0,1fr)}.mtoc{position:static}}
+
+/* ロゴを画像に（全ページ共通。HTML が文字の「ARM products」のままでも置き換わる） */
+.logo:not(:has(.logo-mark)){
+  display:inline-block;
+  width:96px; height:24px;
+  font-size:0; color:transparent;
+  background:url(arm-logo.png) left bottom / auto 100% no-repeat;
+}
+.logo:not(:has(.logo-mark)) small{display:none}
+footer .logo:not(:has(.logo-mark)){width:84px;height:21px}
+
+/* index.html のように <img class="logo-mark"> を入れたページ用 */
+.logo:has(.logo-mark){display:inline-flex;align-items:flex-end}
+.logo-mark{height:24px;width:auto;display:block}
+footer .logo-mark{height:21px}
 @media print{.nav,.mtoc,.langs,.totop,footer,.dl{display:none!important}.mbody{display:block;padding:0}.mhead{background:#fff;color:#000;border:0}}
