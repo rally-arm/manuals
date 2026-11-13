@@ -67,3 +67,34 @@ document.querySelectorAll('.logo').forEach(a => {
   if (a.querySelector('.logo-mark')) return;
   a.innerHTML = '<img class="logo-mark" src="https://manual.rally-arm.com/assets/arm-logo.png" alt="ARM products">';
 });
+
+// ===== マニュアル一覧：各カードに GNSS／Speed signal のアイコンを表示 =====
+(function(){
+  const cards = document.querySelectorAll('.mcard');
+  if (!cards.length) return;
+  // アイコン（トップページと同じ図柄）を1回だけ定義
+  let grooves = '';
+  for (let a = 0; a < 360; a += 15) grooves += '<rect x="252" y="50" width="8" height="20" rx="2" transform="rotate(' + a + ' 256 256)"/>';
+  let lugs = '';
+  for (let a = 0; a < 360; a += 45) lugs += '<rect x="242" y="156" width="28" height="30" rx="4" transform="rotate(' + a + ' 256 256)"/>';
+  let pins = '';
+  [-45, -18, 9, 36].forEach(x => { pins += '<rect x="' + x + '" y="-76" width="12" height="18" rx="4"/><rect x="' + x + '" y="58" width="12" height="18" rx="4"/>'; });
+  [-42, -15, 12, 39].forEach(y => { pins += '<rect x="-86" y="' + y + '" width="18" height="12" rx="4"/><rect x="68" y="' + y + '" width="18" height="12" rx="4"/>'; });
+  document.body.insertAdjacentHTML('afterbegin',
+    '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>' +
+    '<mask id="armi-tire"><rect width="512" height="512" fill="black"/><circle cx="256" cy="256" r="205" fill="white"/><circle cx="256" cy="256" r="142" fill="black"/><g fill="black">' + grooves + '</g></mask>' +
+    '<mask id="armi-hub"><rect width="512" height="512" fill="black"/><circle cx="256" cy="256" r="130" fill="white"/><circle cx="256" cy="256" r="114" fill="black"/><circle cx="256" cy="256" r="78" fill="white"/><g fill="white">' + lugs + '</g><circle cx="256" cy="256" r="28" fill="black"/></mask>' +
+    '<symbol id="armi-gnss" viewBox="56 91 366 366"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="18"><path d="M 155 135 A 160 160 0 0 1 380 355"/><path d="M 185 175 A 115 115 0 0 1 340 325"/><path d="M 215 215 A 70 70 0 0 1 300 295"/></g>' +
+      '<line x1="230" y1="282" x2="255" y2="257" stroke="currentColor" stroke-width="14" stroke-linecap="round"/><circle cx="258" cy="254" r="14" fill="currentColor"/>' +
+      '<g transform="translate(185,330) rotate(35)"><g fill="currentColor">' + pins + '</g><rect x="-70" y="-60" width="140" height="120" rx="22" fill="none" stroke="currentColor" stroke-width="14"/><rect x="-54" y="-44" width="108" height="88" rx="12" fill="none" stroke="currentColor" stroke-width="6"/></g></symbol>' +
+    '<symbol id="armi-speed" viewBox="41 41 430 430"><circle cx="256" cy="256" r="225" fill="currentColor" mask="url(#armi-tire)"/><circle cx="256" cy="256" r="225" fill="currentColor" mask="url(#armi-hub)"/></symbol>' +
+    '</defs></svg>');
+  cards.forEach(card => {
+    const shot = card.querySelector('.shot');
+    if (!shot || shot.querySelector('.mtype')) return;
+    const txt = ((card.querySelector('.model') || {}).textContent || '') + ' ' + ((card.querySelector('h3') || {}).textContent || '');
+    const type = card.dataset.type || (/GPS|TT Raid|G-Trip/i.test(txt) ? 'gnss' : 'speed');
+    shot.insertAdjacentHTML('beforeend',
+      '<span class="mtype mtype-' + type + '"><svg aria-hidden="true"><use href="#armi-' + type + '"/></svg>' + (type === 'gnss' ? 'GNSS' : 'Speed signal') + '</span>');
+  });
+})();
