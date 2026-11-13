@@ -7,6 +7,16 @@
 <style>
 /* 言語ボタンに合わせてマニュアルの行を切り替える（日本語＝日本語の行だけ／English＝英語とタイ語の行） */
 body.show-ja .row[data-row="en"], body.show-en .row[data-row="ja"] { display: none; }
+
+/* Best seller / Coming soon ラベルを画像の左上に固定 */
+.mcard .shot { position: relative; }
+.mcard .shot .tag {
+  position: absolute;
+  top: 12px; left: 12px;
+  right: auto; bottom: auto;
+  margin: 0;
+  z-index: 2;
+}
 </style>
 </head><body>
 <header class="nav" id="top"><div class="wrap">
